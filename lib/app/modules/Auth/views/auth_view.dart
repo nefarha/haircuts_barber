@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
+import 'package:haircuts_barber_aja/app/modules/Auth/views/login_view.dart';
+import 'package:haircuts_barber_aja/app/modules/Auth/views/register_view.dart';
 
 import '../controllers/auth_controller.dart';
 
@@ -9,15 +10,14 @@ class AuthView extends GetView<AuthController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('AuthView'),
-        centerTitle: true,
-      ),
-      body: const Center(
-        child: Text(
-          'AuthView is working',
-          style: TextStyle(fontSize: 20),
-        ),
+      resizeToAvoidBottomInset: false,
+      body: PageView(
+        controller: controller.pageController,
+        physics: const NeverScrollableScrollPhysics(),
+        children: const [
+          LoginView(),
+          RegisterView(),
+        ],
       ),
     );
   }

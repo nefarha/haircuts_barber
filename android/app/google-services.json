@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "814978534043",
+    "project_id": "haircutsaja-ee904",
+    "storage_bucket": "haircutsaja-ee904.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814978534043:android:ad43976978143c02ec143e",
+        "android_client_info": {
+          "package_name": "com.example.aja_haircuts"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASaTNewXQcqH34kvMNrzzAjM8vLRMUZFU"
+        },
+        {
+          "current_key": "AIzaSyDOCa2zQ2MfBt-ESXVdsU3ZEQw6fr45RPc"
+        },
+        {
+          "current_key": "AIzaSyBMFvJsHThcfj-FSM5Br82oMiRSlSQXIlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814978534043:android:794113dad782c4d1ec143e",
+        "android_client_info": {
+          "package_name": "com.example.farhan_haircuts"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASaTNewXQcqH34kvMNrzzAjM8vLRMUZFU"
+        },
+        {
+          "current_key": "AIzaSyDOCa2zQ2MfBt-ESXVdsU3ZEQw6fr45RPc"
+        },
+        {
+          "current_key": "AIzaSyBMFvJsHThcfj-FSM5Br82oMiRSlSQXIlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814978534043:android:aac1125acf2eff24ec143e",
+        "android_client_info": {
+          "package_name": "com.haircuts_barber.aja.haircuts_barber_aja"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyASaTNewXQcqH34kvMNrzzAjM8vLRMUZFU"
+        },
+        {
+          "current_key": "AIzaSyDOCa2zQ2MfBt-ESXVdsU3ZEQw6fr45RPc"
+        },
+        {
+          "current_key": "AIzaSyBMFvJsHThcfj-FSM5Br82oMiRSlSQXIlI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

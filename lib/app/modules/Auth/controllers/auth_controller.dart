@@ -1,23 +1,16 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:haircuts_barber_aja/app/data/model/address/addressModel.dart';
 
 class AuthController extends GetxController {
-  //TODO: Implement AuthController
+  var token = RxnString();
+  PageController pageController = PageController();
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  Rxn<AddressModel> addressModel = Rxn();
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  var isLoading = false.obs;
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
 }
