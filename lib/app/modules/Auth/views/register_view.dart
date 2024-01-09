@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:haircuts_barber_aja/app/data/model/addon/reuseable.dart';
-import 'package:haircuts_barber_aja/app/data/model/addon/validator.dart';
+import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
+import 'package:haircuts_barber_aja/app/data/addon/validator.dart';
 import 'package:haircuts_barber_aja/app/modules/Auth/controllers/auth_controller.dart';
 
 class RegisterView extends GetView<AuthController> {
@@ -82,16 +82,12 @@ class RegisterView extends GetView<AuthController> {
                         ),
                         backgroundColor: blackColor),
                     onPressed: () {
-                      // if (loginFormKey.currentState!.validate()) {
-                      //   controller.temporerC.name.value =
-                      //       controller.nameController.text;
-                      //   controller.temporerC.email.value =
-                      //       controller.emailController.text;
-                      //   controller.temporerC.password.value =
-                      //       controller.passwordController.text;
-
-                      //   Get.toNamed(Routes.AUTH_ADDRESS);
-                      // }
+                      if (loginFormKey.currentState!.validate()) {
+                        controller.authC.registerUser(
+                            email: controller.emailController.text,
+                            password: controller.passwordController.text,
+                            nama: controller.nameController.text);
+                      }
                     },
                     child: const Text(
                       'Daftar',

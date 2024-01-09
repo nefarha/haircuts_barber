@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:haircuts_barber_aja/app/data/model/addon/reuseable.dart';
-import 'package:haircuts_barber_aja/app/data/model/addon/validator.dart';
+import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
+import 'package:haircuts_barber_aja/app/data/addon/validator.dart';
 import 'package:haircuts_barber_aja/app/modules/Auth/controllers/auth_controller.dart';
 
 class LoginView extends GetView<AuthController> {
@@ -73,13 +73,14 @@ class LoginView extends GetView<AuthController> {
                         ),
                         backgroundColor: blackColor),
                     onPressed: () async {
-                      // if (loginFormKey.currentState!.validate()) {
-                      //   buildLoading();
-                      //   await controller.authC.signInUser(
-                      //       email: controller.emailController.text,
-                      //       password: controller.passwordController.text,
-                      //       token: controller.token.value!);
-                      // }
+                      if (loginFormKey.currentState!.validate()) {
+                        buildLoading();
+                        await controller.authC.loginUser(
+                          email: controller.emailController.text,
+                          password: controller.passwordController.text,
+                          // token: controller.token.value!
+                        );
+                      }
                     },
                     child: const Text(
                       'Login',

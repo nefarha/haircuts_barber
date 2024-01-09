@@ -419,3 +419,41 @@ Widget reusableAvatar(
           ),
   );
 }
+
+buildErrorDialog({required String message}) {
+  Get.defaultDialog(
+    title: 'Peringatan',
+    middleText: 'Error occured with $message',
+    confirmTextColor: whiteColor,
+    confirm: ElevatedButton(
+        style: ElevatedButton.styleFrom(backgroundColor: blackColor),
+        onPressed: () => Get.until((route) => !Get.isDialogOpen!),
+        child: const Text('mengerti')),
+  );
+}
+
+buildAttention(e, {void Function()? onConfirm}) {
+  Get.defaultDialog(
+    title: 'Attention',
+    middleText: e,
+    textConfirm: 'got it',
+    confirm: ElevatedButton(
+      style: ElevatedButton.styleFrom(backgroundColor: blackColor),
+      onPressed: () => Get.back(),
+      child: const Text('mengerti'),
+    ),
+  );
+}
+
+buildLoading() {
+  Get.defaultDialog(
+    backgroundColor: whiteColor,
+    title: 'Loading',
+    content: const Center(
+      child: CircularProgressIndicator(
+        color: blackColor,
+      ),
+    ),
+    barrierDismissible: false,
+  );
+}
