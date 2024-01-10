@@ -19,12 +19,6 @@ class HomeView extends GetView<HomeController> {
               icon: const Icon(Icons.logout))
         ],
       ),
-      body: const Center(
-        child: Text(
-          'HomeView is working',
-          style: TextStyle(fontSize: 20),
-        ),
-      ),
     );
   }
 }

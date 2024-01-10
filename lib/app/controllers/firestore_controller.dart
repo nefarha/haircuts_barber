@@ -21,4 +21,8 @@ class FirestoreController extends GetxController {
       buildErrorDialog(message: e.toString());
     }
   }
+
+  Stream<UserModel?> readUser({required String id}) {
+    return _userStore.doc(id).snapshots().map((event) => event.data());
+  }
 }

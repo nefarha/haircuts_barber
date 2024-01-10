@@ -71,29 +71,13 @@ class RegisterView extends GetView<AuthController> {
                   const SizedBox(
                     height: 10,
                   ),
-                  ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        fixedSize: Size(
-                          Get.width,
-                          50,
-                        ),
-                        backgroundColor: blackColor),
-                    onPressed: () async {
-                      if (loginFormKey.currentState!.validate()) {
-                        await controller.registerUser();
-                      }
-                    },
-                    child: const Text(
-                      'Daftar',
-                      style: TextStyle(
-                        color: whiteColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
+                  reusableElevatedButton(
+                      onPressed: () async {
+                        if (loginFormKey.currentState!.validate()) {
+                          await controller.registerUser();
+                        }
+                      },
+                      title: "Register"),
                 ],
               ),
             ),

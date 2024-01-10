@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:haircuts_barber_aja/app/controllers/firestore_controller.dart';
 import 'package:intl/intl.dart';
 
 const whiteColor = Color(0xfffafafa);
@@ -165,6 +167,93 @@ Widget reusableShopCard(
   );
 }
 
+Widget buildPinPoint({void Function()? onTap}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Card(
+      elevation: 3,
+      color: blackColor,
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        width: Get.width,
+        height: 70,
+        child: const Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.map,
+              color: whiteColor,
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Text(
+              'PinPoint lokasimu',
+              style: TextStyle(color: whiteColor),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+Widget buildFormAddress(
+    {required String hint,
+    required TextEditingController textEditingController,
+    required List<DropdownMenuItem> items,
+    required void Function(dynamic)? onChanged,
+    dynamic value}) {
+  return Card(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+    color: Colors.grey.shade100,
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButtonFormField(
+          validator: (value) => value == null ? 'mohon isi' : null,
+          decoration: const InputDecoration(border: InputBorder.none),
+          value: value,
+          hint: Text(
+            hint,
+            style: const TextStyle(color: blackColor),
+          ),
+          style:
+              const TextStyle(color: blackColor, fontWeight: FontWeight.bold),
+          items: items,
+          onChanged: onChanged,
+        ),
+      ),
+    ),
+  );
+}
+
+Widget stackWithLoadingIndicator(
+    {required List<Widget> children, required bool isLoading}) {
+  return Stack(
+    children: [
+      ...children,
+      isLoading
+          ? Center(
+              child: Card(
+                elevation: 3,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25)),
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  padding: const EdgeInsets.all(10),
+                  child: const CircularProgressIndicator(
+                    color: blackColor,
+                  ),
+                ),
+              ),
+            )
+          : const SizedBox(),
+    ],
+  );
+}
+
 Widget reuseTextfield(
     {required String hintText,
     String? Function(String?)? validator,
@@ -192,11 +281,12 @@ Widget reuseTextfield(
           obscureText: obscured.value,
           maxLines: textHeight,
           focusNode: focusNode,
+          style:
+              const TextStyle(color: blackColor, fontWeight: FontWeight.bold),
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: hintText,
-            hintStyle:
-                const TextStyle(color: blackColor, fontWeight: FontWeight.bold),
+            hintStyle: const TextStyle(color: blackColor),
             suffixIcon: (enableIcon)
                 ? IconButton(
                     onPressed: () {
@@ -309,43 +399,43 @@ Widget reusableEditField(
   );
 }
 
-// Future<String?> askingSMSCode({
-//   required String verificationId,
-//   required FirebaseAuth instance,
-//   required String id,
-//   required FirestoreController dataC,
-//   required String phoneNumber,
-//   void Function()? onConfirm,
-// }) async {
-//   TextEditingController smscontroller = TextEditingController();
-//   return await Get.defaultDialog(
-//     barrierDismissible: false,
-//     onCancel: () {},
-//     title: "OTP",
-//     content: reuseTextfield(
-//       controlller: smscontroller,
-//       hintText: 'masukkan kode',
-//       inputType: TextInputType.number,
-//     ),
-//     onConfirm: () async {
-//       if (smscontroller.text.isNotEmpty) {
-//         PhoneAuthCredential credential = PhoneAuthProvider.credential(
-//             verificationId: verificationId, smsCode: smscontroller.text);
+Future<String?> askingSMSCode({
+  required String verificationId,
+  required FirebaseAuth instance,
+  required String id,
+  required FirestoreController dataC,
+  required String phoneNumber,
+  void Function()? onConfirm,
+}) async {
+  TextEditingController smscontroller = TextEditingController();
+  return await Get.defaultDialog(
+    barrierDismissible: false,
+    onCancel: () {},
+    title: "OTP",
+    content: reuseTextfield(
+      controlller: smscontroller,
+      hintText: 'masukkan kode',
+      inputType: TextInputType.number,
+    ),
+    onConfirm: () async {
+      if (smscontroller.text.isNotEmpty) {
+        PhoneAuthCredential credential = PhoneAuthProvider.credential(
+            verificationId: verificationId, smsCode: smscontroller.text);
 
-//         try {
-//           await instance.currentUser!.updatePhoneNumber(credential);
-//           dataC.updatePhone(id: id, phone: phoneNumber);
-//           instance.userChanges();
-//           onConfirm ?? Get.back();
-//         } on FirebaseAuthException catch (e) {
-//           buildErrorDialog(
-//               message:
-//                   "Terjadi Kesalahan dengan code ${e.code}, '${e.message}'");
-//         }
-//       }
-//     },
-//   );
-// }
+        try {
+          await instance.currentUser!.updatePhoneNumber(credential);
+          // dataC.updatePhone(id: id, phone: phoneNumber);
+          instance.userChanges();
+          onConfirm ?? Get.back();
+        } on FirebaseAuthException catch (e) {
+          buildErrorDialog(
+              message:
+                  "Terjadi Kesalahan dengan code ${e.code}, '${e.message}'");
+        }
+      }
+    },
+  );
+}
 
 Widget reusableAvatar(
     {double? size,
@@ -417,6 +507,31 @@ Widget reusableAvatar(
                 ),
             ],
           ),
+  );
+}
+
+Widget reusableElevatedButton(
+    {required void Function()? onPressed,
+    required String title,
+    double? size}) {
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        fixedSize: Size(
+          size ?? Get.width,
+          50,
+        ),
+        backgroundColor: blackColor),
+    onPressed: onPressed,
+    child: Text(
+      title,
+      style: const TextStyle(
+        color: whiteColor,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
   );
 }
 

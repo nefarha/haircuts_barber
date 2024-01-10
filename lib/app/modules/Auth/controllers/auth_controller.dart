@@ -27,7 +27,7 @@ class AuthController extends GetxController {
         email: emailController.text,
         token: "token");
 
-    var userCred = await authC.registerUser(
+    await authC.registerUser(
         email: emailController.text,
         password: passwordController.text,
         nama: nameController.text,

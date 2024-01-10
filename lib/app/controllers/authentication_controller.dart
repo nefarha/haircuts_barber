@@ -43,7 +43,7 @@ class AuthenticationController extends GetxController {
   }) async {
     buildLoading();
     try {
-      var userCred = await _instance.signInWithEmailAndPassword(
+      await _instance.signInWithEmailAndPassword(
           email: email, password: password);
       Get.offAllNamed(Routes.HOME);
     } on FirebaseAuthException catch (e) {
