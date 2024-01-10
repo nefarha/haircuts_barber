@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../controllers/home_controller.dart';
@@ -12,6 +11,13 @@ class HomeView extends GetView<HomeController> {
       appBar: AppBar(
         title: const Text('HomeView'),
         centerTitle: true,
+        actions: [
+          IconButton(
+              onPressed: () async {
+                await controller.authC.logout();
+              },
+              icon: const Icon(Icons.logout))
+        ],
       ),
       body: const Center(
         child: Text(

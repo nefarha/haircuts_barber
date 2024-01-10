@@ -1,10 +1,14 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/controllers/authentication_controller.dart';
+import 'package:haircuts_barber_aja/app/controllers/firestore_controller.dart';
 import 'package:haircuts_barber_aja/app/data/model/address/addressModel.dart';
+import 'package:haircuts_barber_aja/app/data/model/user/userModel.dart';
 
 class AuthController extends GetxController {
   final authC = AuthenticationController.instance;
+  final dataC = FirestoreController.instance;
+
   var token = RxnString();
   PageController pageController = PageController();
 
@@ -15,4 +19,18 @@ class AuthController extends GetxController {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  Future registerUser() async {
+    UserModel model = UserModel(
+        id: "id",
+        name: nameController.text,
+        email: emailController.text,
+        token: "token");
+
+    var userCred = await authC.registerUser(
+        email: emailController.text,
+        password: passwordController.text,
+        nama: nameController.text,
+        model: model);
+  }
 }

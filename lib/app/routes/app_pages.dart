@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:haircuts_barber_aja/app/data/midlewares/auth_middlewares.dart';
 
 import '../modules/Auth/bindings/auth_binding.dart';
 import '../modules/Auth/views/auth_view.dart';
@@ -19,9 +20,9 @@ class AppPages {
       binding: HomeBinding(),
     ),
     GetPage(
-      name: _Paths.AUTH,
-      page: () => const AuthView(),
-      binding: AuthBinding(),
-    ),
+        name: _Paths.AUTH,
+        page: () => const AuthView(),
+        binding: AuthBinding(),
+        middlewares: [AuthMiddlewares(priority: 0)]),
   ];
 }

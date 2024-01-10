@@ -1,23 +1,6 @@
 import 'package:get/get.dart';
+import 'package:haircuts_barber_aja/app/controllers/authentication_controller.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  final authC = AuthenticationController.instance;
 }

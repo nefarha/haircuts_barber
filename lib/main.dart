@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:haircuts_barber_aja/app/controllers/authentication_controller.dart';
+import 'package:haircuts_barber_aja/app/controllers/firestore_controller.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
 import 'package:haircuts_barber_aja/firebase_options.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -23,7 +24,7 @@ class HaircutApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Get.put(FirestoreController());
+    Get.put(FirestoreController());
     Get.put(AuthenticationController());
     // Get.put(StorageController());
     return GetMaterialApp(

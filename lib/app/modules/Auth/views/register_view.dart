@@ -81,12 +81,9 @@ class RegisterView extends GetView<AuthController> {
                           50,
                         ),
                         backgroundColor: blackColor),
-                    onPressed: () {
+                    onPressed: () async {
                       if (loginFormKey.currentState!.validate()) {
-                        controller.authC.registerUser(
-                            email: controller.emailController.text,
-                            password: controller.passwordController.text,
-                            nama: controller.nameController.text);
+                        await controller.registerUser();
                       }
                     },
                     child: const Text(
