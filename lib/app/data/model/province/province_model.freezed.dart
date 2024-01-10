@@ -106,7 +106,8 @@ class __$$ProvinceModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(fieldRename: FieldRename.snake)
 class _$ProvinceModelImpl implements _ProvinceModel {
   const _$ProvinceModelImpl(
       {required this.province_id, required this.province});

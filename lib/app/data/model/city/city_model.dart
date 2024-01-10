@@ -5,6 +5,8 @@ part 'city_model.g.dart';
 
 @freezed
 class CityModel with _$CityModel {
+  // ignore: invalid_annotation_target
+  @JsonSerializable(fieldRename: FieldRename.snake)
   const factory CityModel({
     required String cityId,
     required String provinceId,
