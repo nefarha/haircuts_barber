@@ -13,8 +13,8 @@ class AddressModel with _$AddressModel {
     required String alamat,
     required num lat,
     required num long,
-    required Map province,
-    required Map city,
+    required ProvinceModel province,
+    required CityModel city,
     required bool? pinpointed,
     required String description,
   }) = _AddressModel;

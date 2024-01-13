@@ -285,7 +285,7 @@ class AccountInfoView extends GetView<AccountInfoController> {
                   trailing: SizedBox(
                     width: 200,
                     child: Text(
-                      controller.user.addressModel?['alamat'] ?? 'Alamat',
+                      controller.user.addressModel?.description ?? 'Alamat',
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           color: whiteColor,
@@ -304,7 +304,7 @@ class AccountInfoView extends GetView<AccountInfoController> {
                   trailing: SizedBox(
                     width: 200,
                     child: Text(
-                      controller.user.addressModel?['provinceName'] ??
+                      controller.user.addressModel?.province.province ??
                           "provinsi",
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -324,7 +324,7 @@ class AccountInfoView extends GetView<AccountInfoController> {
                   trailing: SizedBox(
                     width: 200,
                     child: Text(
-                      controller.user.addressModel?['cityName'] ?? "Kota",
+                      controller.user.addressModel?.city.city_name ?? "Kota",
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                           color: whiteColor,
@@ -343,7 +343,7 @@ class AccountInfoView extends GetView<AccountInfoController> {
                   trailing: SizedBox(
                     width: 200,
                     child: Text(
-                      controller.user.addressModel?['description'] ??
+                      controller.user.addressModel?.description ??
                           "Deskripsi alamat",
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(

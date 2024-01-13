@@ -23,8 +23,8 @@ mixin _$AddressModel {
   String get alamat => throw _privateConstructorUsedError;
   num get lat => throw _privateConstructorUsedError;
   num get long => throw _privateConstructorUsedError;
-  Map<dynamic, dynamic> get province => throw _privateConstructorUsedError;
-  Map<dynamic, dynamic> get city => throw _privateConstructorUsedError;
+  ProvinceModel get province => throw _privateConstructorUsedError;
+  CityModel get city => throw _privateConstructorUsedError;
   bool? get pinpointed => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
 
@@ -44,10 +44,13 @@ abstract class $AddressModelCopyWith<$Res> {
       {String alamat,
       num lat,
       num long,
-      Map<dynamic, dynamic> province,
-      Map<dynamic, dynamic> city,
+      ProvinceModel province,
+      CityModel city,
       bool? pinpointed,
       String description});
+
+  $ProvinceModelCopyWith<$Res> get province;
+  $CityModelCopyWith<$Res> get city;
 }
 
 /// @nodoc
@@ -87,11 +90,11 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
       province: null == province
           ? _value.province
           : province // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>,
+              as ProvinceModel,
       city: null == city
           ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>,
+              as CityModel,
       pinpointed: freezed == pinpointed
           ? _value.pinpointed
           : pinpointed // ignore: cast_nullable_to_non_nullable
@@ -101,6 +104,22 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
           : description // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ProvinceModelCopyWith<$Res> get province {
+    return $ProvinceModelCopyWith<$Res>(_value.province, (value) {
+      return _then(_value.copyWith(province: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $CityModelCopyWith<$Res> get city {
+    return $CityModelCopyWith<$Res>(_value.city, (value) {
+      return _then(_value.copyWith(city: value) as $Val);
+    });
   }
 }
 
@@ -116,10 +135,15 @@ abstract class _$$AddressModelImplCopyWith<$Res>
       {String alamat,
       num lat,
       num long,
-      Map<dynamic, dynamic> province,
-      Map<dynamic, dynamic> city,
+      ProvinceModel province,
+      CityModel city,
       bool? pinpointed,
       String description});
+
+  @override
+  $ProvinceModelCopyWith<$Res> get province;
+  @override
+  $CityModelCopyWith<$Res> get city;
 }
 
 /// @nodoc
@@ -155,13 +179,13 @@ class __$$AddressModelImplCopyWithImpl<$Res>
           : long // ignore: cast_nullable_to_non_nullable
               as num,
       province: null == province
-          ? _value._province
+          ? _value.province
           : province // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>,
+              as ProvinceModel,
       city: null == city
-          ? _value._city
+          ? _value.city
           : city // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>,
+              as CityModel,
       pinpointed: freezed == pinpointed
           ? _value.pinpointed
           : pinpointed // ignore: cast_nullable_to_non_nullable
@@ -181,12 +205,10 @@ class _$AddressModelImpl implements _AddressModel {
       {required this.alamat,
       required this.lat,
       required this.long,
-      required final Map<dynamic, dynamic> province,
-      required final Map<dynamic, dynamic> city,
+      required this.province,
+      required this.city,
       required this.pinpointed,
-      required this.description})
-      : _province = province,
-        _city = city;
+      required this.description});
 
   factory _$AddressModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$AddressModelImplFromJson(json);
@@ -197,22 +219,10 @@ class _$AddressModelImpl implements _AddressModel {
   final num lat;
   @override
   final num long;
-  final Map<dynamic, dynamic> _province;
   @override
-  Map<dynamic, dynamic> get province {
-    if (_province is EqualUnmodifiableMapView) return _province;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_province);
-  }
-
-  final Map<dynamic, dynamic> _city;
+  final ProvinceModel province;
   @override
-  Map<dynamic, dynamic> get city {
-    if (_city is EqualUnmodifiableMapView) return _city;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_city);
-  }
-
+  final CityModel city;
   @override
   final bool? pinpointed;
   @override
@@ -231,8 +241,9 @@ class _$AddressModelImpl implements _AddressModel {
             (identical(other.alamat, alamat) || other.alamat == alamat) &&
             (identical(other.lat, lat) || other.lat == lat) &&
             (identical(other.long, long) || other.long == long) &&
-            const DeepCollectionEquality().equals(other._province, _province) &&
-            const DeepCollectionEquality().equals(other._city, _city) &&
+            (identical(other.province, province) ||
+                other.province == province) &&
+            (identical(other.city, city) || other.city == city) &&
             (identical(other.pinpointed, pinpointed) ||
                 other.pinpointed == pinpointed) &&
             (identical(other.description, description) ||
@@ -242,14 +253,7 @@ class _$AddressModelImpl implements _AddressModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      alamat,
-      lat,
-      long,
-      const DeepCollectionEquality().hash(_province),
-      const DeepCollectionEquality().hash(_city),
-      pinpointed,
-      description);
+      runtimeType, alamat, lat, long, province, city, pinpointed, description);
 
   @JsonKey(ignore: true)
   @override
@@ -270,8 +274,8 @@ abstract class _AddressModel implements AddressModel {
       {required final String alamat,
       required final num lat,
       required final num long,
-      required final Map<dynamic, dynamic> province,
-      required final Map<dynamic, dynamic> city,
+      required final ProvinceModel province,
+      required final CityModel city,
       required final bool? pinpointed,
       required final String description}) = _$AddressModelImpl;
 
@@ -285,9 +289,9 @@ abstract class _AddressModel implements AddressModel {
   @override
   num get long;
   @override
-  Map<dynamic, dynamic> get province;
+  ProvinceModel get province;
   @override
-  Map<dynamic, dynamic> get city;
+  CityModel get city;
   @override
   bool? get pinpointed;
   @override

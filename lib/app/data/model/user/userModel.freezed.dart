@@ -28,7 +28,7 @@ mixin _$UserModel {
   String? get profileUrl => throw _privateConstructorUsedError;
   num? get balance => throw _privateConstructorUsedError;
   List<dynamic>? get favourite => throw _privateConstructorUsedError;
-  Map<dynamic, dynamic>? get addressModel => throw _privateConstructorUsedError;
+  AddressModel? get addressModel => throw _privateConstructorUsedError;
   String? get accountType => throw _privateConstructorUsedError;
   String? get barberId => throw _privateConstructorUsedError;
 
@@ -52,9 +52,11 @@ abstract class $UserModelCopyWith<$Res> {
       String? profileUrl,
       num? balance,
       List<dynamic>? favourite,
-      Map<dynamic, dynamic>? addressModel,
+      AddressModel? addressModel,
       String? accountType,
       String? barberId});
+
+  $AddressModelCopyWith<$Res>? get addressModel;
 }
 
 /// @nodoc
@@ -118,7 +120,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       addressModel: freezed == addressModel
           ? _value.addressModel
           : addressModel // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>?,
+              as AddressModel?,
       accountType: freezed == accountType
           ? _value.accountType
           : accountType // ignore: cast_nullable_to_non_nullable
@@ -128,6 +130,18 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           : barberId // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressModelCopyWith<$Res>? get addressModel {
+    if (_value.addressModel == null) {
+      return null;
+    }
+
+    return $AddressModelCopyWith<$Res>(_value.addressModel!, (value) {
+      return _then(_value.copyWith(addressModel: value) as $Val);
+    });
   }
 }
 
@@ -148,9 +162,12 @@ abstract class _$$UserModelImplCopyWith<$Res>
       String? profileUrl,
       num? balance,
       List<dynamic>? favourite,
-      Map<dynamic, dynamic>? addressModel,
+      AddressModel? addressModel,
       String? accountType,
       String? barberId});
+
+  @override
+  $AddressModelCopyWith<$Res>? get addressModel;
 }
 
 /// @nodoc
@@ -210,9 +227,9 @@ class __$$UserModelImplCopyWithImpl<$Res>
           : favourite // ignore: cast_nullable_to_non_nullable
               as List<dynamic>?,
       addressModel: freezed == addressModel
-          ? _value._addressModel
+          ? _value.addressModel
           : addressModel // ignore: cast_nullable_to_non_nullable
-              as Map<dynamic, dynamic>?,
+              as AddressModel?,
       accountType: freezed == accountType
           ? _value.accountType
           : accountType // ignore: cast_nullable_to_non_nullable
@@ -237,11 +254,10 @@ class _$UserModelImpl implements _UserModel {
       this.profileUrl,
       this.balance,
       final List<dynamic>? favourite,
-      final Map<dynamic, dynamic>? addressModel,
+      this.addressModel,
       this.accountType,
       this.barberId})
-      : _favourite = favourite,
-        _addressModel = addressModel;
+      : _favourite = favourite;
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
@@ -270,16 +286,8 @@ class _$UserModelImpl implements _UserModel {
     return EqualUnmodifiableListView(value);
   }
 
-  final Map<dynamic, dynamic>? _addressModel;
   @override
-  Map<dynamic, dynamic>? get addressModel {
-    final value = _addressModel;
-    if (value == null) return null;
-    if (_addressModel is EqualUnmodifiableMapView) return _addressModel;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(value);
-  }
-
+  final AddressModel? addressModel;
   @override
   final String? accountType;
   @override
@@ -305,8 +313,8 @@ class _$UserModelImpl implements _UserModel {
             (identical(other.balance, balance) || other.balance == balance) &&
             const DeepCollectionEquality()
                 .equals(other._favourite, _favourite) &&
-            const DeepCollectionEquality()
-                .equals(other._addressModel, _addressModel) &&
+            (identical(other.addressModel, addressModel) ||
+                other.addressModel == addressModel) &&
             (identical(other.accountType, accountType) ||
                 other.accountType == accountType) &&
             (identical(other.barberId, barberId) ||
@@ -325,7 +333,7 @@ class _$UserModelImpl implements _UserModel {
       profileUrl,
       balance,
       const DeepCollectionEquality().hash(_favourite),
-      const DeepCollectionEquality().hash(_addressModel),
+      addressModel,
       accountType,
       barberId);
 
@@ -353,7 +361,7 @@ abstract class _UserModel implements UserModel {
       final String? profileUrl,
       final num? balance,
       final List<dynamic>? favourite,
-      final Map<dynamic, dynamic>? addressModel,
+      final AddressModel? addressModel,
       final String? accountType,
       final String? barberId}) = _$UserModelImpl;
 
@@ -377,7 +385,7 @@ abstract class _UserModel implements UserModel {
   @override
   List<dynamic>? get favourite;
   @override
-  Map<dynamic, dynamic>? get addressModel;
+  AddressModel? get addressModel;
   @override
   String? get accountType;
   @override

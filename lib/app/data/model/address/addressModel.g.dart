@@ -11,8 +11,9 @@ _$AddressModelImpl _$$AddressModelImplFromJson(Map<String, dynamic> json) =>
       alamat: json['alamat'] as String,
       lat: json['lat'] as num,
       long: json['long'] as num,
-      province: json['province'] as Map<String, dynamic>,
-      city: json['city'] as Map<String, dynamic>,
+      province:
+          ProvinceModel.fromJson(json['province'] as Map<String, dynamic>),
+      city: CityModel.fromJson(json['city'] as Map<String, dynamic>),
       pinpointed: json['pinpointed'] as bool?,
       description: json['description'] as String,
     );
@@ -22,8 +23,8 @@ Map<String, dynamic> _$$AddressModelImplToJson(_$AddressModelImpl instance) =>
       'alamat': instance.alamat,
       'lat': instance.lat,
       'long': instance.long,
-      'province': instance.province,
-      'city': instance.city,
+      'province': instance.province.toJson(),
+      'city': instance.city.toJson(),
       'pinpointed': instance.pinpointed,
       'description': instance.description,
     };

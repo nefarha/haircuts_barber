@@ -15,7 +15,7 @@ class UserModel with _$UserModel {
     String? profileUrl,
     num? balance,
     List? favourite,
-    Map? addressModel,
+    AddressModel? addressModel,
     String? accountType,
     String? barberId,
   }) = _UserModel;

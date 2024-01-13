@@ -63,14 +63,13 @@ class ValidateController extends GetxController {
         alamat: descController.text,
         lat: 0,
         long: 0,
-        province: selectedProvince.value!.toJson(),
-        city: selectedCity.value!.toJson(),
+        province: selectedProvince.value!,
+        city: selectedCity.value!,
         pinpointed: true,
         description: descController.text);
 
     UserModel user = userC.user.value!.copyWith(
-      addressModel: addressModel.toJson(),
-      phone: phoneController.text,
+      addressModel: addressModel,
       accountType: selectedAccount.value.name,
     );
     // print(user.addressModel!.toJson());

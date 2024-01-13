@@ -16,7 +16,9 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       profileUrl: json['profileUrl'] as String?,
       balance: json['balance'] as num?,
       favourite: json['favourite'] as List<dynamic>?,
-      addressModel: json['addressModel'] as Map<String, dynamic>?,
+      addressModel: json['addressModel'] == null
+          ? null
+          : AddressModel.fromJson(json['addressModel'] as Map<String, dynamic>),
       accountType: json['accountType'] as String?,
       barberId: json['barberId'] as String?,
     );
@@ -31,7 +33,7 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'profileUrl': instance.profileUrl,
       'balance': instance.balance,
       'favourite': instance.favourite,
-      'addressModel': instance.addressModel,
+      'addressModel': instance.addressModel?.toJson(),
       'accountType': instance.accountType,
       'barberId': instance.barberId,
     };
