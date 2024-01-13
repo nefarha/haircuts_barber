@@ -29,7 +29,7 @@ class AuthenticationController extends GetxController {
 
       await userCred.user!.updateDisplayName(nama);
       await userRepo.createUser(model: model.copyWith(id: userCred.user!.uid));
-      Get.offAllNamed(Routes.HOME);
+      Get.offAllNamed(Routes.PHONE_AUTH);
     } on FirebaseAuthException catch (e) {
       Get.until((route) => !Get.isDialogOpen!);
       buildErrorDialog(message: "${e.code} message ${e.message} ");

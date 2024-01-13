@@ -16,9 +16,9 @@ class AuthMiddlewares extends GetMiddleware {
       if (authC.currentUser.value!.phoneNumber!.isEmpty) {
         return const RouteSettings(name: Routes.PHONE_AUTH);
       }
-      return const RouteSettings(name: Routes.HOME);
-    } else {
       return null;
+    } else {
+      return const RouteSettings(name: Routes.AUTH);
     }
   }
 }
