@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
 
 import '../data/midlewares/auth_middlewares.dart';
+import '../modules/AccountInfo/bindings/account_info_binding.dart';
+import '../modules/AccountInfo/views/account_info_view.dart';
 import '../modules/Auth/bindings/auth_binding.dart';
 import '../modules/Auth/views/auth_view.dart';
 import '../modules/PhoneAuth/bindings/phone_auth_binding.dart';
@@ -37,6 +39,11 @@ class AppPages {
       name: _Paths.SHOP_DETAIL,
       page: () => const ShopDetailView(),
       binding: ShopDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.ACCOUNT_INFO,
+      page: () => const AccountInfoView(),
+      binding: AccountInfoBinding(),
     ),
   ];
 }

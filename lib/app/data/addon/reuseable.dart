@@ -583,10 +583,13 @@ buildLoading() {
   );
 }
 
-updateLoading(
-    {required RxBool currentValue,
-    required bool newValue,
-    required void Function() update}) {
+closeDialog() {
+  Get.until((route) => !Get.isDialogOpen!);
+}
+
+updateLoading({
+  required RxBool currentValue,
+  required bool newValue,
+}) {
   currentValue.value = newValue;
-  update();
 }

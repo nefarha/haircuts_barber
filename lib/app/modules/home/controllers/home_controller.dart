@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/controllers/authentication_controller.dart';
 import 'package:haircuts_barber_aja/app/controllers/user_controller.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/userModel.dart';
+import 'package:haircuts_barber_aja/app/routes/app_pages.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class HomeController extends GetxController {
@@ -23,7 +24,7 @@ class HomeController extends GetxController {
             color: Colors.blue,
           ),
           'onTap': () {
-            // Get.toNamed(Routes.ACCOUNT_INFO);
+            Get.toNamed(Routes.ACCOUNT_INFO);
           },
         },
         {

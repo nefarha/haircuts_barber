@@ -32,13 +32,11 @@ class ValidateController extends GetxController {
     updateLoading(
       currentValue: isLoading,
       newValue: true,
-      update: () => update(),
     );
     allProvince.value = await rajaOngkir.getAllProvince();
     updateLoading(
       currentValue: isLoading,
       newValue: false,
-      update: () => update(),
     );
   }
 
@@ -46,7 +44,6 @@ class ValidateController extends GetxController {
     updateLoading(
       currentValue: isLoading,
       newValue: true,
-      update: () => update(),
     );
 
     allCity.value =
@@ -54,7 +51,6 @@ class ValidateController extends GetxController {
     updateLoading(
       currentValue: isLoading,
       newValue: false,
-      update: () => update(),
     );
   }
 
@@ -62,7 +58,6 @@ class ValidateController extends GetxController {
     updateLoading(
       currentValue: isLoading,
       newValue: true,
-      update: () => update(),
     );
     AddressModel addressModel = AddressModel(
         alamat: descController.text,
@@ -84,7 +79,6 @@ class ValidateController extends GetxController {
       updateLoading(
         currentValue: isLoading,
         newValue: false,
-        update: () => update(),
       );
     } catch (e) {
       buildErrorDialog(message: 'Terjadi Masalah');
@@ -92,7 +86,6 @@ class ValidateController extends GetxController {
     updateLoading(
       currentValue: isLoading,
       newValue: false,
-      update: () => update(),
     );
   }
 
