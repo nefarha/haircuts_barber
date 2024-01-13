@@ -454,7 +454,7 @@ Widget reusableAvatar(
     void Function()? onTap}) {
   return CircleAvatar(
     radius: size,
-    backgroundColor: url == null ? yellowColor : greyColor,
+    backgroundColor: url == null ? blackColor : greyColor,
     backgroundImage: url != null ? CachedNetworkImageProvider(url) : null,
     child: url == null
         ? Stack(

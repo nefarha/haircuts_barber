@@ -5,6 +5,8 @@ import '../modules/Auth/bindings/auth_binding.dart';
 import '../modules/Auth/views/auth_view.dart';
 import '../modules/PhoneAuth/bindings/phone_auth_binding.dart';
 import '../modules/PhoneAuth/views/phone_auth_view.dart';
+import '../modules/ShopDetail/bindings/shop_detail_binding.dart';
+import '../modules/ShopDetail/views/shop_detail_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/checkValidatedPage.dart';
 
@@ -30,6 +32,11 @@ class AppPages {
       name: _Paths.PHONE_AUTH,
       page: () => const PhoneAuthView(),
       binding: PhoneAuthBinding(),
+    ),
+    GetPage(
+      name: _Paths.SHOP_DETAIL,
+      page: () => const ShopDetailView(),
+      binding: ShopDetailBinding(),
     ),
   ];
 }
