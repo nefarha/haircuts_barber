@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:haircuts_barber_aja/app/data/model/address/addressModel.dart';
 
 part 'userModel.freezed.dart';
 part 'userModel.g.dart';
@@ -14,7 +15,7 @@ class UserModel with _$UserModel {
     String? profileUrl,
     num? balance,
     List? favourite,
-    Map<String, dynamic>? addressModel,
+    Map? addressModel,
     String? accountType,
     String? barberId,
   }) = _UserModel;

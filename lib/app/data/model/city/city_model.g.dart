@@ -8,20 +8,20 @@ part of 'city_model.dart';
 
 _$CityModelImpl _$$CityModelImplFromJson(Map<String, dynamic> json) =>
     _$CityModelImpl(
-      cityId: json['city_id'] as String,
-      provinceId: json['province_id'] as String,
+      city_id: json['city_id'] as String,
+      province_id: json['province_id'] as String,
       province: json['province'] as String,
       type: json['type'] as String,
-      cityName: json['city_name'] as String,
-      postalCode: json['postal_code'] as String,
+      city_name: json['city_name'] as String,
+      postal_code: json['postal_code'] as String,
     );
 
 Map<String, dynamic> _$$CityModelImplToJson(_$CityModelImpl instance) =>
     <String, dynamic>{
-      'city_id': instance.cityId,
-      'province_id': instance.provinceId,
+      'city_id': instance.city_id,
+      'province_id': instance.province_id,
       'province': instance.province,
       'type': instance.type,
-      'city_name': instance.cityName,
-      'postal_code': instance.postalCode,
+      'city_name': instance.city_name,
+      'postal_code': instance.postal_code,
     };

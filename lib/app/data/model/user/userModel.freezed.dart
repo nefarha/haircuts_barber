@@ -28,7 +28,7 @@ mixin _$UserModel {
   String? get profileUrl => throw _privateConstructorUsedError;
   num? get balance => throw _privateConstructorUsedError;
   List<dynamic>? get favourite => throw _privateConstructorUsedError;
-  Map<String, dynamic>? get addressModel => throw _privateConstructorUsedError;
+  Map<dynamic, dynamic>? get addressModel => throw _privateConstructorUsedError;
   String? get accountType => throw _privateConstructorUsedError;
   String? get barberId => throw _privateConstructorUsedError;
 
@@ -52,7 +52,7 @@ abstract class $UserModelCopyWith<$Res> {
       String? profileUrl,
       num? balance,
       List<dynamic>? favourite,
-      Map<String, dynamic>? addressModel,
+      Map<dynamic, dynamic>? addressModel,
       String? accountType,
       String? barberId});
 }
@@ -118,7 +118,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       addressModel: freezed == addressModel
           ? _value.addressModel
           : addressModel // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+              as Map<dynamic, dynamic>?,
       accountType: freezed == accountType
           ? _value.accountType
           : accountType // ignore: cast_nullable_to_non_nullable
@@ -148,7 +148,7 @@ abstract class _$$UserModelImplCopyWith<$Res>
       String? profileUrl,
       num? balance,
       List<dynamic>? favourite,
-      Map<String, dynamic>? addressModel,
+      Map<dynamic, dynamic>? addressModel,
       String? accountType,
       String? barberId});
 }
@@ -212,7 +212,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
       addressModel: freezed == addressModel
           ? _value._addressModel
           : addressModel // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>?,
+              as Map<dynamic, dynamic>?,
       accountType: freezed == accountType
           ? _value.accountType
           : accountType // ignore: cast_nullable_to_non_nullable
@@ -237,7 +237,7 @@ class _$UserModelImpl implements _UserModel {
       this.profileUrl,
       this.balance,
       final List<dynamic>? favourite,
-      final Map<String, dynamic>? addressModel,
+      final Map<dynamic, dynamic>? addressModel,
       this.accountType,
       this.barberId})
       : _favourite = favourite,
@@ -270,9 +270,9 @@ class _$UserModelImpl implements _UserModel {
     return EqualUnmodifiableListView(value);
   }
 
-  final Map<String, dynamic>? _addressModel;
+  final Map<dynamic, dynamic>? _addressModel;
   @override
-  Map<String, dynamic>? get addressModel {
+  Map<dynamic, dynamic>? get addressModel {
     final value = _addressModel;
     if (value == null) return null;
     if (_addressModel is EqualUnmodifiableMapView) return _addressModel;
@@ -353,7 +353,7 @@ abstract class _UserModel implements UserModel {
       final String? profileUrl,
       final num? balance,
       final List<dynamic>? favourite,
-      final Map<String, dynamic>? addressModel,
+      final Map<dynamic, dynamic>? addressModel,
       final String? accountType,
       final String? barberId}) = _$UserModelImpl;
 
@@ -377,7 +377,7 @@ abstract class _UserModel implements UserModel {
   @override
   List<dynamic>? get favourite;
   @override
-  Map<String, dynamic>? get addressModel;
+  Map<dynamic, dynamic>? get addressModel;
   @override
   String? get accountType;
   @override

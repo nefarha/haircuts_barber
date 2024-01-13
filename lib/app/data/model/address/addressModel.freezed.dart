@@ -23,11 +23,8 @@ mixin _$AddressModel {
   String get alamat => throw _privateConstructorUsedError;
   num get lat => throw _privateConstructorUsedError;
   num get long => throw _privateConstructorUsedError;
-  String get provinceId => throw _privateConstructorUsedError;
-  String get provinceName => throw _privateConstructorUsedError;
-  String get cityId => throw _privateConstructorUsedError;
-  String get cityName => throw _privateConstructorUsedError;
-  String get postalCode => throw _privateConstructorUsedError;
+  Map<dynamic, dynamic> get province => throw _privateConstructorUsedError;
+  Map<dynamic, dynamic> get city => throw _privateConstructorUsedError;
   bool? get pinpointed => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
 
@@ -47,11 +44,8 @@ abstract class $AddressModelCopyWith<$Res> {
       {String alamat,
       num lat,
       num long,
-      String provinceId,
-      String provinceName,
-      String cityId,
-      String cityName,
-      String postalCode,
+      Map<dynamic, dynamic> province,
+      Map<dynamic, dynamic> city,
       bool? pinpointed,
       String description});
 }
@@ -72,11 +66,8 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
     Object? alamat = null,
     Object? lat = null,
     Object? long = null,
-    Object? provinceId = null,
-    Object? provinceName = null,
-    Object? cityId = null,
-    Object? cityName = null,
-    Object? postalCode = null,
+    Object? province = null,
+    Object? city = null,
     Object? pinpointed = freezed,
     Object? description = null,
   }) {
@@ -93,26 +84,14 @@ class _$AddressModelCopyWithImpl<$Res, $Val extends AddressModel>
           ? _value.long
           : long // ignore: cast_nullable_to_non_nullable
               as num,
-      provinceId: null == provinceId
-          ? _value.provinceId
-          : provinceId // ignore: cast_nullable_to_non_nullable
-              as String,
-      provinceName: null == provinceName
-          ? _value.provinceName
-          : provinceName // ignore: cast_nullable_to_non_nullable
-              as String,
-      cityId: null == cityId
-          ? _value.cityId
-          : cityId // ignore: cast_nullable_to_non_nullable
-              as String,
-      cityName: null == cityName
-          ? _value.cityName
-          : cityName // ignore: cast_nullable_to_non_nullable
-              as String,
-      postalCode: null == postalCode
-          ? _value.postalCode
-          : postalCode // ignore: cast_nullable_to_non_nullable
-              as String,
+      province: null == province
+          ? _value.province
+          : province // ignore: cast_nullable_to_non_nullable
+              as Map<dynamic, dynamic>,
+      city: null == city
+          ? _value.city
+          : city // ignore: cast_nullable_to_non_nullable
+              as Map<dynamic, dynamic>,
       pinpointed: freezed == pinpointed
           ? _value.pinpointed
           : pinpointed // ignore: cast_nullable_to_non_nullable
@@ -137,11 +116,8 @@ abstract class _$$AddressModelImplCopyWith<$Res>
       {String alamat,
       num lat,
       num long,
-      String provinceId,
-      String provinceName,
-      String cityId,
-      String cityName,
-      String postalCode,
+      Map<dynamic, dynamic> province,
+      Map<dynamic, dynamic> city,
       bool? pinpointed,
       String description});
 }
@@ -160,11 +136,8 @@ class __$$AddressModelImplCopyWithImpl<$Res>
     Object? alamat = null,
     Object? lat = null,
     Object? long = null,
-    Object? provinceId = null,
-    Object? provinceName = null,
-    Object? cityId = null,
-    Object? cityName = null,
-    Object? postalCode = null,
+    Object? province = null,
+    Object? city = null,
     Object? pinpointed = freezed,
     Object? description = null,
   }) {
@@ -181,26 +154,14 @@ class __$$AddressModelImplCopyWithImpl<$Res>
           ? _value.long
           : long // ignore: cast_nullable_to_non_nullable
               as num,
-      provinceId: null == provinceId
-          ? _value.provinceId
-          : provinceId // ignore: cast_nullable_to_non_nullable
-              as String,
-      provinceName: null == provinceName
-          ? _value.provinceName
-          : provinceName // ignore: cast_nullable_to_non_nullable
-              as String,
-      cityId: null == cityId
-          ? _value.cityId
-          : cityId // ignore: cast_nullable_to_non_nullable
-              as String,
-      cityName: null == cityName
-          ? _value.cityName
-          : cityName // ignore: cast_nullable_to_non_nullable
-              as String,
-      postalCode: null == postalCode
-          ? _value.postalCode
-          : postalCode // ignore: cast_nullable_to_non_nullable
-              as String,
+      province: null == province
+          ? _value._province
+          : province // ignore: cast_nullable_to_non_nullable
+              as Map<dynamic, dynamic>,
+      city: null == city
+          ? _value._city
+          : city // ignore: cast_nullable_to_non_nullable
+              as Map<dynamic, dynamic>,
       pinpointed: freezed == pinpointed
           ? _value.pinpointed
           : pinpointed // ignore: cast_nullable_to_non_nullable
@@ -220,13 +181,12 @@ class _$AddressModelImpl implements _AddressModel {
       {required this.alamat,
       required this.lat,
       required this.long,
-      required this.provinceId,
-      required this.provinceName,
-      required this.cityId,
-      required this.cityName,
-      required this.postalCode,
+      required final Map<dynamic, dynamic> province,
+      required final Map<dynamic, dynamic> city,
       required this.pinpointed,
-      required this.description});
+      required this.description})
+      : _province = province,
+        _city = city;
 
   factory _$AddressModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$AddressModelImplFromJson(json);
@@ -237,16 +197,22 @@ class _$AddressModelImpl implements _AddressModel {
   final num lat;
   @override
   final num long;
+  final Map<dynamic, dynamic> _province;
   @override
-  final String provinceId;
+  Map<dynamic, dynamic> get province {
+    if (_province is EqualUnmodifiableMapView) return _province;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_province);
+  }
+
+  final Map<dynamic, dynamic> _city;
   @override
-  final String provinceName;
-  @override
-  final String cityId;
-  @override
-  final String cityName;
-  @override
-  final String postalCode;
+  Map<dynamic, dynamic> get city {
+    if (_city is EqualUnmodifiableMapView) return _city;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_city);
+  }
+
   @override
   final bool? pinpointed;
   @override
@@ -254,7 +220,7 @@ class _$AddressModelImpl implements _AddressModel {
 
   @override
   String toString() {
-    return 'AddressModel(alamat: $alamat, lat: $lat, long: $long, provinceId: $provinceId, provinceName: $provinceName, cityId: $cityId, cityName: $cityName, postalCode: $postalCode, pinpointed: $pinpointed, description: $description)';
+    return 'AddressModel(alamat: $alamat, lat: $lat, long: $long, province: $province, city: $city, pinpointed: $pinpointed, description: $description)';
   }
 
   @override
@@ -265,15 +231,8 @@ class _$AddressModelImpl implements _AddressModel {
             (identical(other.alamat, alamat) || other.alamat == alamat) &&
             (identical(other.lat, lat) || other.lat == lat) &&
             (identical(other.long, long) || other.long == long) &&
-            (identical(other.provinceId, provinceId) ||
-                other.provinceId == provinceId) &&
-            (identical(other.provinceName, provinceName) ||
-                other.provinceName == provinceName) &&
-            (identical(other.cityId, cityId) || other.cityId == cityId) &&
-            (identical(other.cityName, cityName) ||
-                other.cityName == cityName) &&
-            (identical(other.postalCode, postalCode) ||
-                other.postalCode == postalCode) &&
+            const DeepCollectionEquality().equals(other._province, _province) &&
+            const DeepCollectionEquality().equals(other._city, _city) &&
             (identical(other.pinpointed, pinpointed) ||
                 other.pinpointed == pinpointed) &&
             (identical(other.description, description) ||
@@ -282,8 +241,15 @@ class _$AddressModelImpl implements _AddressModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, alamat, lat, long, provinceId,
-      provinceName, cityId, cityName, postalCode, pinpointed, description);
+  int get hashCode => Object.hash(
+      runtimeType,
+      alamat,
+      lat,
+      long,
+      const DeepCollectionEquality().hash(_province),
+      const DeepCollectionEquality().hash(_city),
+      pinpointed,
+      description);
 
   @JsonKey(ignore: true)
   @override
@@ -304,11 +270,8 @@ abstract class _AddressModel implements AddressModel {
       {required final String alamat,
       required final num lat,
       required final num long,
-      required final String provinceId,
-      required final String provinceName,
-      required final String cityId,
-      required final String cityName,
-      required final String postalCode,
+      required final Map<dynamic, dynamic> province,
+      required final Map<dynamic, dynamic> city,
       required final bool? pinpointed,
       required final String description}) = _$AddressModelImpl;
 
@@ -322,15 +285,9 @@ abstract class _AddressModel implements AddressModel {
   @override
   num get long;
   @override
-  String get provinceId;
+  Map<dynamic, dynamic> get province;
   @override
-  String get provinceName;
-  @override
-  String get cityId;
-  @override
-  String get cityName;
-  @override
-  String get postalCode;
+  Map<dynamic, dynamic> get city;
   @override
   bool? get pinpointed;
   @override

@@ -20,12 +20,12 @@ CityModel _$CityModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CityModel {
-  String get cityId => throw _privateConstructorUsedError;
-  String get provinceId => throw _privateConstructorUsedError;
+  String get city_id => throw _privateConstructorUsedError;
+  String get province_id => throw _privateConstructorUsedError;
   String get province => throw _privateConstructorUsedError;
   String get type => throw _privateConstructorUsedError;
-  String get cityName => throw _privateConstructorUsedError;
-  String get postalCode => throw _privateConstructorUsedError;
+  String get city_name => throw _privateConstructorUsedError;
+  String get postal_code => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -39,12 +39,12 @@ abstract class $CityModelCopyWith<$Res> {
       _$CityModelCopyWithImpl<$Res, CityModel>;
   @useResult
   $Res call(
-      {String cityId,
-      String provinceId,
+      {String city_id,
+      String province_id,
       String province,
       String type,
-      String cityName,
-      String postalCode});
+      String city_name,
+      String postal_code});
 }
 
 /// @nodoc
@@ -60,21 +60,21 @@ class _$CityModelCopyWithImpl<$Res, $Val extends CityModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cityId = null,
-    Object? provinceId = null,
+    Object? city_id = null,
+    Object? province_id = null,
     Object? province = null,
     Object? type = null,
-    Object? cityName = null,
-    Object? postalCode = null,
+    Object? city_name = null,
+    Object? postal_code = null,
   }) {
     return _then(_value.copyWith(
-      cityId: null == cityId
-          ? _value.cityId
-          : cityId // ignore: cast_nullable_to_non_nullable
+      city_id: null == city_id
+          ? _value.city_id
+          : city_id // ignore: cast_nullable_to_non_nullable
               as String,
-      provinceId: null == provinceId
-          ? _value.provinceId
-          : provinceId // ignore: cast_nullable_to_non_nullable
+      province_id: null == province_id
+          ? _value.province_id
+          : province_id // ignore: cast_nullable_to_non_nullable
               as String,
       province: null == province
           ? _value.province
@@ -84,13 +84,13 @@ class _$CityModelCopyWithImpl<$Res, $Val extends CityModel>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      cityName: null == cityName
-          ? _value.cityName
-          : cityName // ignore: cast_nullable_to_non_nullable
+      city_name: null == city_name
+          ? _value.city_name
+          : city_name // ignore: cast_nullable_to_non_nullable
               as String,
-      postalCode: null == postalCode
-          ? _value.postalCode
-          : postalCode // ignore: cast_nullable_to_non_nullable
+      postal_code: null == postal_code
+          ? _value.postal_code
+          : postal_code // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -105,12 +105,12 @@ abstract class _$$CityModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String cityId,
-      String provinceId,
+      {String city_id,
+      String province_id,
       String province,
       String type,
-      String cityName,
-      String postalCode});
+      String city_name,
+      String postal_code});
 }
 
 /// @nodoc
@@ -124,21 +124,21 @@ class __$$CityModelImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cityId = null,
-    Object? provinceId = null,
+    Object? city_id = null,
+    Object? province_id = null,
     Object? province = null,
     Object? type = null,
-    Object? cityName = null,
-    Object? postalCode = null,
+    Object? city_name = null,
+    Object? postal_code = null,
   }) {
     return _then(_$CityModelImpl(
-      cityId: null == cityId
-          ? _value.cityId
-          : cityId // ignore: cast_nullable_to_non_nullable
+      city_id: null == city_id
+          ? _value.city_id
+          : city_id // ignore: cast_nullable_to_non_nullable
               as String,
-      provinceId: null == provinceId
-          ? _value.provinceId
-          : provinceId // ignore: cast_nullable_to_non_nullable
+      province_id: null == province_id
+          ? _value.province_id
+          : province_id // ignore: cast_nullable_to_non_nullable
               as String,
       province: null == province
           ? _value.province
@@ -148,13 +148,13 @@ class __$$CityModelImplCopyWithImpl<$Res>
           ? _value.type
           : type // ignore: cast_nullable_to_non_nullable
               as String,
-      cityName: null == cityName
-          ? _value.cityName
-          : cityName // ignore: cast_nullable_to_non_nullable
+      city_name: null == city_name
+          ? _value.city_name
+          : city_name // ignore: cast_nullable_to_non_nullable
               as String,
-      postalCode: null == postalCode
-          ? _value.postalCode
-          : postalCode // ignore: cast_nullable_to_non_nullable
+      postal_code: null == postal_code
+          ? _value.postal_code
+          : postal_code // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -165,32 +165,32 @@ class __$$CityModelImplCopyWithImpl<$Res>
 @JsonSerializable(fieldRename: FieldRename.snake)
 class _$CityModelImpl implements _CityModel {
   const _$CityModelImpl(
-      {required this.cityId,
-      required this.provinceId,
+      {required this.city_id,
+      required this.province_id,
       required this.province,
       required this.type,
-      required this.cityName,
-      required this.postalCode});
+      required this.city_name,
+      required this.postal_code});
 
   factory _$CityModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$CityModelImplFromJson(json);
 
   @override
-  final String cityId;
+  final String city_id;
   @override
-  final String provinceId;
+  final String province_id;
   @override
   final String province;
   @override
   final String type;
   @override
-  final String cityName;
+  final String city_name;
   @override
-  final String postalCode;
+  final String postal_code;
 
   @override
   String toString() {
-    return 'CityModel(cityId: $cityId, provinceId: $provinceId, province: $province, type: $type, cityName: $cityName, postalCode: $postalCode)';
+    return 'CityModel(city_id: $city_id, province_id: $province_id, province: $province, type: $type, city_name: $city_name, postal_code: $postal_code)';
   }
 
   @override
@@ -198,22 +198,22 @@ class _$CityModelImpl implements _CityModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$CityModelImpl &&
-            (identical(other.cityId, cityId) || other.cityId == cityId) &&
-            (identical(other.provinceId, provinceId) ||
-                other.provinceId == provinceId) &&
+            (identical(other.city_id, city_id) || other.city_id == city_id) &&
+            (identical(other.province_id, province_id) ||
+                other.province_id == province_id) &&
             (identical(other.province, province) ||
                 other.province == province) &&
             (identical(other.type, type) || other.type == type) &&
-            (identical(other.cityName, cityName) ||
-                other.cityName == cityName) &&
-            (identical(other.postalCode, postalCode) ||
-                other.postalCode == postalCode));
+            (identical(other.city_name, city_name) ||
+                other.city_name == city_name) &&
+            (identical(other.postal_code, postal_code) ||
+                other.postal_code == postal_code));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, cityId, provinceId, province, type, cityName, postalCode);
+  int get hashCode => Object.hash(runtimeType, city_id, province_id, province,
+      type, city_name, postal_code);
 
   @JsonKey(ignore: true)
   @override
@@ -231,28 +231,28 @@ class _$CityModelImpl implements _CityModel {
 
 abstract class _CityModel implements CityModel {
   const factory _CityModel(
-      {required final String cityId,
-      required final String provinceId,
+      {required final String city_id,
+      required final String province_id,
       required final String province,
       required final String type,
-      required final String cityName,
-      required final String postalCode}) = _$CityModelImpl;
+      required final String city_name,
+      required final String postal_code}) = _$CityModelImpl;
 
   factory _CityModel.fromJson(Map<String, dynamic> json) =
       _$CityModelImpl.fromJson;
 
   @override
-  String get cityId;
+  String get city_id;
   @override
-  String get provinceId;
+  String get province_id;
   @override
   String get province;
   @override
   String get type;
   @override
-  String get cityName;
+  String get city_name;
   @override
-  String get postalCode;
+  String get postal_code;
   @override
   @JsonKey(ignore: true)
   _$$CityModelImplCopyWith<_$CityModelImpl> get copyWith =>

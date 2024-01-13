@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:haircuts_barber_aja/app/data/model/city/city_model.dart';
+import 'package:haircuts_barber_aja/app/data/model/province/province_model.dart';
 
 part 'addressModel.freezed.dart';
 part 'addressModel.g.dart';
@@ -11,11 +13,8 @@ class AddressModel with _$AddressModel {
     required String alamat,
     required num lat,
     required num long,
-    required String provinceId,
-    required String provinceName,
-    required String cityId,
-    required String cityName,
-    required String postalCode,
+    required Map province,
+    required Map city,
     required bool? pinpointed,
     required String description,
   }) = _AddressModel;
