@@ -33,7 +33,7 @@ class PhoneAuthView extends GetView<PhoneAuthController> {
                           phoneNumber: Validator.phoneRegex(
                               phone: controller.phoneController.text),
                           token: "token",
-                          dataC: controller.dataC,
+                          dataC: controller.userRepo,
                           id: controller.authC.currentUser.value!.uid);
                     }
                   },

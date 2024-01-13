@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
-import 'package:haircuts_barber_aja/app/data/addon/validator.dart';
 import 'package:haircuts_barber_aja/app/data/model/province/province_model.dart';
 import 'package:haircuts_barber_aja/app/modules/home/controllers/validate_controller.dart';
 
@@ -124,22 +123,7 @@ class _ValidateForm extends GetView<ValidateController> {
                               : 'Dengan memilih Barber, kamu akan bergabung untuk membuka Barbershop bagi user'),
                         ),
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      Text(
-                        'Nomor Hp',
-                        style: headerStyle(),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      reuseTextfield(
-                        hintText: 'nomor hp',
-                        controlller: controller.phoneController,
-                        validator: (p0) =>
-                            Validator.phoneValidator(number: p0!),
-                      ),
+
                       const SizedBox(
                         height: 20,
                       ),

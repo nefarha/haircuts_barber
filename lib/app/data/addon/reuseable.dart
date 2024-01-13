@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:haircuts_barber_aja/app/controllers/firestore_controller.dart';
+import 'package:haircuts_barber_aja/app/data/model/user/repository/user_repo.dart';
 import 'package:intl/intl.dart';
 
 const whiteColor = Color(0xfffafafa);
@@ -413,7 +413,7 @@ Future<String?> askingSMSCode({
   required String verificationId,
   required FirebaseAuth instance,
   required String userId,
-  required FirestoreController dataC,
+  required UserRepo dataC,
   required String phoneNumber,
   void Function()? onConfirm,
 }) async {

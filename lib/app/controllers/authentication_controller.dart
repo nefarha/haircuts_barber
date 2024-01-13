@@ -1,13 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:haircuts_barber_aja/app/controllers/firestore_controller.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
+import 'package:haircuts_barber_aja/app/data/model/user/repository/user_repo.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/userModel.dart';
 import 'package:haircuts_barber_aja/app/routes/app_pages.dart';
 
 class AuthenticationController extends GetxController {
   static AuthenticationController get instance => Get.find();
-  final dataC = FirestoreController.instance;
+  final userRepo = UserRepo();
 
   final _instance = FirebaseAuth.instance;
 
@@ -28,7 +28,7 @@ class AuthenticationController extends GetxController {
           email: email, password: password);
 
       await userCred.user!.updateDisplayName(nama);
-      await dataC.createUser(model: model.copyWith(id: userCred.user!.uid));
+      await userRepo.createUser(model: model.copyWith(id: userCred.user!.uid));
       Get.offAllNamed(Routes.HOME);
     } on FirebaseAuthException catch (e) {
       Get.until((route) => !Get.isDialogOpen!);
@@ -55,7 +55,7 @@ class AuthenticationController extends GetxController {
   Future phoneAuthSignIn(
       {required String? phoneNumber,
       required String token,
-      required FirestoreController dataC,
+      required UserRepo dataC,
       required String id}) async {
     _instance.verifyPhoneNumber(
       phoneNumber: phoneNumber,

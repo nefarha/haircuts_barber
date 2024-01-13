@@ -1,13 +1,13 @@
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/controllers/authentication_controller.dart';
-import 'package:haircuts_barber_aja/app/controllers/firestore_controller.dart';
 import 'package:haircuts_barber_aja/app/data/addon/validator.dart';
+import 'package:haircuts_barber_aja/app/data/model/user/repository/user_repo.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/userModel.dart';
 
 class UserController extends GetxController {
   static UserController get instance => Get.find();
   final authC = AuthenticationController.instance;
-  final dataC = FirestoreController.instance;
+  final dataC = UserRepo();
 
   Rxn<UserModel> user = Rxn();
   RxnBool isValidated = RxnBool();

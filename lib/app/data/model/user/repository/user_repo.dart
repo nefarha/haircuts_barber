@@ -1,11 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/userModel.dart';
 
-class FirestoreController extends GetxController {
-  static FirestoreController get instance => Get.find();
-
+class UserRepo {
   final _fireInstance = FirebaseFirestore.instance;
 
   final _userStore =
