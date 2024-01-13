@@ -13,6 +13,9 @@ class AuthMiddlewares extends GetMiddleware {
   @override
   RouteSettings? redirect(String? route) {
     if (authC.currentUser.value != null) {
+      if (authC.currentUser.value!.phoneNumber!.isEmpty) {
+        return const RouteSettings(name: Routes.PHONE_AUTH);
+      }
       return const RouteSettings(name: Routes.HOME);
     } else {
       return null;

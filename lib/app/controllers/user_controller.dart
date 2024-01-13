@@ -17,8 +17,9 @@ class UserController extends GetxController {
     user.bindStream(
       dataC.readUser(id: authC.currentUser.value!.uid).asyncMap(
         (user) {
+          print(user);
           isValidated.value = Validator.validateUser(user: user!);
-          return null;
+          return user;
         },
       ),
     );

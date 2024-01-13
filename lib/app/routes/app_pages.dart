@@ -1,10 +1,12 @@
 import 'package:get/get.dart';
-import 'package:haircuts_barber_aja/app/data/midlewares/auth_middlewares.dart';
-import 'package:haircuts_barber_aja/app/modules/home/views/checkValidatedPage.dart';
 
+import '../data/midlewares/auth_middlewares.dart';
 import '../modules/Auth/bindings/auth_binding.dart';
 import '../modules/Auth/views/auth_view.dart';
+import '../modules/PhoneAuth/bindings/phone_auth_binding.dart';
+import '../modules/PhoneAuth/views/phone_auth_view.dart';
 import '../modules/home/bindings/home_binding.dart';
+import '../modules/home/views/checkValidatedPage.dart';
 
 part 'app_routes.dart';
 
@@ -24,5 +26,10 @@ class AppPages {
         page: () => const AuthView(),
         binding: AuthBinding(),
         middlewares: [AuthMiddlewares(priority: 0)]),
+    GetPage(
+      name: _Paths.PHONE_AUTH,
+      page: () => const PhoneAuthView(),
+      binding: PhoneAuthBinding(),
+    ),
   ];
 }

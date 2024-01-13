@@ -10,13 +10,14 @@ class UnValidatedView extends GetView<ValidateController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: reusableAppbar(title: 'Isi Bio Data'),
-        body: Obx(
-          () => stackWithLoadingIndicator(children: [
-            _ValidateForm(),
-          ], isLoading: controller.isLoading.value),
-        ));
+    return Obx(
+      () => stackWithLoadingIndicator(children: [
+        Scaffold(
+          appBar: reusableAppbar(title: 'Isi Bio Data'),
+          body: _ValidateForm(),
+        ),
+      ], isLoading: controller.isLoading.value),
+    );
   }
 }
 
@@ -51,6 +52,7 @@ class _ValidateForm extends GetView<ValidateController> {
                         onChanged: (p0) async {
                           ProvinceModel model = p0;
                           controller.selectedProvince.value = model;
+                          controller.selectedCity.value = null;
 
                           await controller.fecthaAllCityWithProvinceId(
                               provinceId: model.province_id);
@@ -79,7 +81,7 @@ class _ValidateForm extends GetView<ValidateController> {
                               .map(
                                 (e) => DropdownMenuItem(
                                   value: e,
-                                  child: Text(e.cityName),
+                                  child: Text(e.city_name),
                                 ),
                               )
                               .toList(),
@@ -143,12 +145,9 @@ class _ValidateForm extends GetView<ValidateController> {
                       ),
                       reusableElevatedButton(
                           onPressed: () async {
-                            buildLoading();
-                            var a =
-                                await controller.rajaOngkir.getAllProvince();
-                            print(a);
-                            Get.until((route) => !Get.isDialogOpen!);
-                            // if (formKey.currentState!.validate()) {}
+                            if (formKey.currentState!.validate()) {
+                              controller.updateBio();
+                            }
                           },
                           title: "Lanjut"),
                       const SizedBox(

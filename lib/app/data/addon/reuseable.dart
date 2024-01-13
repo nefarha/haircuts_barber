@@ -233,8 +233,17 @@ Widget stackWithLoadingIndicator(
   return Stack(
     children: [
       ...children,
-      isLoading
-          ? Center(
+      if (isLoading)
+        Stack(
+          children: [
+            const Opacity(
+              opacity: 0.7,
+              child: ModalBarrier(
+                dismissible: false,
+                color: Colors.black,
+              ),
+            ),
+            Center(
               child: Card(
                 elevation: 3,
                 shape: RoundedRectangleBorder(
@@ -248,8 +257,9 @@ Widget stackWithLoadingIndicator(
                   ),
                 ),
               ),
-            )
-          : const SizedBox(),
+            ),
+          ],
+        ),
     ],
   );
 }
@@ -402,7 +412,7 @@ Widget reusableEditField(
 Future<String?> askingSMSCode({
   required String verificationId,
   required FirebaseAuth instance,
-  required String id,
+  required String userId,
   required FirestoreController dataC,
   required String phoneNumber,
   void Function()? onConfirm,
@@ -424,7 +434,7 @@ Future<String?> askingSMSCode({
 
         try {
           await instance.currentUser!.updatePhoneNumber(credential);
-          // dataC.updatePhone(id: id, phone: phoneNumber);
+          dataC.updatePhone(id: userId, phoneNumber: phoneNumber);
           instance.userChanges();
           onConfirm ?? Get.back();
         } on FirebaseAuthException catch (e) {
@@ -571,4 +581,12 @@ buildLoading() {
     ),
     barrierDismissible: false,
   );
+}
+
+updateLoading(
+    {required RxBool currentValue,
+    required bool newValue,
+    required void Function() update}) {
+  currentValue.value = newValue;
+  update();
 }

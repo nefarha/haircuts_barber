@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:haircuts_barber_aja/app/controllers/authentication_controller.dart';
+import 'package:haircuts_barber_aja/app/controllers/firestore_controller.dart';
+import 'package:haircuts_barber_aja/app/controllers/user_controller.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
+import 'package:haircuts_barber_aja/app/data/model/address/addressModel.dart';
 import 'package:haircuts_barber_aja/app/data/model/city/city_model.dart';
 import 'package:haircuts_barber_aja/app/data/model/province/province_model.dart';
+import 'package:haircuts_barber_aja/app/data/model/user/userModel.dart';
 import 'package:haircuts_barber_aja/app/data/services/RajaOngkir/raja_ongkir_api.dart';
 
 class ValidateController extends GetxController {
+  final userC = UserController.instance;
+  final dataC = FirestoreController.instance;
+  final authC = AuthenticationController.instance;
   final rajaOngkir = RajaOngkirServices();
   var isLoading = false.obs;
-  // Address Controller
   final provinceController = TextEditingController();
   final cityController = TextEditingController();
   final descController = TextEditingController();
@@ -22,21 +29,83 @@ class ValidateController extends GetxController {
   Rxn<CityModel> selectedCity = Rxn();
 
   Future fectAllProvince() async {
-    _updateLoading(true);
+    updateLoading(
+      currentValue: isLoading,
+      newValue: true,
+      update: () => update(),
+    );
     allProvince.value = await rajaOngkir.getAllProvince();
-    _updateLoading(false);
+    updateLoading(
+      currentValue: isLoading,
+      newValue: false,
+      update: () => update(),
+    );
   }
 
   Future fecthaAllCityWithProvinceId({required String provinceId}) async {
-    _updateLoading(true);
+    updateLoading(
+      currentValue: isLoading,
+      newValue: true,
+      update: () => update(),
+    );
+
     allCity.value =
         await rajaOngkir.getCityByProvinceId(provinceId: provinceId);
-    _updateLoading(false);
+    updateLoading(
+      currentValue: isLoading,
+      newValue: false,
+      update: () => update(),
+    );
   }
 
-  _updateLoading(bool value) {
-    isLoading.value = value;
-    update();
+  Future updateBio() async {
+    updateLoading(
+      currentValue: isLoading,
+      newValue: true,
+      update: () => update(),
+    );
+    AddressModel addressModel = AddressModel(
+        alamat: descController.text,
+        lat: 0,
+        long: 0,
+        province: selectedProvince.value!.toJson(),
+        city: selectedCity.value!.toJson(),
+        pinpointed: true,
+        description: descController.text);
+
+    UserModel user = userC.user.value!.copyWith(
+      addressModel: addressModel.toJson(),
+      phone: phoneController.text,
+      accountType: selectedAccount.value.name,
+    );
+    // print(user.addressModel!.toJson());
+    try {
+      await authC
+          .phoneAuthSignIn(
+        phoneNumber: phoneController.text,
+        token: "",
+        dataC: dataC,
+        id: user.id,
+      )
+          .then(
+        (value) async {
+          await dataC.updateUser(userModel: user);
+          updateLoading(
+            currentValue: isLoading,
+            newValue: false,
+            update: () => update(),
+          );
+        },
+        onError: buildErrorDialog(message: 'Something Went Wrong'),
+      );
+    } catch (e) {
+      buildErrorDialog(message: 'Terjadi Masalah');
+    }
+    updateLoading(
+      currentValue: isLoading,
+      newValue: false,
+      update: () => update(),
+    );
   }
 
   @override

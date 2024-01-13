@@ -48,6 +48,6 @@ class Validator {
     if (number[0] == "0") {
       number = number.replaceFirst(RegExp(r'0'), '+62');
     }
-    return null;
+    return number;
   }
 }
