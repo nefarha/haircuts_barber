@@ -22,12 +22,11 @@ BarberModel _$BarberModelFromJson(Map<String, dynamic> json) {
 mixin _$BarberModel {
   String get id => throw _privateConstructorUsedError;
   String get namaToko => throw _privateConstructorUsedError;
-  Map<String, dynamic> get alamat => throw _privateConstructorUsedError;
+  AddressModel get alamat => throw _privateConstructorUsedError;
   num get rating => throw _privateConstructorUsedError;
   String get ownerId => throw _privateConstructorUsedError;
   String get deskripsiToko => throw _privateConstructorUsedError;
-  List<Map<String, dynamic>> get daftarPaket =>
-      throw _privateConstructorUsedError;
+  List<ServiceModel> get daftarPaket => throw _privateConstructorUsedError;
   List<dynamic> get daftarGambar => throw _privateConstructorUsedError;
   String? get shopType => throw _privateConstructorUsedError;
 
@@ -46,13 +45,15 @@ abstract class $BarberModelCopyWith<$Res> {
   $Res call(
       {String id,
       String namaToko,
-      Map<String, dynamic> alamat,
+      AddressModel alamat,
       num rating,
       String ownerId,
       String deskripsiToko,
-      List<Map<String, dynamic>> daftarPaket,
+      List<ServiceModel> daftarPaket,
       List<dynamic> daftarGambar,
       String? shopType});
+
+  $AddressModelCopyWith<$Res> get alamat;
 }
 
 /// @nodoc
@@ -90,7 +91,7 @@ class _$BarberModelCopyWithImpl<$Res, $Val extends BarberModel>
       alamat: null == alamat
           ? _value.alamat
           : alamat // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as AddressModel,
       rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -106,7 +107,7 @@ class _$BarberModelCopyWithImpl<$Res, $Val extends BarberModel>
       daftarPaket: null == daftarPaket
           ? _value.daftarPaket
           : daftarPaket // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
+              as List<ServiceModel>,
       daftarGambar: null == daftarGambar
           ? _value.daftarGambar
           : daftarGambar // ignore: cast_nullable_to_non_nullable
@@ -116,6 +117,14 @@ class _$BarberModelCopyWithImpl<$Res, $Val extends BarberModel>
           : shopType // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $AddressModelCopyWith<$Res> get alamat {
+    return $AddressModelCopyWith<$Res>(_value.alamat, (value) {
+      return _then(_value.copyWith(alamat: value) as $Val);
+    });
   }
 }
 
@@ -130,13 +139,16 @@ abstract class _$$BarberModelImplCopyWith<$Res>
   $Res call(
       {String id,
       String namaToko,
-      Map<String, dynamic> alamat,
+      AddressModel alamat,
       num rating,
       String ownerId,
       String deskripsiToko,
-      List<Map<String, dynamic>> daftarPaket,
+      List<ServiceModel> daftarPaket,
       List<dynamic> daftarGambar,
       String? shopType});
+
+  @override
+  $AddressModelCopyWith<$Res> get alamat;
 }
 
 /// @nodoc
@@ -170,9 +182,9 @@ class __$$BarberModelImplCopyWithImpl<$Res>
           : namaToko // ignore: cast_nullable_to_non_nullable
               as String,
       alamat: null == alamat
-          ? _value._alamat
+          ? _value.alamat
           : alamat // ignore: cast_nullable_to_non_nullable
-              as Map<String, dynamic>,
+              as AddressModel,
       rating: null == rating
           ? _value.rating
           : rating // ignore: cast_nullable_to_non_nullable
@@ -188,7 +200,7 @@ class __$$BarberModelImplCopyWithImpl<$Res>
       daftarPaket: null == daftarPaket
           ? _value._daftarPaket
           : daftarPaket // ignore: cast_nullable_to_non_nullable
-              as List<Map<String, dynamic>>,
+              as List<ServiceModel>,
       daftarGambar: null == daftarGambar
           ? _value._daftarGambar
           : daftarGambar // ignore: cast_nullable_to_non_nullable
@@ -207,15 +219,14 @@ class _$BarberModelImpl implements _BarberModel {
   const _$BarberModelImpl(
       {required this.id,
       required this.namaToko,
-      required final Map<String, dynamic> alamat,
+      required this.alamat,
       required this.rating,
       required this.ownerId,
       required this.deskripsiToko,
-      required final List<Map<String, dynamic>> daftarPaket,
+      required final List<ServiceModel> daftarPaket,
       required final List<dynamic> daftarGambar,
       required this.shopType})
-      : _alamat = alamat,
-        _daftarPaket = daftarPaket,
+      : _daftarPaket = daftarPaket,
         _daftarGambar = daftarGambar;
 
   factory _$BarberModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -225,23 +236,17 @@ class _$BarberModelImpl implements _BarberModel {
   final String id;
   @override
   final String namaToko;
-  final Map<String, dynamic> _alamat;
   @override
-  Map<String, dynamic> get alamat {
-    if (_alamat is EqualUnmodifiableMapView) return _alamat;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_alamat);
-  }
-
+  final AddressModel alamat;
   @override
   final num rating;
   @override
   final String ownerId;
   @override
   final String deskripsiToko;
-  final List<Map<String, dynamic>> _daftarPaket;
+  final List<ServiceModel> _daftarPaket;
   @override
-  List<Map<String, dynamic>> get daftarPaket {
+  List<ServiceModel> get daftarPaket {
     if (_daftarPaket is EqualUnmodifiableListView) return _daftarPaket;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_daftarPaket);
@@ -271,7 +276,7 @@ class _$BarberModelImpl implements _BarberModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.namaToko, namaToko) ||
                 other.namaToko == namaToko) &&
-            const DeepCollectionEquality().equals(other._alamat, _alamat) &&
+            (identical(other.alamat, alamat) || other.alamat == alamat) &&
             (identical(other.rating, rating) || other.rating == rating) &&
             (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
             (identical(other.deskripsiToko, deskripsiToko) ||
@@ -290,7 +295,7 @@ class _$BarberModelImpl implements _BarberModel {
       runtimeType,
       id,
       namaToko,
-      const DeepCollectionEquality().hash(_alamat),
+      alamat,
       rating,
       ownerId,
       deskripsiToko,
@@ -316,11 +321,11 @@ abstract class _BarberModel implements BarberModel {
   const factory _BarberModel(
       {required final String id,
       required final String namaToko,
-      required final Map<String, dynamic> alamat,
+      required final AddressModel alamat,
       required final num rating,
       required final String ownerId,
       required final String deskripsiToko,
-      required final List<Map<String, dynamic>> daftarPaket,
+      required final List<ServiceModel> daftarPaket,
       required final List<dynamic> daftarGambar,
       required final String? shopType}) = _$BarberModelImpl;
 
@@ -332,7 +337,7 @@ abstract class _BarberModel implements BarberModel {
   @override
   String get namaToko;
   @override
-  Map<String, dynamic> get alamat;
+  AddressModel get alamat;
   @override
   num get rating;
   @override
@@ -340,7 +345,7 @@ abstract class _BarberModel implements BarberModel {
   @override
   String get deskripsiToko;
   @override
-  List<Map<String, dynamic>> get daftarPaket;
+  List<ServiceModel> get daftarPaket;
   @override
   List<dynamic> get daftarGambar;
   @override

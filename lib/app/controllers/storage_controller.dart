@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
 
@@ -13,7 +14,19 @@ class StorageController extends GetxController {
     try {
       final profilePath =
           storageRef.child('profilePicture/$id/profilePicture.png');
-      await profilePath.putFile(file);
+
+      var imageBytes = await FlutterImageCompress.compressWithList(
+        file.readAsBytesSync(),
+        quality: 20,
+      );
+
+      var fileFromUint8 = File('${file.path}_compressed.jpg');
+
+      await fileFromUint8.writeAsBytes(imageBytes);
+
+      // print("ini $fileFromUint8");
+
+      await profilePath.putFile(fileFromUint8);
       var downloadUrl = await profilePath.getDownloadURL();
       return downloadUrl;
     } on FirebaseException catch (e) {
@@ -41,7 +54,15 @@ class StorageController extends GetxController {
         File gambar = daftarGambar[i];
         final profilePath = storageRef.child(
             'shops/$id/${DateTime.now().millisecondsSinceEpoch + i}.png');
-        await profilePath.putFile(gambar);
+        var imageBytes = await FlutterImageCompress.compressWithList(
+          gambar.readAsBytesSync(),
+          quality: 20,
+        );
+
+        var fileFromUint8 = File('${gambar.path}_compressed.jpg');
+
+        await fileFromUint8.writeAsBytes(imageBytes);
+        await profilePath.putFile(fileFromUint8);
         var downloadUrl = await profilePath.getDownloadURL();
         urls.add(downloadUrl);
       }

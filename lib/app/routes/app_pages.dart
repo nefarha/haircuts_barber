@@ -5,6 +5,8 @@ import '../modules/AccountInfo/bindings/account_info_binding.dart';
 import '../modules/AccountInfo/views/account_info_view.dart';
 import '../modules/Auth/bindings/auth_binding.dart';
 import '../modules/Auth/views/auth_view.dart';
+import '../modules/BuatToko/bindings/buat_toko_binding.dart';
+import '../modules/BuatToko/views/buat_toko_view.dart';
 import '../modules/EditAddress/bindings/edit_address_binding.dart';
 import '../modules/EditAddress/views/edit_address_view.dart';
 import '../modules/EditInfo/bindings/edit_info_binding.dart';
@@ -13,6 +15,8 @@ import '../modules/PhoneAuth/bindings/phone_auth_binding.dart';
 import '../modules/PhoneAuth/views/phone_auth_view.dart';
 import '../modules/ShopDetail/bindings/shop_detail_binding.dart';
 import '../modules/ShopDetail/views/shop_detail_view.dart';
+import '../modules/TokoSaya/bindings/toko_saya_binding.dart';
+import '../modules/TokoSaya/views/toko_saya_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/checkValidatedPage.dart';
 
@@ -58,6 +62,16 @@ class AppPages {
       name: _Paths.EDIT_ADDRESS,
       page: () => const EditAddressView(),
       binding: EditAddressBinding(),
+    ),
+    GetPage(
+      name: _Paths.TOKO_SAYA,
+      page: () => const TokoSayaView(),
+      binding: TokoSayaBinding(),
+    ),
+    GetPage(
+      name: _Paths.BUAT_TOKO,
+      page: () => const BuatTokoView(),
+      binding: BuatTokoBinding(),
     ),
   ];
 }

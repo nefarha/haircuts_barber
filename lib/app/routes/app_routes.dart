@@ -10,6 +10,8 @@ abstract class Routes {
   static const ACCOUNT_INFO = _Paths.ACCOUNT_INFO;
   static const EDIT_INFO = _Paths.EDIT_INFO;
   static const EDIT_ADDRESS = _Paths.EDIT_ADDRESS;
+  static const TOKO_SAYA = _Paths.TOKO_SAYA;
+  static const BUAT_TOKO = _Paths.BUAT_TOKO;
 }
 
 abstract class _Paths {
@@ -21,4 +23,6 @@ abstract class _Paths {
   static const ACCOUNT_INFO = '/account-info';
   static const EDIT_INFO = '/edit-info';
   static const EDIT_ADDRESS = '/edit-address';
+  static const TOKO_SAYA = '/toko-saya';
+  static const BUAT_TOKO = '/buat-toko';
 }

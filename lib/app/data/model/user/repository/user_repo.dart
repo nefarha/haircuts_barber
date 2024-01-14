@@ -30,6 +30,15 @@ class UserRepo {
   }
 
   Future updateUser({required UserModel userModel}) async {
-    await _userStore.doc(userModel.id).update(userModel.toJson());
+    try {
+      _fireInstance.runTransaction((transaction) async {
+        var userDoc = _userStore.doc(userModel.id);
+        var userRef = await transaction.get(userDoc);
+
+        transaction.update(userRef.reference, userModel.toJson());
+      });
+    } catch (e) {
+      buildErrorDialog(message: "Something error : $e");
+    }
   }
 }
