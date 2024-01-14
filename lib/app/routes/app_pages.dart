@@ -5,6 +5,8 @@ import '../modules/AccountInfo/bindings/account_info_binding.dart';
 import '../modules/AccountInfo/views/account_info_view.dart';
 import '../modules/Auth/bindings/auth_binding.dart';
 import '../modules/Auth/views/auth_view.dart';
+import '../modules/EditAddress/bindings/edit_address_binding.dart';
+import '../modules/EditAddress/views/edit_address_view.dart';
 import '../modules/EditInfo/bindings/edit_info_binding.dart';
 import '../modules/EditInfo/views/edit_info_view.dart';
 import '../modules/PhoneAuth/bindings/phone_auth_binding.dart';
@@ -51,6 +53,11 @@ class AppPages {
       name: _Paths.EDIT_INFO,
       page: () => const EditInfoView(),
       binding: EditInfoBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_ADDRESS,
+      page: () => const EditAddressView(),
+      binding: EditAddressBinding(),
     ),
   ];
 }

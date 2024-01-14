@@ -228,7 +228,7 @@ class AccountInfoView extends GetView<AccountInfoController> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      // Get.toNamed(Routes.INFO_PRIBADI);
+                      Get.toNamed(Routes.EDIT_INFO);
                     },
                     child: Container(
                       color: blackColor,
