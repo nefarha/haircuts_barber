@@ -2,11 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
 import 'package:haircuts_barber_aja/app/data/model/province/province_model.dart';
+import 'package:haircuts_barber_aja/app/modules/home/controllers/validate_controller.dart';
 
-import '../controllers/edit_address_controller.dart';
-
-class EditAddressView extends GetView<EditAddressController> {
-  const EditAddressView({Key? key}) : super(key: key);
+class UnValidatedView extends GetView<ValidateController> {
+  const UnValidatedView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +20,7 @@ class EditAddressView extends GetView<EditAddressController> {
   }
 }
 
-class _ValidateForm extends GetView<EditAddressController> {
+class _ValidateForm extends GetView<ValidateController> {
   _ValidateForm({Key? key}) : super(key: key);
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -100,6 +99,31 @@ class _ValidateForm extends GetView<EditAddressController> {
                         height: 10,
                       ),
                       buildPinPoint(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Pilih Akunmu',
+                        style: headerStyle(),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      // Pick Role,
+                      ...ACCOUNT_TYPE.values.map(
+                        (e) => RadioListTile(
+                          value: e,
+                          groupValue: controller.selectedAccount.value,
+                          onChanged: (value) {
+                            controller.selectedAccount.value = value!;
+                          },
+                          title: Text(e.name),
+                          subtitle: Text(e == ACCOUNT_TYPE.USER
+                              ? 'Dengan memilih User, kamu akan bergabung untuk mencari Barbershop untuk dirimu'
+                              : 'Dengan memilih Barber, kamu akan bergabung untuk membuka Barbershop bagi user'),
+                        ),
+                      ),
+
                       const SizedBox(
                         height: 20,
                       ),

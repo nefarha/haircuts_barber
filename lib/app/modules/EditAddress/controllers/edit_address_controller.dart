@@ -22,7 +22,6 @@ class EditAddressController extends GetxController {
   RxList<ProvinceModel> allProvince = RxList.empty();
   RxList<CityModel> allCity = RxList();
 
-  Rx<ACCOUNT_TYPE> selectedAccount = Rx(ACCOUNT_TYPE.USER);
   Rxn<ProvinceModel> selectedProvince = Rxn();
   Rxn<CityModel> selectedCity = Rxn();
 
@@ -68,15 +67,14 @@ class EditAddressController extends GetxController {
 
     UserModel user = userC!.copyWith(
       addressModel: addressModel,
-      accountType: selectedAccount.value.name,
     );
-    // print(user.addressModel!.toJson());
     try {
       await userRepo.updateUser(userModel: user);
       updateLoading(
         currentValue: isLoading,
         newValue: false,
       );
+      Get.back();
     } catch (e) {
       buildErrorDialog(message: 'Terjadi Masalah');
     }

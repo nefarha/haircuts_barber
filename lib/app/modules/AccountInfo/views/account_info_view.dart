@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
+import 'package:haircuts_barber_aja/app/routes/app_pages.dart';
 
 import '../controllers/account_info_controller.dart';
 
@@ -355,7 +356,7 @@ class AccountInfoView extends GetView<AccountInfoController> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    // Get.toNamed(Routes.EDIT_ALAMAT);
+                    Get.toNamed(Routes.EDIT_ADDRESS);
                   },
                   child: Container(
                     color: blackColor,

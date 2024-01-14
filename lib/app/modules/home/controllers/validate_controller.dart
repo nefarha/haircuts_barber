@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:haircuts_barber_aja/app/controllers/authentication_controller.dart';
 import 'package:haircuts_barber_aja/app/controllers/user_controller.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
 import 'package:haircuts_barber_aja/app/data/model/address/addressModel.dart';
@@ -13,7 +12,6 @@ import 'package:haircuts_barber_aja/app/data/services/RajaOngkir/raja_ongkir_api
 class ValidateController extends GetxController {
   final userC = UserController.instance;
   final userRepo = UserRepo();
-  final authC = AuthenticationController.instance;
   final rajaOngkir = RajaOngkirServices();
   var isLoading = false.obs;
   final provinceController = TextEditingController();
