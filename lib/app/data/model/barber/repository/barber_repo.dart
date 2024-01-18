@@ -19,4 +19,26 @@ class BarberRepo {
       {required String barberId, required BarberModel model}) async {
     await _barberStore.doc(barberId).set(model);
   }
+
+  Future<List<BarberModel>> getBarberList() async {
+    return _barberStore
+        .get()
+        .then((value) => value.docs.map((e) => e.data()).toList());
+  }
+
+  Future<List<BarberModel>> getTopBarberList() async {
+    List<BarberModel> topList = await _barberStore.limit(5).get().then(
+          (value) => value.docs
+              .map(
+                (e) => e.data(),
+              )
+              .toList(),
+        );
+
+    topList.sort(
+      (a, b) => b.rating.toInt() - a.rating.toInt(),
+    );
+
+    return topList;
+  }
 }

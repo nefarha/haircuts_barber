@@ -2,17 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/controllers/authentication_controller.dart';
 import 'package:haircuts_barber_aja/app/controllers/user_controller.dart';
+import 'package:haircuts_barber_aja/app/data/model/barber/barberModel.dart';
+import 'package:haircuts_barber_aja/app/data/model/barber/repository/barber_repo.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/userModel.dart';
 import 'package:haircuts_barber_aja/app/routes/app_pages.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class HomeController extends GetxController {
   final authC = AuthenticationController.instance;
+  final barberRepo = BarberRepo();
   UserModel? get user => UserController.instance.user.value;
   late PersistentTabController persistenController;
 
   var bottomIndex = 0.obs;
   final count = 0.obs;
+
+  RxList<BarberModel> topRatedBarberList = RxList.empty();
+  RxList<BarberModel> topRatedSameCityBarberList = RxList.empty();
 
   List<String> titleList = ["BERANDA", "OBROLAN", "PROFIL", "PESANAN"];
 
@@ -58,11 +64,13 @@ class HomeController extends GetxController {
           },
         },
       ];
+
   @override
   void onInit() {
     persistenController = PersistentTabController(
       initialIndex: bottomIndex.value,
     );
+
     super.onInit();
   }
 }

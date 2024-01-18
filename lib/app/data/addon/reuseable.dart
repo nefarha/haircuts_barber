@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:haircuts_barber_aja/app/data/model/barber/barberModel.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/repository/user_repo.dart';
 import 'package:intl/intl.dart';
 
@@ -101,8 +102,7 @@ Widget reusableContentCard({required String title, required String creator}) {
   );
 }
 
-Widget reusableShopCard(
-    {required String title, required String location, void Function()? onTap}) {
+Widget reusableShopCard({required BarberModel model, void Function()? onTap}) {
   return Padding(
     padding: const EdgeInsets.symmetric(vertical: 10),
     child: GestureDetector(
@@ -118,7 +118,12 @@ Widget reusableShopCard(
             children: [
               Container(
                 height: 130,
-                color: blackColor,
+                decoration: BoxDecoration(
+                    color: blackColor,
+                    image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: CachedNetworkImageProvider(
+                            model.daftarGambar.firstOrNull))),
               ),
               Padding(
                 padding: const EdgeInsets.all(4),
@@ -126,7 +131,7 @@ Widget reusableShopCard(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      title,
+                      model.namaToko,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: blackColor,
@@ -135,7 +140,7 @@ Widget reusableShopCard(
                       ),
                     ),
                     Text(
-                      location,
+                      model.alamat.alamat,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
                         color: blackColor,
@@ -162,6 +167,43 @@ Widget reusableShopCard(
             ],
           ),
         ),
+      ),
+    ),
+  );
+}
+
+Widget reusableShimmerShopCard() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    child: Card(
+      elevation: 3,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: SizedBox(
+        height: Get.height,
+        width: 230,
+        child: const Center(
+          child: CircularProgressIndicator(
+            color: yellowColor,
+          ),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget reusableEmptyShopCard() {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 10),
+    child: Card(
+      elevation: 3,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: SizedBox(
+        height: Get.height,
+        width: 230,
+        child: const Center(
+            child: Text(
+          "Belum Ada Toko",
+        )),
       ),
     ),
   );

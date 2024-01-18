@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
-import 'package:haircuts_barber_aja/app/modules/home/controllers/home_controller.dart';
-import 'package:haircuts_barber_aja/app/routes/app_pages.dart';
+import 'package:haircuts_barber_aja/app/modules/home/controllers/barber_controller.dart';
 
-class HomeBeranda extends GetView<HomeController> {
+class HomeBeranda extends GetView<BarberController> {
   const HomeBeranda({super.key});
 
   @override
@@ -36,14 +35,6 @@ class HomeBeranda extends GetView<HomeController> {
               style: headerStyle(),
             ),
             buildTopRatedShop(),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              'Dikota yang sama',
-              style: headerStyle(),
-            ),
-            buildShop(),
           ],
         ),
       ),
@@ -70,9 +61,7 @@ class HomeBeranda extends GetView<HomeController> {
       child: SizedBox(
         width: Get.width,
         child: ListTile(
-          onTap: () {
-            print('AKU DITEKAN');
-          },
+          onTap: () {},
           title: const Text('Cari...'),
           trailing: const Icon(Icons.search),
         ),
@@ -100,34 +89,23 @@ class HomeBeranda extends GetView<HomeController> {
       height: 250,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: Row(
-          children: List.generate(
-              4,
-              (index) => reusableShopCard(
-                  onTap: () {
-                    Get.toNamed(Routes.SHOP_DETAIL);
-                  },
-                  title: 'Barbershop ${index + 1}',
-                  location: 'Lorem Ipsum' * 10)),
-        ),
-      ),
-    );
-  }
-
-  Widget buildShop() {
-    return SizedBox(
-      height: 250,
-      child: SingleChildScrollView(
-        scrollDirection: Axis.horizontal,
-        child: Row(
-          children: List.generate(
-              4,
-              (index) => reusableShopCard(
-                  onTap: () {
-                    Get.toNamed(Routes.SHOP_DETAIL);
-                  },
-                  title: 'Near Shop ${index + 1}',
-                  location: 'Lorem Ipsum' * 10)),
+        child: controller.obx(
+          (state) => Row(
+            children:
+                state!.map((model) => reusableShopCard(model: model)).toList(),
+          ),
+          onLoading: Row(
+            children: List.generate(
+              5,
+              (index) => reusableShimmerShopCard(),
+            ),
+          ),
+          onEmpty: Row(
+            children: List.generate(
+              5,
+              (index) => reusableEmptyShopCard(),
+            ),
+          ),
         ),
       ),
     );
