@@ -14,6 +14,7 @@ class EditAddressController extends GetxController {
   final userRepo = UserRepo();
   final rajaOngkir = RajaOngkirServices();
   var isLoading = false.obs;
+  RxnBool enableButton = RxnBool(Get.arguments);
   final provinceController = TextEditingController();
   final cityController = TextEditingController();
   final descController = TextEditingController();

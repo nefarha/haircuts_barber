@@ -13,7 +13,11 @@ class EditAddressView extends GetView<EditAddressController> {
     return Obx(
       () => stackWithLoadingIndicator(children: [
         Scaffold(
-          appBar: reusableAppbar(title: 'Isi Bio Data'),
+          appBar: reusableAppbar(
+              title: 'Isi Bio Data',
+              enableBack: controller.enableButton.value != null
+                  ? controller.enableButton.value!
+                  : false),
           body: _ValidateForm(),
         ),
       ], isLoading: controller.isLoading.value),

@@ -356,7 +356,7 @@ class AccountInfoView extends GetView<AccountInfoController> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed(Routes.EDIT_ADDRESS);
+                    Get.toNamed(Routes.EDIT_ADDRESS, arguments: true);
                   },
                   child: Container(
                     color: blackColor,
@@ -414,7 +414,7 @@ class AccountInfoView extends GetView<AccountInfoController> {
                 trailing: SizedBox(
                   width: 200,
                   child: Text(
-                    'nama toko',
+                    'lihat toko',
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: whiteColor,

@@ -10,7 +10,17 @@ class TokoAvailable extends GetView<TokoSayaController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: reusableAppbar(title: 'Toko Saya', enableBack: true),
+      appBar: reusableAppbar(
+          title: 'Toko Saya',
+          enableBack: true,
+          actions: controller.daftarActionButton
+              .map(
+                (e) => IconButton(
+                  onPressed: e['onTap'],
+                  icon: e['icon'],
+                ),
+              )
+              .toList()),
       body: controller.obx(
         (_) => SingleChildScrollView(
           child: Column(
@@ -26,23 +36,6 @@ class TokoAvailable extends GetView<TokoSayaController> {
               ),
             ],
           ),
-        ),
-      ),
-      floatingActionButton: Card(
-        color: yellowColor,
-        child: PopupMenuButton(
-          color: greyColor,
-          itemBuilder: (context) => controller.daftarPopUp
-              .map(
-                (e) => PopupMenuItem(
-                  onTap: e['onTap'],
-                  child: Text(
-                    e['title'],
-                    style: const TextStyle(color: whiteColor),
-                  ),
-                ),
-              )
-              .toList(),
         ),
       ),
     );

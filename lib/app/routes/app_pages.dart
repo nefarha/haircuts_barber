@@ -11,6 +11,8 @@ import '../modules/EditAddress/bindings/edit_address_binding.dart';
 import '../modules/EditAddress/views/edit_address_view.dart';
 import '../modules/EditInfo/bindings/edit_info_binding.dart';
 import '../modules/EditInfo/views/edit_info_view.dart';
+import '../modules/EditToko/bindings/edit_toko_binding.dart';
+import '../modules/EditToko/views/edit_toko_view.dart';
 import '../modules/PhoneAuth/bindings/phone_auth_binding.dart';
 import '../modules/PhoneAuth/views/phone_auth_view.dart';
 import '../modules/ShopDetail/bindings/shop_detail_binding.dart';
@@ -72,6 +74,11 @@ class AppPages {
       name: _Paths.BUAT_TOKO,
       page: () => const BuatTokoView(),
       binding: BuatTokoBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT_TOKO,
+      page: () => const EditTokoView(),
+      binding: EditTokoBinding(),
     ),
   ];
 }

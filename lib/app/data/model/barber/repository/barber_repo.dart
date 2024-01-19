@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
 import 'package:haircuts_barber_aja/app/data/model/barber/barberModel.dart';
 
 class BarberRepo {
@@ -40,5 +41,17 @@ class BarberRepo {
     );
 
     return topList;
+  }
+
+  Future updateBarber({required BarberModel model}) async {
+    try {
+      _instance.runTransaction((transaction) async {
+        final barberSnap = await transaction.get(_barberStore.doc(model.id));
+
+        transaction.update(_barberStore.doc(model.id), model.toJson());
+      });
+    } catch (e) {
+      buildErrorDialog(message: 'Message : $e');
+    }
   }
 }
