@@ -12,6 +12,18 @@ class BarberRepo {
             toFirestore: (value, options) => value.toJson(),
           );
 
+  Future<BarberModel?> getBarber({required String barberId}) async {
+    try {
+      return await _barberStore
+          .doc(barberId)
+          .get()
+          .then((value) => value.data()!);
+    } catch (e) {
+      buildErrorDialog(message: "Something's Wrong $e");
+    }
+    return null;
+  }
+
   Stream<BarberModel?> readMyBarber({required String barberId}) {
     return _barberStore.doc(barberId).snapshots().map((event) => event.data());
   }

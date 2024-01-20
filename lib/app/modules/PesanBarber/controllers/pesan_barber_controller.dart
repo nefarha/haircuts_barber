@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class ShopDetailController extends GetxController {
-  //TODO: Implement ShopDetailController
+class PesanBarberController extends GetxController {
+  //TODO: Implement PesanBarberController
 
   final count = 0.obs;
   @override

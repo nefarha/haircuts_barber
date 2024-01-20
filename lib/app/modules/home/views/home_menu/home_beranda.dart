@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
 import 'package:haircuts_barber_aja/app/modules/home/controllers/barber_controller.dart';
+import 'package:haircuts_barber_aja/app/routes/app_pages.dart';
 
 class HomeBeranda extends GetView<BarberController> {
   const HomeBeranda({super.key});
@@ -91,8 +92,13 @@ class HomeBeranda extends GetView<BarberController> {
         scrollDirection: Axis.horizontal,
         child: controller.obx(
           (state) => Row(
-            children:
-                state!.map((model) => reusableShopCard(model: model)).toList(),
+            children: state!
+                .map((model) => reusableShopCard(
+                      model: model,
+                      onTap: () =>
+                          Get.toNamed(Routes.DETAIL_TOKO, arguments: model.id),
+                    ))
+                .toList(),
           ),
           onLoading: Row(
             children: List.generate(
