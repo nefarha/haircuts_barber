@@ -1,23 +1,13 @@
 import 'package:get/get.dart';
 
+enum Payment { ONLINE, CASH }
+
 class PesanBarberController extends GetxController {
-  //TODO: Implement PesanBarberController
+  var selectedValue = Payment.values.first.obs;
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  var selectedPaket = '';
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+  var selectedDate = Rx(DateTime.now());
+  var selectedIndex = 0.obs;
+  var selectedTime = Rxn<int>();
 }
