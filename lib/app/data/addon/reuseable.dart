@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/model/barber/barberModel.dart';
+import 'package:haircuts_barber_aja/app/data/model/testimonial/testimonial.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/repository/user_repo.dart';
 import 'package:intl/intl.dart';
 
@@ -395,7 +396,7 @@ String moneyFormat({required num money}) {
       .format(money);
 }
 
-Widget testimonialCard({required int index}) {
+Widget testimonialCard({required TestiMonialModel model}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -408,18 +409,18 @@ Widget testimonialCard({required int index}) {
             color: yellowColor,
           ),
         ),
-        title: const Text('Nama User'),
+        title: Text(model.ownerName),
         subtitle: Row(
           children: [
             Icon(
               Icons.star,
               color: greyColor,
             ),
-            const Text('4.5')
+            Text(model.rating.toDouble().toString())
           ],
         ),
       ),
-      Text('Lorem Ipsum is great by the way ' * (index + 1)),
+      Text(model.text),
       const SizedBox(
         height: 5,
       ),

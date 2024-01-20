@@ -199,10 +199,10 @@ class TokoAvailable extends GetView<TokoSayaController> {
             'Testimonials',
             style: headerStyle(),
           ),
-          ...List.generate(
-            4,
-            (index) => testimonialCard(index: index),
-          )
+          // ...List.generate(
+          //   4,
+          //   (index) => testimonialCard(index: index),
+          // )
         ],
       ),
     );

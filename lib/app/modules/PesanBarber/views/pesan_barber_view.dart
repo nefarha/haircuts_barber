@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
+import 'package:haircuts_barber_aja/app/routes/app_pages.dart';
 import 'package:intl/intl.dart';
 
 import '../controllers/pesan_barber_controller.dart';
@@ -236,7 +237,7 @@ class PesanBarberView extends GetView<PesanBarberController> {
               fixedSize: const Size(150, 50),
             ),
             onPressed: () async {
-              // Get.toNamed(Routes.CHECKOUT);
+              Get.toNamed(Routes.CHECKOUT);
             },
             child: const Text(
               "Bayar",

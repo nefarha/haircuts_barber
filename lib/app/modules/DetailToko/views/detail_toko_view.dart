@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
 import 'package:haircuts_barber_aja/app/data/model/barber/barberModel.dart';
+import 'package:haircuts_barber_aja/app/data/model/testimonial/testimonial.dart';
+import 'package:haircuts_barber_aja/app/data/model/user/userModel.dart';
 import 'package:haircuts_barber_aja/app/routes/app_pages.dart';
 
 import '../controllers/detail_toko_controller.dart';
@@ -18,11 +20,11 @@ class DetailTokoView extends GetView<DetailTokoController> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              shopImage(model: state!),
-              shopTitle(model: state),
-              shopDescription(model: state),
-              shopBundle(model: state),
-              shopTestimonial(),
+              shopImage(model: state!.item1!),
+              shopTitle(model: state.item1!, ownerModel: state.item2!),
+              shopDescription(model: state.item1!),
+              shopBundle(model: state.item1!),
+              shopTestimonial(testimonialList: state.item3!),
               const SizedBox(
                 height: 20,
               ),
@@ -30,6 +32,17 @@ class DetailTokoView extends GetView<DetailTokoController> {
           ),
         ),
         bottomNavigationBar: placeOrderBottom(),
+      ),
+      onLoading: const Center(
+        child: CircularProgressIndicator(
+          color: yellowColor,
+        ),
+      ),
+      onError: (error) => Center(
+        child: Text(
+          error.toString(),
+          style: headerStyle(),
+        ),
       ),
     );
   }
@@ -61,7 +74,8 @@ class DetailTokoView extends GetView<DetailTokoController> {
     );
   }
 
-  Widget shopTitle({required BarberModel model}) {
+  Widget shopTitle(
+      {required BarberModel model, required UserModel ownerModel}) {
     return Padding(
       padding: const EdgeInsets.all(20),
       child: SizedBox(
@@ -123,14 +137,8 @@ class DetailTokoView extends GetView<DetailTokoController> {
             ),
             ListTile(
               contentPadding: const EdgeInsets.all(0),
-              leading: const CircleAvatar(
-                backgroundColor: blackColor,
-                child: Icon(
-                  Icons.person,
-                  color: yellowColor,
-                ),
-              ),
-              title: Text(model.ownerId.toString()),
+              leading: reusableAvatar(url: ownerModel.profileUrl),
+              title: Text(ownerModel.name),
               subtitle: Text(model.shopType!),
             ),
           ],
@@ -185,7 +193,7 @@ class DetailTokoView extends GetView<DetailTokoController> {
     );
   }
 
-  Widget shopTestimonial() {
+  Widget shopTestimonial({required List<TestiMonialModel> testimonialList}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(
@@ -195,10 +203,19 @@ class DetailTokoView extends GetView<DetailTokoController> {
             'Testimonials',
             style: headerStyle(),
           ),
-          ...List.generate(
-            4,
-            (index) => testimonialCard(index: index),
-          )
+          if (testimonialList.isNotEmpty)
+            ...testimonialList.map((e) => testimonialCard(model: e)).toList()
+          else
+            const Column(
+              children: [
+                SizedBox(
+                  height: 10,
+                ),
+                Center(
+                  child: Text("Belum ada testimoni"),
+                ),
+              ],
+            ),
         ],
       ),
     );

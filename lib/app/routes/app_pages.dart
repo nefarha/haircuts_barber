@@ -7,6 +7,8 @@ import '../modules/Auth/bindings/auth_binding.dart';
 import '../modules/Auth/views/auth_view.dart';
 import '../modules/BuatToko/bindings/buat_toko_binding.dart';
 import '../modules/BuatToko/views/buat_toko_view.dart';
+import '../modules/Checkout/bindings/checkout_binding.dart';
+import '../modules/Checkout/views/checkout_view.dart';
 import '../modules/DetailToko/bindings/detail_toko_binding.dart';
 import '../modules/DetailToko/views/detail_toko_view.dart';
 import '../modules/EditAddress/bindings/edit_address_binding.dart';
@@ -86,6 +88,11 @@ class AppPages {
       name: _Paths.PESAN_BARBER,
       page: () => const PesanBarberView(),
       binding: PesanBarberBinding(),
+    ),
+    GetPage(
+      name: _Paths.CHECKOUT,
+      page: () => const CheckoutView(),
+      binding: CheckoutBinding(),
     ),
   ];
 }

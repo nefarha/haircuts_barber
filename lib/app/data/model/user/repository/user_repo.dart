@@ -21,6 +21,10 @@ class UserRepo {
     }
   }
 
+  Future<UserModel?> readOneTimeUser({required String id}) {
+    return _userStore.doc(id).get().then((event) => event.data());
+  }
+
   Stream<UserModel?> readUser({required String id}) {
     return _userStore.doc(id).snapshots().map((event) => event.data());
   }

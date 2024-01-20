@@ -14,6 +14,7 @@ abstract class Routes {
   static const EDIT_TOKO = _Paths.EDIT_TOKO;
   static const DETAIL_TOKO = _Paths.DETAIL_TOKO;
   static const PESAN_BARBER = _Paths.PESAN_BARBER;
+  static const CHECKOUT = _Paths.CHECKOUT;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const EDIT_TOKO = '/edit-toko';
   static const DETAIL_TOKO = '/detail-toko';
   static const PESAN_BARBER = '/pesan-barber';
+  static const CHECKOUT = '/checkout';
 }

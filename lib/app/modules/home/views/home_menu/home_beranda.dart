@@ -96,7 +96,7 @@ class HomeBeranda extends GetView<BarberController> {
                 .map((model) => reusableShopCard(
                       model: model,
                       onTap: () =>
-                          Get.toNamed(Routes.DETAIL_TOKO, arguments: model.id),
+                          Get.toNamed(Routes.DETAIL_TOKO, arguments: model),
                     ))
                 .toList(),
           ),
