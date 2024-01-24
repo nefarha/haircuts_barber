@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
-import 'package:haircuts_barber_aja/app/routes/app_pages.dart';
+import 'package:haircuts_barber_aja/app/data/model/services/service_model.dart';
 import 'package:intl/intl.dart';
 
 import '../controllers/pesan_barber_controller.dart';
@@ -21,17 +21,17 @@ class PesanBarberView extends GetView<PesanBarberController> {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                'controller.model.barberName',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+              Text(
+                controller.barberModel.value.namaToko,
+                style: headerStyle().copyWith(fontSize: 30),
               ),
               const SizedBox(
                 height: 20,
               ),
-              const Text("Pilih paket"),
+              Text(
+                "Pilih paket",
+                style: headerStyle(),
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -39,7 +39,10 @@ class PesanBarberView extends GetView<PesanBarberController> {
               const SizedBox(
                 height: 30,
               ),
-              const Text("Pilih tanggal"),
+              Text(
+                "Pilih tanggal",
+                style: headerStyle(),
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -47,6 +50,10 @@ class PesanBarberView extends GetView<PesanBarberController> {
               buildJamBooking(),
               const SizedBox(
                 height: 30,
+              ),
+              Text(
+                "Pembayaran",
+                style: headerStyle(),
               ),
               buildRadioPayment(),
               const SizedBox(
@@ -61,6 +68,7 @@ class PesanBarberView extends GetView<PesanBarberController> {
   }
 
   Widget buildSelectService() {
+    ServiceModel selectedModel = controller.selectedPaket.value;
     return GestureDetector(
       onTap: () {
         Get.bottomSheet(
@@ -68,7 +76,8 @@ class PesanBarberView extends GetView<PesanBarberController> {
             height: 400,
             color: blackColor,
             padding: const EdgeInsets.all(8),
-            child: buildDaftarPaket(),
+            child: buildDaftarPaket(
+                daftarPaket: controller.barberModel.value.daftarPaket),
           ),
         );
       },
@@ -85,22 +94,22 @@ class PesanBarberView extends GetView<PesanBarberController> {
             ),
           ),
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Flexible(
+              Flexible(
                 child: Text(
-                  'controller selectedPaket namaPaket',
-                  style:
-                      TextStyle(color: blackColor, fontWeight: FontWeight.bold),
+                  selectedModel.namaPaket,
+                  style: const TextStyle(
+                      color: blackColor, fontWeight: FontWeight.bold),
                 ),
               ),
-              const Spacer(),
               Card(
                 color: yellowColor.withOpacity(0.2),
                 elevation: 0,
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: Text(
-                    moneyFormat(money: 20000),
+                    moneyFormat(money: selectedModel.hargaPaket),
                     style: const TextStyle(
                         color: yellowColor, fontWeight: FontWeight.bold),
                   ),
@@ -119,12 +128,10 @@ class PesanBarberView extends GetView<PesanBarberController> {
       child: ListTile(
         onTap: () {
           showDatePicker(
-            initialDate: DateTime.now(),
+            initialDate: controller.selectedDate.value,
             context: Get.context!,
-            firstDate: DateTime.now(),
-            lastDate: DateTime(
-              (DateTime.now().year + 1),
-            ),
+            firstDate: controller.selectedDate.value,
+            lastDate: DateTime.now().add(const Duration(days: 30)),
           );
         },
         trailing: const Icon(
@@ -133,7 +140,7 @@ class PesanBarberView extends GetView<PesanBarberController> {
         ),
         title: Text(
           DateFormat(DateFormat.YEAR_MONTH_DAY).format(
-            DateTime.now(),
+            controller.selectedDate.value,
           ),
           style: const TextStyle(
             color: whiteColor,
@@ -188,15 +195,14 @@ class PesanBarberView extends GetView<PesanBarberController> {
       () => Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text("Pembayaran"),
           ...Payment.values.map(
             (e) => ListTile(
               contentPadding: const EdgeInsets.all(0),
               leading: Radio(
                 value: e,
-                groupValue: controller.selectedValue.value,
+                groupValue: controller.selectedPayment.value,
                 onChanged: (value) {
-                  controller.selectedValue.value = value!;
+                  controller.selectedPayment.value = value!;
                 },
               ),
               title: Text(
@@ -237,7 +243,7 @@ class PesanBarberView extends GetView<PesanBarberController> {
               fixedSize: const Size(150, 50),
             ),
             onPressed: () async {
-              Get.toNamed(Routes.CHECKOUT);
+              controller.proceedPay();
             },
             child: const Text(
               "Bayar",
@@ -249,24 +255,28 @@ class PesanBarberView extends GetView<PesanBarberController> {
     );
   }
 
-  Widget buildDaftarPaket() {
+  Widget buildDaftarPaket({required List<ServiceModel> daftarPaket}) {
     return ListView(
-        children: List.generate(
-      10,
-      (index) => Card(
-        elevation: 3,
-        child: ListTile(
-          leading: Radio(
-            value: index,
-            groupValue: controller.selectedPaket,
-            onChanged: (value) {},
-          ),
-          title: const Text('e.namaPaket'),
-          subtitle: Text(
-            moneyFormat(money: 20000),
-          ),
-        ),
-      ),
-    ));
+      children: daftarPaket
+          .map(
+            (e) => Card(
+              elevation: 3,
+              child: ListTile(
+                leading: Radio(
+                  value: e,
+                  groupValue: controller.selectedPaket.value,
+                  onChanged: (value) {
+                    controller.selectedPaket.value = value!;
+                  },
+                ),
+                title: Text(e.namaPaket),
+                subtitle: Text(
+                  moneyFormat(money: e.hargaPaket),
+                ),
+              ),
+            ),
+          )
+          .toList(),
+    );
   }
 }

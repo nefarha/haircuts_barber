@@ -226,7 +226,8 @@ class DetailTokoView extends GetView<DetailTokoController> {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       child: GestureDetector(
         onTap: () {
-          Get.toNamed(Routes.PESAN_BARBER);
+          Get.toNamed(Routes.PESAN_BARBER,
+              arguments: controller.barberModel.value);
         },
         child: Container(
           height: 40,

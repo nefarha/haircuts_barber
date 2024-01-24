@@ -18,4 +18,12 @@ class TestimonialRepo {
         .get()
         .then((value) => value.docs.map((e) => e.data()).toList());
   }
+
+  Future<List<TestiMonialModel>> getMyTestimonail(
+      {required String ownerId}) async {
+    return _testimonialStore
+        .where('ownerId', isEqualTo: ownerId)
+        .get()
+        .then((value) => value.docs.map((e) => e.data()).toList());
+  }
 }
