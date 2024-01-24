@@ -21,6 +21,7 @@ _$PaymentModelImpl _$$PaymentModelImplFromJson(Map<String, dynamic> json) =>
       step: json['step'] as int,
       customer: json['customer'] as Map<String, dynamic>,
       paymentType: json['paymentType'] as String,
+      createdAt: DateTime.parse(json['createdAt'] as String),
       bookingModel: json['bookingModel'] == null
           ? null
           : BookingModel.fromJson(json['bookingModel'] as Map<String, dynamic>),
@@ -41,5 +42,6 @@ Map<String, dynamic> _$$PaymentModelImplToJson(_$PaymentModelImpl instance) =>
       'step': instance.step,
       'customer': instance.customer,
       'paymentType': instance.paymentType,
+      'createdAt': instance.createdAt.toIso8601String(),
       'bookingModel': instance.bookingModel?.toJson(),
     };

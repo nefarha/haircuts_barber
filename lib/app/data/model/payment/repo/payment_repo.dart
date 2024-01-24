@@ -14,4 +14,14 @@ class PaymentRepo {
   Future addPaymentToDatabase({required PaymentModel paymentModel}) async {
     await _paymentStore.doc(paymentModel.link_id.toString()).set(paymentModel);
   }
+
+  Future<List<PaymentModel>> getPayments({required String userId}) async {
+    return await _paymentStore.where('userId', isEqualTo: userId).get().then(
+          (value) => value.docs
+              .map(
+                (e) => e.data(),
+              )
+              .toList(),
+        );
+  }
 }

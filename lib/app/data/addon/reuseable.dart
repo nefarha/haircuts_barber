@@ -3,9 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/model/barber/barberModel.dart';
+import 'package:haircuts_barber_aja/app/data/model/payment/payment_model.dart';
 import 'package:haircuts_barber_aja/app/data/model/testimonial/testimonial.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/repository/user_repo.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const whiteColor = Color(0xfffafafa);
 const blackColor = Color(0xff383838);
@@ -20,11 +22,11 @@ enum STATUS_BOOKING {
 }
 
 enum STATUS_PAYMENT {
-  SUCCESSFUL,
-  CANCELED,
+  ACTIVE,
   FAILED,
   EXPIRED,
-  ACTIVE,
+  CANCELED,
+  SUCCESSFUL,
 }
 
 enum ACCOUNT_TYPE {
@@ -583,6 +585,103 @@ Widget reusableElevatedButton(
       style: const TextStyle(
         color: whiteColor,
         fontWeight: FontWeight.bold,
+      ),
+    ),
+  );
+}
+
+Widget reusableHistoryPembayaranCard({required PaymentModel model}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+    child: Card(
+      elevation: 6,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      reuseDateFormat(
+                        date: model.createdAt,
+                      ),
+                    ),
+                    Text(
+                      model.status,
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.store,
+                    color: blackColor,
+                  ),
+                  contentPadding: const EdgeInsets.all(0),
+                  title: Text(
+                    model.paymentType == "BOOKING"
+                        ? model.bookingModel!.barberName
+                        : "TOP UP",
+                  ),
+                  subtitle: Text(model.paymentType == "BOOKING"
+                      ? 'nama barber'
+                      : "Jenis Transaksi"),
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.money,
+                    color: Colors.green,
+                  ),
+                  contentPadding: const EdgeInsets.all(0),
+                  title: Text(
+                    moneyFormat(money: model.amount),
+                  ),
+                  subtitle: const Text('total biaya'),
+                ),
+                ListTile(
+                  leading: const Icon(
+                    Icons.timelapse,
+                    color: Colors.red,
+                  ),
+                  contentPadding: const EdgeInsets.all(0),
+                  title: Text(
+                    model.expired_date,
+                  ),
+                  subtitle: const Text('bayar sebelum'),
+                ),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              launchUrl(Uri.parse("https://${model.link_url}"));
+            },
+            child: Container(
+              color: blackColor,
+              child: const ListTile(
+                title: Text(
+                  'Bayar Sekarang',
+                  style: TextStyle(
+                      color: whiteColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold),
+                ),
+                trailing: Icon(
+                  Icons.arrow_right,
+                  color: whiteColor,
+                ),
+              ),
+            ),
+          )
+        ],
       ),
     ),
   );

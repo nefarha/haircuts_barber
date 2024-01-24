@@ -38,6 +38,7 @@ class CheckoutController extends GetxController {
         (value) async {
           if (value != null) {
             var paymentModel = PaymentModel(
+              createdAt: DateTime.now(),
               userId: user!.id,
               link_id: value.data['link_id'],
               link_url: value.data['link_url'],

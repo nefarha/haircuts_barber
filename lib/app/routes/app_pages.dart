@@ -17,6 +17,8 @@ import '../modules/EditInfo/bindings/edit_info_binding.dart';
 import '../modules/EditInfo/views/edit_info_view.dart';
 import '../modules/EditToko/bindings/edit_toko_binding.dart';
 import '../modules/EditToko/views/edit_toko_view.dart';
+import '../modules/HistoryPembayaran/bindings/history_pembayaran_binding.dart';
+import '../modules/HistoryPembayaran/views/history_pembayaran_view.dart';
 import '../modules/PesanBarber/bindings/pesan_barber_binding.dart';
 import '../modules/PesanBarber/views/pesan_barber_view.dart';
 import '../modules/PhoneAuth/bindings/phone_auth_binding.dart';
@@ -93,6 +95,11 @@ class AppPages {
       name: _Paths.CHECKOUT,
       page: () => const CheckoutView(),
       binding: CheckoutBinding(),
+    ),
+    GetPage(
+      name: _Paths.HISTORY_PEMBAYARAN,
+      page: () => const HistoryPembayaranView(),
+      binding: HistoryPembayaranBinding(),
     ),
   ];
 }

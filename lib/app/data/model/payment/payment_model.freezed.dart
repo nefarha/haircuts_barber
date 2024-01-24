@@ -33,6 +33,7 @@ mixin _$PaymentModel {
   int get step => throw _privateConstructorUsedError;
   Map<dynamic, dynamic> get customer => throw _privateConstructorUsedError;
   String get paymentType => throw _privateConstructorUsedError;
+  DateTime get createdAt => throw _privateConstructorUsedError;
   BookingModel? get bookingModel => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -61,6 +62,7 @@ abstract class $PaymentModelCopyWith<$Res> {
       int step,
       Map<dynamic, dynamic> customer,
       String paymentType,
+      DateTime createdAt,
       BookingModel? bookingModel});
 
   $BookingModelCopyWith<$Res>? get bookingModel;
@@ -92,6 +94,7 @@ class _$PaymentModelCopyWithImpl<$Res, $Val extends PaymentModel>
     Object? step = null,
     Object? customer = null,
     Object? paymentType = null,
+    Object? createdAt = null,
     Object? bookingModel = freezed,
   }) {
     return _then(_value.copyWith(
@@ -147,6 +150,10 @@ class _$PaymentModelCopyWithImpl<$Res, $Val extends PaymentModel>
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       bookingModel: freezed == bookingModel
           ? _value.bookingModel
           : bookingModel // ignore: cast_nullable_to_non_nullable
@@ -189,6 +196,7 @@ abstract class _$$PaymentModelImplCopyWith<$Res>
       int step,
       Map<dynamic, dynamic> customer,
       String paymentType,
+      DateTime createdAt,
       BookingModel? bookingModel});
 
   @override
@@ -219,6 +227,7 @@ class __$$PaymentModelImplCopyWithImpl<$Res>
     Object? step = null,
     Object? customer = null,
     Object? paymentType = null,
+    Object? createdAt = null,
     Object? bookingModel = freezed,
   }) {
     return _then(_$PaymentModelImpl(
@@ -274,6 +283,10 @@ class __$$PaymentModelImplCopyWithImpl<$Res>
           ? _value.paymentType
           : paymentType // ignore: cast_nullable_to_non_nullable
               as String,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
       bookingModel: freezed == bookingModel
           ? _value.bookingModel
           : bookingModel // ignore: cast_nullable_to_non_nullable
@@ -299,6 +312,7 @@ class _$PaymentModelImpl implements _PaymentModel {
       required this.step,
       required final Map<dynamic, dynamic> customer,
       required this.paymentType,
+      required this.createdAt,
       required this.bookingModel})
       : _customer = customer;
 
@@ -338,11 +352,13 @@ class _$PaymentModelImpl implements _PaymentModel {
   @override
   final String paymentType;
   @override
+  final DateTime createdAt;
+  @override
   final BookingModel? bookingModel;
 
   @override
   String toString() {
-    return 'PaymentModel(userId: $userId, link_id: $link_id, link_url: $link_url, title: $title, type: $type, amount: $amount, expired_date: $expired_date, status: $status, is_address_required: $is_address_required, is_phone_number_required: $is_phone_number_required, step: $step, customer: $customer, paymentType: $paymentType, bookingModel: $bookingModel)';
+    return 'PaymentModel(userId: $userId, link_id: $link_id, link_url: $link_url, title: $title, type: $type, amount: $amount, expired_date: $expired_date, status: $status, is_address_required: $is_address_required, is_phone_number_required: $is_phone_number_required, step: $step, customer: $customer, paymentType: $paymentType, createdAt: $createdAt, bookingModel: $bookingModel)';
   }
 
   @override
@@ -369,6 +385,8 @@ class _$PaymentModelImpl implements _PaymentModel {
             const DeepCollectionEquality().equals(other._customer, _customer) &&
             (identical(other.paymentType, paymentType) ||
                 other.paymentType == paymentType) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
             (identical(other.bookingModel, bookingModel) ||
                 other.bookingModel == bookingModel));
   }
@@ -390,6 +408,7 @@ class _$PaymentModelImpl implements _PaymentModel {
       step,
       const DeepCollectionEquality().hash(_customer),
       paymentType,
+      createdAt,
       bookingModel);
 
   @JsonKey(ignore: true)
@@ -421,6 +440,7 @@ abstract class _PaymentModel implements PaymentModel {
       required final int step,
       required final Map<dynamic, dynamic> customer,
       required final String paymentType,
+      required final DateTime createdAt,
       required final BookingModel? bookingModel}) = _$PaymentModelImpl;
 
   factory _PaymentModel.fromJson(Map<String, dynamic> json) =
@@ -452,6 +472,8 @@ abstract class _PaymentModel implements PaymentModel {
   Map<dynamic, dynamic> get customer;
   @override
   String get paymentType;
+  @override
+  DateTime get createdAt;
   @override
   BookingModel? get bookingModel;
   @override

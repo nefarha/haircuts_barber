@@ -50,7 +50,7 @@ class HomeController extends GetxController {
             color: Colors.green,
           ),
           'onTap': () {
-            // Get.toNamed(Routes.HISTORY_PEMBAYARAN);
+            Get.toNamed(Routes.HISTORY_PEMBAYARAN);
           },
         },
         {

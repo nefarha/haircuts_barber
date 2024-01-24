@@ -20,6 +20,7 @@ class PaymentModel with _$PaymentModel {
     required int step,
     required Map customer,
     required String paymentType,
+    required DateTime createdAt,
     required BookingModel? bookingModel,
   }) = _PaymentModel;
 
