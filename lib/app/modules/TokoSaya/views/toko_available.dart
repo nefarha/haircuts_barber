@@ -11,16 +11,43 @@ class TokoAvailable extends GetView<TokoSayaController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: reusableAppbar(
-          title: 'Toko Saya',
-          enableBack: true,
-          actions: controller.daftarActionButton
-              .map(
-                (e) => IconButton(
-                  onPressed: e['onTap'],
-                  icon: e['icon'],
+        title: 'Toko Saya',
+        enableBack: true,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(60),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Container(
+              width: Get.width,
+              padding: const EdgeInsets.all(8),
+              decoration: const BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(color: blackColor, width: 0.4),
                 ),
-              )
-              .toList()),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: controller.daftarActionButton
+                    .map(
+                      (e) => GestureDetector(
+                        onTap: e['onTap'],
+                        child: Column(
+                          children: [
+                            e['icon'],
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(e['title'])
+                          ],
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
+          ),
+        ),
+      ),
       body: controller.obx(
         (_) => SingleChildScrollView(
           child: Column(

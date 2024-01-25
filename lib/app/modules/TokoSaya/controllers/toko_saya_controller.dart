@@ -19,6 +19,16 @@ class TokoSayaController extends GetxController with StateMixin<BarberModel> {
 
   List<Map<String, dynamic>> get daftarActionButton => [
         {
+          'title': 'Pesanan',
+          'onTap': () {
+            Get.toNamed(Routes.EDIT_TOKO, arguments: barberModel.value);
+          },
+          'icon': const Icon(
+            Icons.work,
+            color: blackColor,
+          )
+        },
+        {
           'title': 'Edit',
           'onTap': () {
             Get.toNamed(Routes.EDIT_TOKO, arguments: barberModel.value);

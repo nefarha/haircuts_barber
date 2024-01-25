@@ -9,21 +9,25 @@ class HistoryPembayaranView extends GetView<HistoryPembayaranController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: reusableAppbar(title: "History Pembayaran", enableBack: true),
+      appBar: reusableAppbar(
+          title: "History Pembayaran",
+          enableBack: true,
+          bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(45),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: STATUS_PAYMENT.values
+                        .map((e) => filterCard(status: e))
+                        .toList(),
+                  ),
+                ),
+              ))),
       body: controller.obx(
         (paymentList) => Column(
           children: [
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: Row(
-                  children: STATUS_PAYMENT.values
-                      .map((e) => filterCard(status: e))
-                      .toList(),
-                ),
-              ),
-            ),
             const SizedBox(
               height: 15,
             ),

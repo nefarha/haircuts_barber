@@ -29,7 +29,7 @@ enum STATUS_PAYMENT {
   CANCELED,
 }
 
-Color statusColor(String stats) {
+Color statusPembayaranColor(String stats) {
   var status =
       STATUS_PAYMENT.values.firstWhere((element) => element.name == stats);
   switch (status) {
@@ -57,7 +57,10 @@ enum BARBER_TYPE {
 }
 
 AppBar reusableAppbar(
-    {required String title, bool enableBack = false, List<Widget>? actions}) {
+    {required String title,
+    bool enableBack = false,
+    List<Widget>? actions,
+    PreferredSizeWidget? bottom}) {
   return AppBar(
     leading: (enableBack)
         ? const BackButton(
@@ -67,6 +70,7 @@ AppBar reusableAppbar(
     title: Text(
       title,
     ),
+    bottom: bottom,
     actions: actions,
     elevation: 0,
     centerTitle: true,
@@ -631,7 +635,8 @@ Widget reusableHistoryPembayaranCard({required PaymentModel model}) {
                     ),
                     Text(
                       model.status,
-                      style: TextStyle(color: statusColor(model.status)),
+                      style:
+                          TextStyle(color: statusPembayaranColor(model.status)),
                     ),
                   ],
                 ),
