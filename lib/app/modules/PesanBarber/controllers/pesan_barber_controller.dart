@@ -36,7 +36,7 @@ class PesanBarberController extends GetxController {
       tax: (selectedPaket.value.hargaPaket * 0.1),
       totalPrice: selectedPaket.value.hargaPaket +
           (selectedPaket.value.hargaPaket * 0.1),
-      status: STATUS_PAYMENT.ACTIVE.name,
+      status: STATUS_BOOKING.Upcoming.name,
       paymentType: selectedPayment.value.name,
       createdAt: DateTime.now(),
     );

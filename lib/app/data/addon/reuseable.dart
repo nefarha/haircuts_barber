@@ -23,10 +23,10 @@ enum STATUS_BOOKING {
 
 enum STATUS_PAYMENT {
   ACTIVE,
+  SUCCESSFUL,
   FAILED,
   EXPIRED,
   CANCELED,
-  SUCCESSFUL,
 }
 
 Color statusColor(String stats) {

@@ -28,11 +28,33 @@ class HistoryPembayaranView extends GetView<HistoryPembayaranController> {
               height: 15,
             ),
             Flexible(
-              child: ListView(
-                children: paymentList!
-                    .map((payment) =>
-                        reusableHistoryPembayaranCard(model: payment))
-                    .toList(),
+              child: Obx(
+                () {
+                  paymentList!.sort(
+                    (a, b) => b.createdAt.compareTo(a.createdAt),
+                  );
+                  return paymentList
+                          .where((e) =>
+                              e.status == controller.selectedStatus.value.name)
+                          .isNotEmpty
+                      ? ListView(
+                          children: paymentList
+                              .where((e) =>
+                                  e.status ==
+                                  controller.selectedStatus.value.name)
+                              .map(
+                                (payment) => reusableHistoryPembayaranCard(
+                                    model: payment),
+                              )
+                              .toList(),
+                        )
+                      : Center(
+                          child: Text(
+                            'Tidak Transaksi',
+                            style: headerStyle(),
+                          ),
+                        );
+                },
               ),
             ),
           ],
