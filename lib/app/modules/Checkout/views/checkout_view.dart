@@ -8,60 +8,65 @@ class CheckoutView extends GetView<CheckoutController> {
   const CheckoutView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: reusableAppbar(title: "Checkout", enableBack: true),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: SingleChildScrollView(
-          child: SizedBox(
-            width: Get.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Barber Info",
-                  style: headerStyle(),
+    return stackWithLoadingIndicator(
+      isLoading: controller.isLoading.value,
+      children: [
+        Scaffold(
+          appBar: reusableAppbar(title: "Checkout", enableBack: true),
+          body: Padding(
+            padding: const EdgeInsets.all(20),
+            child: SingleChildScrollView(
+              child: SizedBox(
+                width: Get.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Barber Info",
+                      style: headerStyle(),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    barberInfo(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Jadwal Info",
+                      style: headerStyle(),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    timeInfo(),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Biaya",
+                      style: headerStyle(),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    priceInfo(),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    reusableElevatedButton(
+                      onPressed: () async {
+                        await controller.createBill();
+                      },
+                      title: "Lanjut",
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
-                barberInfo(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Jadwal Info",
-                  style: headerStyle(),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                timeInfo(),
-                const SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "Biaya",
-                  style: headerStyle(),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                priceInfo(),
-                const SizedBox(
-                  height: 20,
-                ),
-                reusableElevatedButton(
-                  onPressed: () async {
-                    await controller.createBill();
-                  },
-                  title: "Lanjut",
-                ),
-              ],
+              ),
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 

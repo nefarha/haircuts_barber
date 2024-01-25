@@ -24,8 +24,8 @@ class BarberRepo {
     return null;
   }
 
-  Stream<BarberModel?> readMyBarber({required String barberId}) {
-    return _barberStore.doc(barberId).snapshots().map((event) => event.data());
+  Future<BarberModel?> readMyBarber({required String barberId}) {
+    return _barberStore.doc(barberId).get().then((event) => event.data());
   }
 
   Future createBarber(

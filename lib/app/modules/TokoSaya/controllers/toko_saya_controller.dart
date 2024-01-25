@@ -47,18 +47,17 @@ class TokoSayaController extends GetxController with StateMixin<BarberModel> {
       ];
 
   @override
-  void onInit() {
+  void onInit() async {
     if (user?.barberId != null) {
-      barberModel.bindStream(
-        barberRepo.readMyBarber(barberId: user!.barberId!).map(
-          (event) {
-            change(
-              event,
-              status: RxStatus.success(),
-            );
-            return event;
-          },
-        ),
+      barberModel.value =
+          await barberRepo.readMyBarber(barberId: user!.barberId!).then(
+        (event) {
+          change(
+            event,
+            status: RxStatus.success(),
+          );
+          return event;
+        },
       );
     }
     super.onInit();

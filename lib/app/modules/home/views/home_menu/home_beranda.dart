@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:focus_detector/focus_detector.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
 import 'package:haircuts_barber_aja/app/modules/home/controllers/barber_controller.dart';
@@ -9,34 +10,39 @@ class HomeBeranda extends GetView<BarberController> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            buildAd(),
-            const SizedBox(
-              height: 20,
-            ),
-            buildSearch(),
-            const SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Baca-baca',
-              style: headerStyle(),
-            ),
-            buildReadContent(),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              'Toko Teratas',
-              style: headerStyle(),
-            ),
-            buildTopRatedShop(),
-          ],
+    return FocusDetector(
+      onFocusGained: () async {
+        await controller.pullRefresh();
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              buildAd(),
+              const SizedBox(
+                height: 20,
+              ),
+              buildSearch(),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Baca-baca',
+                style: headerStyle(),
+              ),
+              buildReadContent(),
+              const SizedBox(
+                height: 10,
+              ),
+              Text(
+                'Toko Teratas',
+                style: headerStyle(),
+              ),
+              buildTopRatedShop(),
+            ],
+          ),
         ),
       ),
     );

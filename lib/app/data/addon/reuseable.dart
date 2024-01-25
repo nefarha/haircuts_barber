@@ -29,6 +29,23 @@ enum STATUS_PAYMENT {
   SUCCESSFUL,
 }
 
+Color statusColor(String stats) {
+  var status =
+      STATUS_PAYMENT.values.firstWhere((element) => element.name == stats);
+  switch (status) {
+    case STATUS_PAYMENT.ACTIVE:
+      return const Color.fromARGB(255, 48, 143, 221);
+    case STATUS_PAYMENT.CANCELED:
+      return const Color.fromARGB(255, 202, 87, 78);
+    case STATUS_PAYMENT.EXPIRED:
+      return const Color.fromARGB(255, 233, 151, 29);
+    case STATUS_PAYMENT.FAILED:
+      return Colors.red;
+    case STATUS_PAYMENT.SUCCESSFUL:
+      return const Color.fromARGB(255, 72, 153, 74);
+  }
+}
+
 enum ACCOUNT_TYPE {
   BARBER,
   USER,
@@ -614,6 +631,7 @@ Widget reusableHistoryPembayaranCard({required PaymentModel model}) {
                     ),
                     Text(
                       model.status,
+                      style: TextStyle(color: statusColor(model.status)),
                     ),
                   ],
                 ),
@@ -662,7 +680,9 @@ Widget reusableHistoryPembayaranCard({required PaymentModel model}) {
           ),
           GestureDetector(
             onTap: () {
-              launchUrl(Uri.parse("https://${model.link_url}"));
+              if (model.status == STATUS_PAYMENT.ACTIVE.name) {
+                launchUrl(Uri.parse("https://${model.link_url}"));
+              }
             },
             child: Container(
               color: blackColor,

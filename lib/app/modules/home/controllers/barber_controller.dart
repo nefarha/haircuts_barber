@@ -11,6 +11,10 @@ class BarberController extends GetxController
   RxList<BarberModel> topRatedBarberList = RxList.empty();
   RxList<BarberModel> topRatedSameCityBarberList = RxList.empty();
 
+  Future pullRefresh() async {
+    topRatedBarberList.value = await barberRepo.getTopBarberList();
+  }
+
   @override
   void onInit() async {
     topRatedBarberList.value = await barberRepo.getTopBarberList().then(
