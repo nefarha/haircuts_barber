@@ -16,4 +16,9 @@ class BookingRepo {
         )
         .toList());
   }
+
+  Future updateReminder(
+      {required bool reminderValue, required String bookingId}) async {
+    await _bookingStore.doc(bookingId).update({'isReminder': reminderValue});
+  }
 }

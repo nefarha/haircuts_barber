@@ -15,6 +15,7 @@ const whiteColor = Color(0xfffafafa);
 const blackColor = Color(0xff383838);
 const yellowColor = Color.fromARGB(255, 236, 165, 50);
 var greyColor = Colors.grey.shade700;
+const greenColor = Color.fromARGB(255, 64, 134, 66);
 
 enum STATUS_BOOKING {
   UPCOMING,
@@ -611,102 +612,106 @@ Widget reusableElevatedButton(
   );
 }
 
-Widget reusableHistoryPembayaranCard({required PaymentModel model}) {
+Widget reusableHistoryPembayaranCard(
+    {required PaymentModel model, void Function()? onTap}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-    child: Card(
-      elevation: 6,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      reuseDateFormat(
-                        date: model.createdAt,
+    child: GestureDetector(
+      onTap: onTap,
+      child: Card(
+        elevation: 6,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        reuseDateFormat(
+                          date: model.createdAt,
+                        ),
                       ),
+                      Text(
+                        model.status,
+                        style: TextStyle(
+                            color: statusPembayaranColor(model.status)),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  ListTile(
+                    leading: const Icon(
+                      Icons.store,
+                      color: blackColor,
                     ),
-                    Text(
-                      model.status,
-                      style:
-                          TextStyle(color: statusPembayaranColor(model.status)),
+                    contentPadding: const EdgeInsets.all(0),
+                    title: Text(
+                      model.paymentType == "BOOKING"
+                          ? model.bookingModel!.barberStore.namaToko
+                          : "TOP UP",
                     ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.store,
-                    color: blackColor,
+                    subtitle: Text(model.paymentType == "BOOKING"
+                        ? 'nama barber'
+                        : "Jenis Transaksi"),
                   ),
-                  contentPadding: const EdgeInsets.all(0),
-                  title: Text(
-                    model.paymentType == "BOOKING"
-                        ? model.bookingModel!.barberStore.namaToko
-                        : "TOP UP",
+                  ListTile(
+                    leading: const Icon(
+                      Icons.money,
+                      color: Colors.green,
+                    ),
+                    contentPadding: const EdgeInsets.all(0),
+                    title: Text(
+                      moneyFormat(money: model.amount),
+                    ),
+                    subtitle: const Text('total biaya'),
                   ),
-                  subtitle: Text(model.paymentType == "BOOKING"
-                      ? 'nama barber'
-                      : "Jenis Transaksi"),
-                ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.money,
-                    color: Colors.green,
+                  ListTile(
+                    leading: const Icon(
+                      Icons.timelapse,
+                      color: Colors.red,
+                    ),
+                    contentPadding: const EdgeInsets.all(0),
+                    title: Text(
+                      model.expired_date,
+                    ),
+                    subtitle: const Text('bayar sebelum'),
                   ),
-                  contentPadding: const EdgeInsets.all(0),
-                  title: Text(
-                    moneyFormat(money: model.amount),
-                  ),
-                  subtitle: const Text('total biaya'),
-                ),
-                ListTile(
-                  leading: const Icon(
-                    Icons.timelapse,
-                    color: Colors.red,
-                  ),
-                  contentPadding: const EdgeInsets.all(0),
-                  title: Text(
-                    model.expired_date,
-                  ),
-                  subtitle: const Text('bayar sebelum'),
-                ),
-              ],
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              if (model.status == STATUS_PAYMENT.ACTIVE.name) {
-                launchUrl(Uri.parse("https://${model.link_url}"));
-              }
-            },
-            child: Container(
-              color: blackColor,
-              child: const ListTile(
-                title: Text(
-                  'Bayar Sekarang',
-                  style: TextStyle(
-                      color: whiteColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold),
-                ),
-                trailing: Icon(
-                  Icons.arrow_right,
-                  color: whiteColor,
-                ),
+                ],
               ),
             ),
-          )
-        ],
+            GestureDetector(
+              onTap: () {
+                if (model.status == STATUS_PAYMENT.ACTIVE.name) {
+                  launchUrl(Uri.parse("https://${model.link_url}"));
+                }
+              },
+              child: Container(
+                color: blackColor,
+                child: const ListTile(
+                  title: Text(
+                    'Bayar Sekarang',
+                    style: TextStyle(
+                        color: whiteColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  trailing: Icon(
+                    Icons.arrow_right,
+                    color: whiteColor,
+                  ),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     ),
   );
@@ -734,8 +739,8 @@ Widget filterCard(
   );
 }
 
-Widget reuseBookingCard({required BookingModel model}) {
-  var isActive = false.obs;
+Widget reuseBookingCard(
+    {required BookingModel model, required void Function(bool)? onChanged}) {
   return Container(
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
@@ -747,29 +752,25 @@ Widget reuseBookingCard({required BookingModel model}) {
       padding: const EdgeInsets.all(12),
       child: Column(
         children: [
-          Obx(
-            () => Row(
-              children: [
-                Text(
-                  reuseDateFormat(date: model.tanggal),
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold, color: blackColor),
-                ),
-                const Spacer(),
-                Icon(
-                  Icons.notifications,
-                  color: isActive.value ? yellowColor : blackColor,
-                ),
-                Switch(
-                  activeColor: whiteColor,
-                  activeTrackColor: yellowColor,
-                  value: isActive.value,
-                  onChanged: (value) {
-                    isActive.toggle();
-                  },
-                ),
-              ],
-            ),
+          Row(
+            children: [
+              Text(
+                reuseDateFormat(date: model.tanggal),
+                style: const TextStyle(
+                    fontWeight: FontWeight.bold, color: blackColor),
+              ),
+              const Spacer(),
+              Icon(
+                Icons.notifications,
+                color: model.isReminder ?? false ? yellowColor : blackColor,
+              ),
+              Switch(
+                activeColor: whiteColor,
+                activeTrackColor: yellowColor,
+                value: model.isReminder ?? false,
+                onChanged: onChanged,
+              ),
+            ],
           ),
           const Divider(
             thickness: 0.5,
@@ -781,32 +782,16 @@ Widget reuseBookingCard({required BookingModel model}) {
               model.barberStore.namaToko,
               style: headerStyle().copyWith(fontSize: 17),
             ),
-            subtitle: Column(
+            subtitle: Row(
               children: [
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on,
-                      color: yellowColor,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(model.tanggal.toString())
-                  ],
+                const Icon(
+                  Icons.location_on,
+                  color: yellowColor,
                 ),
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.location_on,
-                      color: yellowColor,
-                    ),
-                    const SizedBox(
-                      width: 5,
-                    ),
-                    Text(model.tanggal.toString())
-                  ],
+                const SizedBox(
+                  width: 5,
                 ),
+                Text(model.barberStore.alamat.alamat)
               ],
             ),
           ),

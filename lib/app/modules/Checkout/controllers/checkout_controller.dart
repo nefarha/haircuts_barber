@@ -7,6 +7,7 @@ import 'package:haircuts_barber_aja/app/data/model/payment/post_payment_model.da
 import 'package:haircuts_barber_aja/app/data/model/payment/repo/payment_repo.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/userModel.dart';
 import 'package:haircuts_barber_aja/app/data/services/flip_gateway/flip_gateway.dart';
+import 'package:haircuts_barber_aja/app/routes/app_pages.dart';
 import 'package:intl/intl.dart';
 
 class CheckoutController extends GetxController {
@@ -58,7 +59,9 @@ class CheckoutController extends GetxController {
             await paymentRepo.addPaymentToDatabase(paymentModel: paymentModel);
 
             updateLoading(currentValue: isLoading, newValue: true);
-            Get.until((route) => route.isFirst);
+            Get.offNamedUntil(
+                Routes.DETAIL_HISTORY_PEMBAYARAN, (route) => route.isFirst,
+                arguments: paymentModel);
           } else {
             updateLoading(currentValue: isLoading, newValue: false);
             buildErrorDialog(message: "Value Data is NUll, somethings wrong");

@@ -8,8 +8,26 @@ class TokoSayaPesananController extends GetxController
   var bookingRepo = BookingRepo();
 
   var selectedFilter = Rx(STATUS_BOOKING.UPCOMING);
+  var isLoading = false.obs;
 
   RxList<BookingModel> bookingList = RxList.empty();
+
+  Future changeReminder({required BookingModel model}) async {
+    updateLoading(currentValue: isLoading, newValue: true);
+    if (model.isReminder == null || model.isReminder == false) {
+      await bookingRepo.updateReminder(
+          reminderValue: true, bookingId: model.id);
+    } else {
+      await bookingRepo.updateReminder(
+          reminderValue: false, bookingId: model.id);
+    }
+    await updateList();
+    updateLoading(currentValue: isLoading, newValue: false);
+  }
+
+  Future updateList() async {
+    bookingList.value = await bookingRepo.getBookings();
+  }
 
   @override
   void onInit() async {
@@ -18,10 +36,10 @@ class TokoSayaPesananController extends GetxController
         if (value.isNotEmpty) {
           change(
             value,
-            status: RxStatus.empty(),
+            status: RxStatus.success(),
           );
         } else {
-          change(value, status: RxStatus.success());
+          change(value, status: RxStatus.empty());
         }
         return value;
       },

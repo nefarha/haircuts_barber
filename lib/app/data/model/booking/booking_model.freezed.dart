@@ -33,6 +33,7 @@ mixin _$BookingModel {
   String get status => throw _privateConstructorUsedError;
   String get paymentType => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
+  bool? get isReminder => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,7 +60,8 @@ abstract class $BookingModelCopyWith<$Res> {
       num totalPrice,
       String status,
       String paymentType,
-      DateTime createdAt});
+      DateTime createdAt,
+      bool? isReminder});
 
   $UserModelCopyWith<$Res> get booker;
   $BarberModelCopyWith<$Res> get barberStore;
@@ -92,6 +94,7 @@ class _$BookingModelCopyWithImpl<$Res, $Val extends BookingModel>
     Object? status = null,
     Object? paymentType = null,
     Object? createdAt = null,
+    Object? isReminder = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -146,6 +149,10 @@ class _$BookingModelCopyWithImpl<$Res, $Val extends BookingModel>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      isReminder: freezed == isReminder
+          ? _value.isReminder
+          : isReminder // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ) as $Val);
   }
 
@@ -195,7 +202,8 @@ abstract class _$$BookingModelImplCopyWith<$Res>
       num totalPrice,
       String status,
       String paymentType,
-      DateTime createdAt});
+      DateTime createdAt,
+      bool? isReminder});
 
   @override
   $UserModelCopyWith<$Res> get booker;
@@ -229,6 +237,7 @@ class __$$BookingModelImplCopyWithImpl<$Res>
     Object? status = null,
     Object? paymentType = null,
     Object? createdAt = null,
+    Object? isReminder = freezed,
   }) {
     return _then(_$BookingModelImpl(
       id: null == id
@@ -283,6 +292,10 @@ class __$$BookingModelImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      isReminder: freezed == isReminder
+          ? _value.isReminder
+          : isReminder // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -303,7 +316,8 @@ class _$BookingModelImpl implements _BookingModel {
       required this.totalPrice,
       required this.status,
       required this.paymentType,
-      required this.createdAt});
+      required this.createdAt,
+      this.isReminder});
 
   factory _$BookingModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$BookingModelImplFromJson(json);
@@ -334,10 +348,12 @@ class _$BookingModelImpl implements _BookingModel {
   final String paymentType;
   @override
   final DateTime createdAt;
+  @override
+  final bool? isReminder;
 
   @override
   String toString() {
-    return 'BookingModel(id: $id, booker: $booker, bookerPicture: $bookerPicture, barberStore: $barberStore, ownerId: $ownerId, paketBarber: $paketBarber, tanggal: $tanggal, jam: $jam, tax: $tax, totalPrice: $totalPrice, status: $status, paymentType: $paymentType, createdAt: $createdAt)';
+    return 'BookingModel(id: $id, booker: $booker, bookerPicture: $bookerPicture, barberStore: $barberStore, ownerId: $ownerId, paketBarber: $paketBarber, tanggal: $tanggal, jam: $jam, tax: $tax, totalPrice: $totalPrice, status: $status, paymentType: $paymentType, createdAt: $createdAt, isReminder: $isReminder)';
   }
 
   @override
@@ -363,7 +379,9 @@ class _$BookingModelImpl implements _BookingModel {
             (identical(other.paymentType, paymentType) ||
                 other.paymentType == paymentType) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.isReminder, isReminder) ||
+                other.isReminder == isReminder));
   }
 
   @JsonKey(ignore: true)
@@ -382,7 +400,8 @@ class _$BookingModelImpl implements _BookingModel {
       totalPrice,
       status,
       paymentType,
-      createdAt);
+      createdAt,
+      isReminder);
 
   @JsonKey(ignore: true)
   @override
@@ -412,7 +431,8 @@ abstract class _BookingModel implements BookingModel {
       required final num totalPrice,
       required final String status,
       required final String paymentType,
-      required final DateTime createdAt}) = _$BookingModelImpl;
+      required final DateTime createdAt,
+      final bool? isReminder}) = _$BookingModelImpl;
 
   factory _BookingModel.fromJson(Map<String, dynamic> json) =
       _$BookingModelImpl.fromJson;
@@ -443,6 +463,8 @@ abstract class _BookingModel implements BookingModel {
   String get paymentType;
   @override
   DateTime get createdAt;
+  @override
+  bool? get isReminder;
   @override
   @JsonKey(ignore: true)
   _$$BookingModelImplCopyWith<_$BookingModelImpl> get copyWith =>

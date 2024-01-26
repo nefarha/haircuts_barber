@@ -23,6 +23,7 @@ _$BookingModelImpl _$$BookingModelImplFromJson(Map<String, dynamic> json) =>
       status: json['status'] as String,
       paymentType: json['paymentType'] as String,
       createdAt: DateTime.parse(json['createdAt'] as String),
+      isReminder: json['isReminder'] as bool?,
     );
 
 Map<String, dynamic> _$$BookingModelImplToJson(_$BookingModelImpl instance) =>
@@ -40,4 +41,5 @@ Map<String, dynamic> _$$BookingModelImplToJson(_$BookingModelImpl instance) =>
       'status': instance.status,
       'paymentType': instance.paymentType,
       'createdAt': instance.createdAt.toIso8601String(),
+      'isReminder': instance.isReminder,
     };
