@@ -25,6 +25,8 @@ import '../modules/PhoneAuth/bindings/phone_auth_binding.dart';
 import '../modules/PhoneAuth/views/phone_auth_view.dart';
 import '../modules/TokoSaya/bindings/toko_saya_binding.dart';
 import '../modules/TokoSaya/views/toko_saya_view.dart';
+import '../modules/TokoSayaPesanan/bindings/toko_saya_pesanan_binding.dart';
+import '../modules/TokoSayaPesanan/views/toko_saya_pesanan_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/checkValidatedPage.dart';
 
@@ -100,6 +102,11 @@ class AppPages {
       name: _Paths.HISTORY_PEMBAYARAN,
       page: () => const HistoryPembayaranView(),
       binding: HistoryPembayaranBinding(),
+    ),
+    GetPage(
+      name: _Paths.TOKO_SAYA_PESANAN,
+      page: () => const TokoSayaPesananView(),
+      binding: TokoSayaPesananBinding(),
     ),
   ];
 }

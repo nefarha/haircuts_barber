@@ -22,7 +22,7 @@ class HistoryPembayaranController extends GetxController
   void onInit() async {
     paymentList.value = await paymentRepo.getPayments(userId: user!.id).then(
       (value) {
-        if (value.length == 0) {
+        if (value.isEmpty) {
           change(value, status: RxStatus.empty());
         } else {
           change(value, status: RxStatus.success());

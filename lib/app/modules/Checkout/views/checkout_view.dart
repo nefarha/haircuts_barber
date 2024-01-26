@@ -80,7 +80,7 @@ class CheckoutView extends GetView<CheckoutController> {
             color: blackColor,
           ),
           title: Text(
-            controller.bookingModel.barberName,
+            controller.bookingModel.barberStore.namaToko,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
           ),

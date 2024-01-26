@@ -21,11 +21,9 @@ BookingModel _$BookingModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$BookingModel {
   String get id => throw _privateConstructorUsedError;
-  String get bookerId => throw _privateConstructorUsedError;
-  String get bookerName => throw _privateConstructorUsedError;
+  UserModel get booker => throw _privateConstructorUsedError;
   String? get bookerPicture => throw _privateConstructorUsedError;
-  String get barberId => throw _privateConstructorUsedError;
-  String get barberName => throw _privateConstructorUsedError;
+  BarberModel get barberStore => throw _privateConstructorUsedError;
   String get ownerId => throw _privateConstructorUsedError;
   ServiceModel get paketBarber => throw _privateConstructorUsedError;
   DateTime get tanggal => throw _privateConstructorUsedError;
@@ -50,11 +48,9 @@ abstract class $BookingModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String id,
-      String bookerId,
-      String bookerName,
+      UserModel booker,
       String? bookerPicture,
-      String barberId,
-      String barberName,
+      BarberModel barberStore,
       String ownerId,
       ServiceModel paketBarber,
       DateTime tanggal,
@@ -65,6 +61,8 @@ abstract class $BookingModelCopyWith<$Res> {
       String paymentType,
       DateTime createdAt});
 
+  $UserModelCopyWith<$Res> get booker;
+  $BarberModelCopyWith<$Res> get barberStore;
   $ServiceModelCopyWith<$Res> get paketBarber;
 }
 
@@ -82,11 +80,9 @@ class _$BookingModelCopyWithImpl<$Res, $Val extends BookingModel>
   @override
   $Res call({
     Object? id = null,
-    Object? bookerId = null,
-    Object? bookerName = null,
+    Object? booker = null,
     Object? bookerPicture = freezed,
-    Object? barberId = null,
-    Object? barberName = null,
+    Object? barberStore = null,
     Object? ownerId = null,
     Object? paketBarber = null,
     Object? tanggal = null,
@@ -102,26 +98,18 @@ class _$BookingModelCopyWithImpl<$Res, $Val extends BookingModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      bookerId: null == bookerId
-          ? _value.bookerId
-          : bookerId // ignore: cast_nullable_to_non_nullable
-              as String,
-      bookerName: null == bookerName
-          ? _value.bookerName
-          : bookerName // ignore: cast_nullable_to_non_nullable
-              as String,
+      booker: null == booker
+          ? _value.booker
+          : booker // ignore: cast_nullable_to_non_nullable
+              as UserModel,
       bookerPicture: freezed == bookerPicture
           ? _value.bookerPicture
           : bookerPicture // ignore: cast_nullable_to_non_nullable
               as String?,
-      barberId: null == barberId
-          ? _value.barberId
-          : barberId // ignore: cast_nullable_to_non_nullable
-              as String,
-      barberName: null == barberName
-          ? _value.barberName
-          : barberName // ignore: cast_nullable_to_non_nullable
-              as String,
+      barberStore: null == barberStore
+          ? _value.barberStore
+          : barberStore // ignore: cast_nullable_to_non_nullable
+              as BarberModel,
       ownerId: null == ownerId
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
@@ -163,6 +151,22 @@ class _$BookingModelCopyWithImpl<$Res, $Val extends BookingModel>
 
   @override
   @pragma('vm:prefer-inline')
+  $UserModelCopyWith<$Res> get booker {
+    return $UserModelCopyWith<$Res>(_value.booker, (value) {
+      return _then(_value.copyWith(booker: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $BarberModelCopyWith<$Res> get barberStore {
+    return $BarberModelCopyWith<$Res>(_value.barberStore, (value) {
+      return _then(_value.copyWith(barberStore: value) as $Val);
+    });
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
   $ServiceModelCopyWith<$Res> get paketBarber {
     return $ServiceModelCopyWith<$Res>(_value.paketBarber, (value) {
       return _then(_value.copyWith(paketBarber: value) as $Val);
@@ -180,11 +184,9 @@ abstract class _$$BookingModelImplCopyWith<$Res>
   @useResult
   $Res call(
       {String id,
-      String bookerId,
-      String bookerName,
+      UserModel booker,
       String? bookerPicture,
-      String barberId,
-      String barberName,
+      BarberModel barberStore,
       String ownerId,
       ServiceModel paketBarber,
       DateTime tanggal,
@@ -195,6 +197,10 @@ abstract class _$$BookingModelImplCopyWith<$Res>
       String paymentType,
       DateTime createdAt});
 
+  @override
+  $UserModelCopyWith<$Res> get booker;
+  @override
+  $BarberModelCopyWith<$Res> get barberStore;
   @override
   $ServiceModelCopyWith<$Res> get paketBarber;
 }
@@ -211,11 +217,9 @@ class __$$BookingModelImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? bookerId = null,
-    Object? bookerName = null,
+    Object? booker = null,
     Object? bookerPicture = freezed,
-    Object? barberId = null,
-    Object? barberName = null,
+    Object? barberStore = null,
     Object? ownerId = null,
     Object? paketBarber = null,
     Object? tanggal = null,
@@ -231,26 +235,18 @@ class __$$BookingModelImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      bookerId: null == bookerId
-          ? _value.bookerId
-          : bookerId // ignore: cast_nullable_to_non_nullable
-              as String,
-      bookerName: null == bookerName
-          ? _value.bookerName
-          : bookerName // ignore: cast_nullable_to_non_nullable
-              as String,
+      booker: null == booker
+          ? _value.booker
+          : booker // ignore: cast_nullable_to_non_nullable
+              as UserModel,
       bookerPicture: freezed == bookerPicture
           ? _value.bookerPicture
           : bookerPicture // ignore: cast_nullable_to_non_nullable
               as String?,
-      barberId: null == barberId
-          ? _value.barberId
-          : barberId // ignore: cast_nullable_to_non_nullable
-              as String,
-      barberName: null == barberName
-          ? _value.barberName
-          : barberName // ignore: cast_nullable_to_non_nullable
-              as String,
+      barberStore: null == barberStore
+          ? _value.barberStore
+          : barberStore // ignore: cast_nullable_to_non_nullable
+              as BarberModel,
       ownerId: null == ownerId
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
@@ -296,11 +292,9 @@ class __$$BookingModelImplCopyWithImpl<$Res>
 class _$BookingModelImpl implements _BookingModel {
   const _$BookingModelImpl(
       {required this.id,
-      required this.bookerId,
-      required this.bookerName,
+      required this.booker,
       required this.bookerPicture,
-      required this.barberId,
-      required this.barberName,
+      required this.barberStore,
       required this.ownerId,
       required this.paketBarber,
       required this.tanggal,
@@ -317,15 +311,11 @@ class _$BookingModelImpl implements _BookingModel {
   @override
   final String id;
   @override
-  final String bookerId;
-  @override
-  final String bookerName;
+  final UserModel booker;
   @override
   final String? bookerPicture;
   @override
-  final String barberId;
-  @override
-  final String barberName;
+  final BarberModel barberStore;
   @override
   final String ownerId;
   @override
@@ -347,7 +337,7 @@ class _$BookingModelImpl implements _BookingModel {
 
   @override
   String toString() {
-    return 'BookingModel(id: $id, bookerId: $bookerId, bookerName: $bookerName, bookerPicture: $bookerPicture, barberId: $barberId, barberName: $barberName, ownerId: $ownerId, paketBarber: $paketBarber, tanggal: $tanggal, jam: $jam, tax: $tax, totalPrice: $totalPrice, status: $status, paymentType: $paymentType, createdAt: $createdAt)';
+    return 'BookingModel(id: $id, booker: $booker, bookerPicture: $bookerPicture, barberStore: $barberStore, ownerId: $ownerId, paketBarber: $paketBarber, tanggal: $tanggal, jam: $jam, tax: $tax, totalPrice: $totalPrice, status: $status, paymentType: $paymentType, createdAt: $createdAt)';
   }
 
   @override
@@ -356,16 +346,11 @@ class _$BookingModelImpl implements _BookingModel {
         (other.runtimeType == runtimeType &&
             other is _$BookingModelImpl &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.bookerId, bookerId) ||
-                other.bookerId == bookerId) &&
-            (identical(other.bookerName, bookerName) ||
-                other.bookerName == bookerName) &&
+            (identical(other.booker, booker) || other.booker == booker) &&
             (identical(other.bookerPicture, bookerPicture) ||
                 other.bookerPicture == bookerPicture) &&
-            (identical(other.barberId, barberId) ||
-                other.barberId == barberId) &&
-            (identical(other.barberName, barberName) ||
-                other.barberName == barberName) &&
+            (identical(other.barberStore, barberStore) ||
+                other.barberStore == barberStore) &&
             (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
             (identical(other.paketBarber, paketBarber) ||
                 other.paketBarber == paketBarber) &&
@@ -386,11 +371,9 @@ class _$BookingModelImpl implements _BookingModel {
   int get hashCode => Object.hash(
       runtimeType,
       id,
-      bookerId,
-      bookerName,
+      booker,
       bookerPicture,
-      barberId,
-      barberName,
+      barberStore,
       ownerId,
       paketBarber,
       tanggal,
@@ -418,11 +401,9 @@ class _$BookingModelImpl implements _BookingModel {
 abstract class _BookingModel implements BookingModel {
   const factory _BookingModel(
       {required final String id,
-      required final String bookerId,
-      required final String bookerName,
+      required final UserModel booker,
       required final String? bookerPicture,
-      required final String barberId,
-      required final String barberName,
+      required final BarberModel barberStore,
       required final String ownerId,
       required final ServiceModel paketBarber,
       required final DateTime tanggal,
@@ -439,15 +420,11 @@ abstract class _BookingModel implements BookingModel {
   @override
   String get id;
   @override
-  String get bookerId;
-  @override
-  String get bookerName;
+  UserModel get booker;
   @override
   String? get bookerPicture;
   @override
-  String get barberId;
-  @override
-  String get barberName;
+  BarberModel get barberStore;
   @override
   String get ownerId;
   @override

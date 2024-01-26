@@ -8,7 +8,7 @@ class UserRepo {
   final _userStore =
       FirebaseFirestore.instance.collection('users').withConverter(
             fromFirestore: (snapshot, options) =>
-                UserModel.fromJson(json: snapshot.data()!),
+                UserModel.fromJson(snapshot.data()!),
             toFirestore: (value, options) => value.toJson(),
           );
 

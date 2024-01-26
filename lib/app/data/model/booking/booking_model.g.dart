@@ -9,11 +9,10 @@ part of 'booking_model.dart';
 _$BookingModelImpl _$$BookingModelImplFromJson(Map<String, dynamic> json) =>
     _$BookingModelImpl(
       id: json['id'] as String,
-      bookerId: json['bookerId'] as String,
-      bookerName: json['bookerName'] as String,
+      booker: UserModel.fromJson(json['booker'] as Map<String, dynamic>),
       bookerPicture: json['bookerPicture'] as String?,
-      barberId: json['barberId'] as String,
-      barberName: json['barberName'] as String,
+      barberStore:
+          BarberModel.fromJson(json['barberStore'] as Map<String, dynamic>),
       ownerId: json['ownerId'] as String,
       paketBarber:
           ServiceModel.fromJson(json['paketBarber'] as Map<String, dynamic>),
@@ -29,11 +28,9 @@ _$BookingModelImpl _$$BookingModelImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$BookingModelImplToJson(_$BookingModelImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'bookerId': instance.bookerId,
-      'bookerName': instance.bookerName,
+      'booker': instance.booker.toJson(),
       'bookerPicture': instance.bookerPicture,
-      'barberId': instance.barberId,
-      'barberName': instance.barberName,
+      'barberStore': instance.barberStore.toJson(),
       'ownerId': instance.ownerId,
       'paketBarber': instance.paketBarber.toJson(),
       'tanggal': instance.tanggal.toIso8601String(),

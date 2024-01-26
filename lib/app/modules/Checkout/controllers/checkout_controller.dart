@@ -21,7 +21,7 @@ class CheckoutController extends GetxController {
     updateLoading(currentValue: isLoading, newValue: true);
     try {
       PostPaymentModel postPaymentModel = PostPaymentModel(
-          title: "${bookingModel.barberName}_order_${DateTime.now()}",
+          title: "${bookingModel.barberStore.namaToko}_order_${DateTime.now()}",
           type: "MULTIPLE",
           amount: bookingModel.totalPrice.toInt(),
           expired_date: DateFormat("yyyy-MM-dd HH:mm").format(

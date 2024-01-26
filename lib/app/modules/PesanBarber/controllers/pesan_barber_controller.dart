@@ -23,11 +23,9 @@ class PesanBarberController extends GetxController {
   proceedPay() {
     BookingModel bookingModel = BookingModel(
       id: "${barberModel.value.id}_${DateTime.now()}",
-      bookerId: user!.id,
-      bookerName: user!.name,
+      booker: user!,
       bookerPicture: user!.profileUrl,
-      barberId: barberModel.value.id,
-      barberName: barberModel.value.namaToko,
+      barberStore: barberModel.value,
       ownerId: barberModel.value.ownerId,
       paketBarber: selectedPaket.value,
       tanggal: selectedDate.value
@@ -36,7 +34,7 @@ class PesanBarberController extends GetxController {
       tax: (selectedPaket.value.hargaPaket * 0.1),
       totalPrice: selectedPaket.value.hargaPaket +
           (selectedPaket.value.hargaPaket * 0.1),
-      status: STATUS_BOOKING.Upcoming.name,
+      status: STATUS_BOOKING.UPCOMING.name,
       paymentType: selectedPayment.value.name,
       createdAt: DateTime.now(),
     );

@@ -10,21 +10,36 @@ class HistoryPembayaranView extends GetView<HistoryPembayaranController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: reusableAppbar(
-          title: "History Pembayaran",
-          enableBack: true,
-          bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(45),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Row(
-                    children: STATUS_PAYMENT.values
-                        .map((e) => filterCard(status: e))
-                        .toList(),
-                  ),
-                ),
-              ))),
+        title: "History Pembayaran",
+        enableBack: true,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(45),
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                children: STATUS_PAYMENT.values
+                    .map(
+                      (e) => filterCard(
+                        status: e.name,
+                        onTap: () {
+                          controller.selectedStatus.value = e;
+                        },
+                        color: controller.selectedStatus.value == e
+                            ? blackColor
+                            : null,
+                        textColor: controller.selectedStatus.value == e
+                            ? yellowColor
+                            : null,
+                      ),
+                    )
+                    .toList(),
+              ),
+            ),
+          ),
+        ),
+      ),
       body: controller.obx(
         (paymentList) => Column(
           children: [
@@ -69,38 +84,7 @@ class HistoryPembayaranView extends GetView<HistoryPembayaranController> {
             style: headerStyle(),
           ),
         ),
-        onLoading: const Center(
-          child: CircularProgressIndicator(
-            color: yellowColor,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget filterCard({required STATUS_PAYMENT status}) {
-    return Obx(
-      () => GestureDetector(
-        onTap: () {
-          controller.pickFilter(status: status);
-        },
-        child: Card(
-          color: status == controller.selectedStatus.value ? blackColor : null,
-          elevation: 3,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              status.name,
-              style: TextStyle(
-                color: status == controller.selectedStatus.value
-                    ? yellowColor
-                    : null,
-              ),
-            ),
-          ),
-        ),
+        onLoading: loadingIndicator(),
       ),
     );
   }

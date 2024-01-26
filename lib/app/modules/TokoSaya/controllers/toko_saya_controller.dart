@@ -21,7 +21,9 @@ class TokoSayaController extends GetxController with StateMixin<BarberModel> {
         {
           'title': 'Pesanan',
           'onTap': () {
-            Get.toNamed(Routes.EDIT_TOKO, arguments: barberModel.value);
+            Get.toNamed(
+              Routes.TOKO_SAYA_PESANAN,
+            );
           },
           'icon': const Icon(
             Icons.work,

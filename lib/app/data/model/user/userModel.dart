@@ -20,6 +20,6 @@ class UserModel with _$UserModel {
     String? barberId,
   }) = _UserModel;
 
-  factory UserModel.fromJson({required Map<String, dynamic> json}) =>
+  factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 }

@@ -33,11 +33,7 @@ class DetailTokoView extends GetView<DetailTokoController> {
         ),
         bottomNavigationBar: placeOrderBottom(),
       ),
-      onLoading: const Center(
-        child: CircularProgressIndicator(
-          color: yellowColor,
-        ),
-      ),
+      onLoading: loadingIndicator(),
       onError: (error) => Center(
         child: Text(
           error.toString(),

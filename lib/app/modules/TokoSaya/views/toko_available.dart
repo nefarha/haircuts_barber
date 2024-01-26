@@ -64,6 +64,7 @@ class TokoAvailable extends GetView<TokoSayaController> {
             ],
           ),
         ),
+        onLoading: loadingIndicator(),
       ),
     );
   }

@@ -3,10 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/model/barber/barberModel.dart';
+import 'package:haircuts_barber_aja/app/data/model/booking/booking_model.dart';
 import 'package:haircuts_barber_aja/app/data/model/payment/payment_model.dart';
 import 'package:haircuts_barber_aja/app/data/model/testimonial/testimonial.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/repository/user_repo.dart';
 import 'package:intl/intl.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 const whiteColor = Color(0xfffafafa);
@@ -15,10 +17,10 @@ const yellowColor = Color.fromARGB(255, 236, 165, 50);
 var greyColor = Colors.grey.shade700;
 
 enum STATUS_BOOKING {
-  Upcoming,
-  Working,
-  Completed,
-  Cancelled,
+  UPCOMING,
+  WORKING,
+  COMPLETED,
+  CANCELLED,
 }
 
 enum STATUS_PAYMENT {
@@ -318,9 +320,7 @@ Widget stackWithLoadingIndicator(
                   width: 80,
                   height: 80,
                   padding: const EdgeInsets.all(10),
-                  child: const CircularProgressIndicator(
-                    color: blackColor,
-                  ),
+                  child: loadingIndicator(),
                 ),
               ),
             ),
@@ -411,7 +411,7 @@ Widget reuseCardStatus(
 }
 
 String reuseDateFormat({required DateTime date}) {
-  return DateFormat('yyyy-MM-dd HH:mm', "id").format(date);
+  return DateFormat('yyyy MMMM dd - HH:mm', "id").format(date);
 }
 
 String moneyFormat({required num money}) {
@@ -651,7 +651,7 @@ Widget reusableHistoryPembayaranCard({required PaymentModel model}) {
                   contentPadding: const EdgeInsets.all(0),
                   title: Text(
                     model.paymentType == "BOOKING"
-                        ? model.bookingModel!.barberName
+                        ? model.bookingModel!.barberStore.namaToko
                         : "TOP UP",
                   ),
                   subtitle: Text(model.paymentType == "BOOKING"
@@ -712,6 +712,110 @@ Widget reusableHistoryPembayaranCard({required PaymentModel model}) {
   );
 }
 
+Widget filterCard(
+    {required String status,
+    void Function()? onTap,
+    Color? color,
+    Color? textColor}) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Card(
+      color: color,
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          status,
+          style: TextStyle(color: textColor),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget reuseBookingCard({required BookingModel model}) {
+  var isActive = false.obs;
+  return Container(
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(25),
+        border: Border.all(
+          width: 0.3,
+          color: greyColor,
+        )),
+    child: Padding(
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        children: [
+          Obx(
+            () => Row(
+              children: [
+                Text(
+                  reuseDateFormat(date: model.tanggal),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, color: blackColor),
+                ),
+                const Spacer(),
+                Icon(
+                  Icons.notifications,
+                  color: isActive.value ? yellowColor : blackColor,
+                ),
+                Switch(
+                  activeColor: whiteColor,
+                  activeTrackColor: yellowColor,
+                  value: isActive.value,
+                  onChanged: (value) {
+                    isActive.toggle();
+                  },
+                ),
+              ],
+            ),
+          ),
+          const Divider(
+            thickness: 0.5,
+            color: blackColor,
+          ),
+          ListTile(
+            contentPadding: const EdgeInsets.all(0),
+            title: Text(
+              model.barberStore.namaToko,
+              style: headerStyle().copyWith(fontSize: 17),
+            ),
+            subtitle: Column(
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.location_on,
+                      color: yellowColor,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(model.tanggal.toString())
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.location_on,
+                      color: yellowColor,
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Text(model.tanggal.toString())
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    ),
+  );
+}
+
 buildErrorDialog({required String message}) {
   Get.defaultDialog(
     title: 'Peringatan',
@@ -759,4 +863,11 @@ updateLoading({
   required bool newValue,
 }) {
   currentValue.value = newValue;
+}
+
+Widget loadingIndicator() {
+  return Center(
+    child: LoadingAnimationWidget.flickr(
+        leftDotColor: yellowColor, rightDotColor: blackColor, size: 50),
+  );
 }
