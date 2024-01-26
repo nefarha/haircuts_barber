@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
+import 'package:haircuts_barber_aja/app/routes/app_pages.dart';
 
 import '../controllers/history_pembayaran_controller.dart';
 
@@ -65,6 +66,9 @@ class HistoryPembayaranView extends GetView<HistoryPembayaranController> {
                                   controller.selectedStatus.value.name)
                               .map(
                                 (payment) => reusableHistoryPembayaranCard(
+                                    onTap: () => Get.toNamed(
+                                        Routes.DETAIL_HISTORY_PEMBAYARAN,
+                                        arguments: payment),
                                     model: payment),
                               )
                               .toList(),

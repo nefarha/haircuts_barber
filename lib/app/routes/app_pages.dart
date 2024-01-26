@@ -9,6 +9,8 @@ import '../modules/BuatToko/bindings/buat_toko_binding.dart';
 import '../modules/BuatToko/views/buat_toko_view.dart';
 import '../modules/Checkout/bindings/checkout_binding.dart';
 import '../modules/Checkout/views/checkout_view.dart';
+import '../modules/DetailHistoryPembayaran/bindings/detail_history_pembayaran_binding.dart';
+import '../modules/DetailHistoryPembayaran/views/detail_history_pembayaran_view.dart';
 import '../modules/DetailToko/bindings/detail_toko_binding.dart';
 import '../modules/DetailToko/views/detail_toko_view.dart';
 import '../modules/EditAddress/bindings/edit_address_binding.dart';
@@ -107,6 +109,11 @@ class AppPages {
       name: _Paths.TOKO_SAYA_PESANAN,
       page: () => const TokoSayaPesananView(),
       binding: TokoSayaPesananBinding(),
+    ),
+    GetPage(
+      name: _Paths.DETAIL_HISTORY_PEMBAYARAN,
+      page: () => const DetailHistoryPembayaranView(),
+      binding: DetailHistoryPembayaranBinding(),
     ),
   ];
 }

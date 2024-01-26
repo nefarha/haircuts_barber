@@ -22,6 +22,7 @@ class BookingModel with _$BookingModel {
     required String status,
     required String paymentType,
     required DateTime createdAt,
+    bool? isReminder,
   }) = _BookingModel;
 
   factory BookingModel.fromJson(Map<String, dynamic> json) =>
