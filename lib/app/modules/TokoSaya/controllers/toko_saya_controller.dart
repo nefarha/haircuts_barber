@@ -58,6 +58,11 @@ class TokoSayaController extends GetxController with StateMixin<BarberModel> {
         },
       ];
 
+  Future updateBarber() async {
+    barberModel.value =
+        await barberRepo.readMyBarber(barberId: user!.barberId!);
+  }
+
   @override
   void onInit() async {
     if (user?.barberId != null) {

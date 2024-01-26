@@ -7,6 +7,7 @@ import 'package:haircuts_barber_aja/app/data/model/booking/booking_model.dart';
 import 'package:haircuts_barber_aja/app/data/model/payment/payment_model.dart';
 import 'package:haircuts_barber_aja/app/data/model/testimonial/testimonial.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/repository/user_repo.dart';
+import 'package:haircuts_barber_aja/app/data/model/user/userModel.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -739,66 +740,207 @@ Widget filterCard(
   );
 }
 
-Widget reuseBookingCard(
-    {required BookingModel model, required void Function(bool)? onChanged}) {
-  return Container(
-    decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(25),
-        border: Border.all(
-          width: 0.3,
-          color: greyColor,
-        )),
-    child: Padding(
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        children: [
-          Row(
+Widget reuseBookingCard({
+  required BookingModel model,
+  required void Function(bool)? onChanged,
+  required UserModel userModel,
+  void Function()? onBarberTap,
+  void Function()? onCetakReceipt,
+}) {
+  return Column(
+    children: [
+      Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          border: Border.all(
+            width: 0.3,
+            color: greyColor,
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(12),
+          child: Column(
             children: [
-              Text(
-                reuseDateFormat(date: model.tanggal),
-                style: const TextStyle(
-                    fontWeight: FontWeight.bold, color: blackColor),
+              Row(
+                children: [
+                  Text(
+                    reuseDateFormat(date: model.tanggal),
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, color: blackColor),
+                  ),
+                  const Spacer(),
+                  if (model.status == STATUS_BOOKING.UPCOMING.name)
+                    Row(
+                      children: [
+                        Icon(
+                          Icons.notifications,
+                          color: model.isReminder ?? false
+                              ? yellowColor
+                              : blackColor,
+                        ),
+                        Switch(
+                          activeColor: whiteColor,
+                          activeTrackColor: yellowColor,
+                          value: model.isReminder ?? false,
+                          onChanged: onChanged,
+                        ),
+                      ],
+                    )
+                ],
               ),
-              const Spacer(),
-              Icon(
-                Icons.notifications,
-                color: model.isReminder ?? false ? yellowColor : blackColor,
+              const Divider(
+                thickness: 0.5,
+                color: blackColor,
               ),
-              Switch(
-                activeColor: whiteColor,
-                activeTrackColor: yellowColor,
-                value: model.isReminder ?? false,
-                onChanged: onChanged,
+              ListTile(
+                contentPadding: const EdgeInsets.all(0),
+                title: Text(
+                  model.barberStore.namaToko,
+                  style: headerStyle().copyWith(fontSize: 17),
+                ),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.location_on,
+                          color: yellowColor,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Flexible(
+                            child: Text(model.barberStore.alamat.alamat * 9))
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.receipt,
+                          color: yellowColor,
+                        ),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        Flexible(child: Text(model.id))
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              ListTile(
+                contentPadding: const EdgeInsets.all(0),
+                title: Text(
+                  model.booker.name,
+                  style: headerStyle().copyWith(fontSize: 17),
+                ),
+                subtitle: const Text('Nama Pemesan'),
+                trailing: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.chat),
+                ),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                children: [
+                  if (model.status == STATUS_BOOKING.UPCOMING.name)
+                    Flexible(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: yellowColor),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        height: 50,
+                        child: const Center(
+                          child: Text('Pindah Jadwal'),
+                        ),
+                      ),
+                    ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  if (model.status == STATUS_BOOKING.COMPLETED.name)
+                    Flexible(
+                      child: GestureDetector(
+                        onTap: onCetakReceipt,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: yellowColor.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          height: 50,
+                          child: const Center(
+                            child: Text(
+                              "Cetak E-Receipt",
+                              style: TextStyle(
+                                  color: blackColor,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  if (userModel.accountType == ACCOUNT_TYPE.BARBER.name &&
+                          model.status == STATUS_BOOKING.UPCOMING.name ||
+                      model.status == STATUS_BOOKING.WORKING.name)
+                    Flexible(
+                      child: GestureDetector(
+                        onTap: onBarberTap,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: yellowColor.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          height: 50,
+                          child: Center(
+                            child: Text(
+                              getBookingStatusText(status: model.status),
+                              style: const TextStyle(
+                                  color: blackColor,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                ],
               ),
             ],
           ),
-          const Divider(
-            thickness: 0.5,
-            color: blackColor,
-          ),
-          ListTile(
-            contentPadding: const EdgeInsets.all(0),
-            title: Text(
-              model.barberStore.namaToko,
-              style: headerStyle().copyWith(fontSize: 17),
-            ),
-            subtitle: Row(
-              children: [
-                const Icon(
-                  Icons.location_on,
-                  color: yellowColor,
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text(model.barberStore.alamat.alamat)
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
-    ),
+      const SizedBox(
+        height: 20,
+      ),
+    ],
   );
+}
+
+getBookingStatusText({required String status}) {
+  STATUS_BOOKING statusName =
+      STATUS_BOOKING.values.firstWhere((element) => element.name == status);
+
+  switch (statusName) {
+    case STATUS_BOOKING.UPCOMING:
+      return "Kerjakan";
+    case STATUS_BOOKING.WORKING:
+      return "Selesaikan";
+
+    default:
+      return "Kerjakan";
+  }
 }
 
 buildErrorDialog({required String message}) {

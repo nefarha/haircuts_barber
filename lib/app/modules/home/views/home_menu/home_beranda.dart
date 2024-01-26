@@ -4,44 +4,51 @@ import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
 import 'package:haircuts_barber_aja/app/modules/home/controllers/barber_controller.dart';
 import 'package:haircuts_barber_aja/app/routes/app_pages.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class HomeBeranda extends GetView<BarberController> {
   const HomeBeranda({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return FocusDetector(
-      onFocusGained: () async {
+    return LiquidPullToRefresh(
+      onRefresh: () async {
         await controller.pullRefresh();
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              buildAd(),
-              const SizedBox(
-                height: 20,
-              ),
-              buildSearch(),
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Baca-baca',
-                style: headerStyle(),
-              ),
-              buildReadContent(),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Toko Teratas',
-                style: headerStyle(),
-              ),
-              buildTopRatedShop(),
-            ],
+      color: yellowColor,
+      child: FocusDetector(
+        onFocusGained: () async {
+          await controller.pullRefresh();
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                buildAd(),
+                const SizedBox(
+                  height: 20,
+                ),
+                buildSearch(),
+                const SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Baca-baca',
+                  style: headerStyle(),
+                ),
+                buildReadContent(),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Toko Teratas',
+                  style: headerStyle(),
+                ),
+                buildTopRatedShop(),
+              ],
+            ),
           ),
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
 import 'package:haircuts_barber_aja/app/modules/TokoSaya/controllers/toko_saya_controller.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 class TokoAvailable extends GetView<TokoSayaController> {
   const TokoAvailable({super.key});
@@ -10,63 +11,66 @@ class TokoAvailable extends GetView<TokoSayaController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: reusableAppbar(
-        title: 'Toko Saya',
-        enableBack: true,
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(60),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Container(
-              width: Get.width,
-              padding: const EdgeInsets.all(8),
-              decoration: const BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(color: blackColor, width: 0.4),
+        appBar: reusableAppbar(
+          title: 'Toko Saya',
+          enableBack: true,
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(60),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Container(
+                width: Get.width,
+                padding: const EdgeInsets.all(8),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(color: blackColor, width: 0.4),
+                  ),
                 ),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: controller.daftarActionButton
-                    .map(
-                      (e) => GestureDetector(
-                        onTap: e['onTap'],
-                        child: Column(
-                          children: [
-                            e['icon'],
-                            const SizedBox(
-                              width: 5,
-                            ),
-                            Text(e['title'])
-                          ],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: controller.daftarActionButton
+                      .map(
+                        (e) => GestureDetector(
+                          onTap: e['onTap'],
+                          child: Column(
+                            children: [
+                              e['icon'],
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              Text(e['title'])
+                            ],
+                          ),
                         ),
-                      ),
-                    )
-                    .toList(),
+                      )
+                      .toList(),
+                ),
               ),
             ),
           ),
         ),
-      ),
-      body: controller.obx(
-        (_) => SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              shopImage(),
-              shopTitle(),
-              shopDescription(),
-              shopBundle(),
-              shopTestimonial(),
-              const SizedBox(
-                height: 20,
+        body: LiquidPullToRefresh(
+          onRefresh: () async => await controller.updateBarber(),
+          color: yellowColor,
+          child: controller.obx(
+            (_) => SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  shopImage(),
+                  shopTitle(),
+                  shopDescription(),
+                  shopBundle(),
+                  shopTestimonial(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                ],
               ),
-            ],
+            ),
+            onLoading: loadingIndicator(),
           ),
-        ),
-        onLoading: loadingIndicator(),
-      ),
-    );
+        ));
   }
 
   Widget shopImage() {

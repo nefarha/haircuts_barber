@@ -34,7 +34,7 @@ class CheckoutController extends GetxController {
           sender_name: user!.name,
           sender_email: user!.email);
       var a = await flipGateway.createBill(postPaymentModel: postPaymentModel);
-      print(a);
+
       await flipGateway.createBill(postPaymentModel: postPaymentModel).then(
         (value) async {
           if (value != null) {
@@ -53,7 +53,8 @@ class CheckoutController extends GetxController {
               step: value.data['step'],
               customer: value.data['customer'],
               paymentType: "BOOKING",
-              bookingModel: bookingModel,
+              bookingModel: bookingModel.copyWith(
+                  id: "BB${value.data['link_id']}${value.data['amount']}"),
             );
 
             await paymentRepo.addPaymentToDatabase(paymentModel: paymentModel);

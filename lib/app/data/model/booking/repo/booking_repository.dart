@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
 import 'package:haircuts_barber_aja/app/data/model/booking/booking_model.dart';
 
 class BookingRepo {
@@ -20,5 +21,10 @@ class BookingRepo {
   Future updateReminder(
       {required bool reminderValue, required String bookingId}) async {
     await _bookingStore.doc(bookingId).update({'isReminder': reminderValue});
+  }
+
+  Future changeStatusBooking(
+      {required String bookingId, required STATUS_BOOKING newStatus}) async {
+    await _bookingStore.doc(bookingId).update({'status': newStatus.name});
   }
 }

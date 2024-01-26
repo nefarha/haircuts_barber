@@ -18,6 +18,10 @@ class HistoryPembayaranController extends GetxController
     selectedStatus.value = status;
   }
 
+  Future updateList() async {
+    paymentList.value = await paymentRepo.getPayments(userId: user!.id);
+  }
+
   @override
   void onInit() async {
     paymentList.value = await paymentRepo.getPayments(userId: user!.id).then(
