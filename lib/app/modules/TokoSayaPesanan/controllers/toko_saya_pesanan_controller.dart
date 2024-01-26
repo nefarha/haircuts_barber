@@ -18,10 +18,10 @@ class TokoSayaPesananController extends GetxController
         if (value.isNotEmpty) {
           change(
             value,
-            status: RxStatus.empty(),
+            status: RxStatus.success(),
           );
         } else {
-          change(value, status: RxStatus.success());
+          change(value, status: RxStatus.empty());
         }
         return value;
       },

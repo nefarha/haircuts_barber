@@ -18,23 +18,25 @@ class HistoryPembayaranView extends GetView<HistoryPembayaranController> {
             scrollDirection: Axis.horizontal,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: STATUS_PAYMENT.values
-                    .map(
-                      (e) => filterCard(
-                        status: e.name,
-                        onTap: () {
-                          controller.selectedStatus.value = e;
-                        },
-                        color: controller.selectedStatus.value == e
-                            ? blackColor
-                            : null,
-                        textColor: controller.selectedStatus.value == e
-                            ? yellowColor
-                            : null,
-                      ),
-                    )
-                    .toList(),
+              child: Obx(
+                () => Row(
+                  children: STATUS_PAYMENT.values
+                      .map(
+                        (e) => filterCard(
+                          status: e.name,
+                          onTap: () {
+                            controller.selectedStatus.value = e;
+                          },
+                          color: controller.selectedStatus.value == e
+                              ? blackColor
+                              : null,
+                          textColor: controller.selectedStatus.value == e
+                              ? yellowColor
+                              : null,
+                        ),
+                      )
+                      .toList(),
+                ),
               ),
             ),
           ),
