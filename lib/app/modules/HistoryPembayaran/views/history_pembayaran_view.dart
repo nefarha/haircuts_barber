@@ -56,16 +56,16 @@ class HistoryPembayaranView extends GetView<HistoryPembayaranController> {
                 Flexible(
                   child: Obx(
                     () {
-                      paymentList!.sort(
+                      controller.paymentList.sort(
                         (a, b) => a.createdAt.compareTo(b.createdAt),
                       );
-                      return paymentList
+                      return controller.paymentList
                               .where((e) =>
                                   e.status ==
                                   controller.selectedStatus.value.name)
                               .isNotEmpty
                           ? ListView(
-                              children: paymentList
+                              children: controller.paymentList
                                   .where((e) =>
                                       e.status ==
                                       controller.selectedStatus.value.name)

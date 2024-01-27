@@ -126,13 +126,17 @@ class PesanBarberView extends GetView<PesanBarberController> {
     return Card(
       color: blackColor,
       child: ListTile(
-        onTap: () {
-          showDatePicker(
+        onTap: () async {
+          var selectedDate = await showDatePicker(
             initialDate: controller.selectedDate.value,
             context: Get.context!,
             firstDate: controller.selectedDate.value,
             lastDate: DateTime.now().add(const Duration(days: 30)),
           );
+
+          if (selectedDate != null) {
+            controller.selectedDate.value = selectedDate;
+          }
         },
         trailing: const Icon(
           Icons.edit,

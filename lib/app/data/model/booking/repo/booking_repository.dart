@@ -10,12 +10,16 @@ class BookingRepo {
             toFirestore: (value, options) => value.toJson(),
           );
 
-  Future<List<BookingModel>> getBookings() async {
-    return await _bookingStore.get().then((value) => value.docs
-        .map(
-          (e) => e.data(),
-        )
-        .toList());
+  Future<List<BookingModel>> getBarberIncomingBooking(
+      {required String barberId}) async {
+    return await _bookingStore
+        .where('barberStore.ownerId', isEqualTo: barberId)
+        .get()
+        .then((value) => value.docs
+            .map(
+              (e) => e.data(),
+            )
+            .toList());
   }
 
   Future updateReminder(
@@ -26,5 +30,9 @@ class BookingRepo {
   Future changeStatusBooking(
       {required String bookingId, required STATUS_BOOKING newStatus}) async {
     await _bookingStore.doc(bookingId).update({'status': newStatus.name});
+  }
+
+  Future changeScheduleTime({required BookingModel bookingModel}) async {
+    await _bookingStore.doc(bookingModel.id).update(bookingModel.toJson());
   }
 }

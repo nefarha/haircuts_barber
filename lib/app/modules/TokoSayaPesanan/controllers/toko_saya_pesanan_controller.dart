@@ -45,12 +45,14 @@ class TokoSayaPesananController extends GetxController
   }
 
   Future updateList() async {
-    bookingList.value = await bookingRepo.getBookings();
+    bookingList.value =
+        await bookingRepo.getBarberIncomingBooking(barberId: user.id);
   }
 
   @override
   void onInit() async {
-    bookingList.value = await bookingRepo.getBookings().then(
+    bookingList.value =
+        await bookingRepo.getBarberIncomingBooking(barberId: user.id).then(
       (value) {
         if (value.isNotEmpty) {
           change(value, status: RxStatus.success());

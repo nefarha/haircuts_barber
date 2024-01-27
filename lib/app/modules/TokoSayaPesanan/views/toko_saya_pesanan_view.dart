@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/addon/reuseable.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
 import '../controllers/toko_saya_pesanan_controller.dart';
 
@@ -58,35 +57,38 @@ class TokoSayaPesananView extends GetView<TokoSayaPesananController> {
                               element.status ==
                               controller.selectedFilter.value.name)
                           .isNotEmpty
-                      ? LiquidPullToRefresh(
-                          onRefresh: () async => await controller.updateList(),
-                          color: yellowColor,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: [
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                                ...controller.bookingList
-                                    .where((element) =>
-                                        element.status ==
-                                        controller.selectedFilter.value.name)
-                                    .map(
-                                      (e) => reuseBookingCard(
-                                        model: e,
-                                        userModel: controller.user,
-                                        onChanged: (p0) async {
-                                          await controller.changeReminder(
-                                              model: e);
-                                        },
-                                        onBarberTap: () async {
-                                          await controller.changeBookingStatus(
-                                              model: e);
-                                        },
-                                      ),
-                                    )
-                              ],
-                            ),
+                      ? SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              ...controller.bookingList
+                                  .where((element) =>
+                                      element.status ==
+                                      controller.selectedFilter.value.name)
+                                  .map(
+                                    (e) => reuseBookingCard(
+                                      listOfBookingModel:
+                                          controller.bookingList,
+                                      bookingModel: e,
+                                      userModel: controller.user,
+                                      onChanged: (p0) async {
+                                        await controller.changeReminder(
+                                            model: e);
+                                      },
+                                      onBarberTap: () async {
+                                        await controller.changeBookingStatus(
+                                            model: e);
+                                      },
+                                      onPressed: () async {
+                                        await controller.updateList();
+                                      },
+                                      isLoading: controller.isLoading,
+                                      bookingRepo: controller.bookingRepo,
+                                    ),
+                                  )
+                            ],
                           ),
                         )
                       : const Center(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:haircuts_barber_aja/app/data/model/barber/barberModel.dart';
 import 'package:haircuts_barber_aja/app/data/model/booking/booking_model.dart';
+import 'package:haircuts_barber_aja/app/data/model/booking/repo/booking_repository.dart';
 import 'package:haircuts_barber_aja/app/data/model/payment/payment_model.dart';
 import 'package:haircuts_barber_aja/app/data/model/testimonial/testimonial.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/repository/user_repo.dart';
@@ -741,12 +742,19 @@ Widget filterCard(
 }
 
 Widget reuseBookingCard({
-  required BookingModel model,
+  required BookingModel bookingModel,
   required void Function(bool)? onChanged,
   required UserModel userModel,
   void Function()? onBarberTap,
   void Function()? onCetakReceipt,
+  required RxBool isLoading,
+  required BookingRepo bookingRepo,
+  required void Function()? onPressed,
+  required RxList<BookingModel> listOfBookingModel,
 }) {
+  Rx<BookingModel> model = Rx(bookingModel);
+
+  final selectedIndex = 0.obs;
   return Column(
     children: [
       Container(
@@ -764,24 +772,24 @@ Widget reuseBookingCard({
               Row(
                 children: [
                   Text(
-                    reuseDateFormat(date: model.tanggal),
+                    reuseDateFormat(date: model.value.tanggal),
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, color: blackColor),
                   ),
                   const Spacer(),
-                  if (model.status == STATUS_BOOKING.UPCOMING.name)
+                  if (model.value.status == STATUS_BOOKING.UPCOMING.name)
                     Row(
                       children: [
                         Icon(
                           Icons.notifications,
-                          color: model.isReminder ?? false
+                          color: model.value.isReminder ?? false
                               ? yellowColor
                               : blackColor,
                         ),
                         Switch(
                           activeColor: whiteColor,
                           activeTrackColor: yellowColor,
-                          value: model.isReminder ?? false,
+                          value: model.value.isReminder ?? false,
                           onChanged: onChanged,
                         ),
                       ],
@@ -795,7 +803,7 @@ Widget reuseBookingCard({
               ListTile(
                 contentPadding: const EdgeInsets.all(0),
                 title: Text(
-                  model.barberStore.namaToko,
+                  model.value.barberStore.namaToko,
                   style: headerStyle().copyWith(fontSize: 17),
                 ),
                 subtitle: Column(
@@ -814,7 +822,8 @@ Widget reuseBookingCard({
                           width: 5,
                         ),
                         Flexible(
-                            child: Text(model.barberStore.alamat.alamat * 9))
+                            child:
+                                Text(model.value.barberStore.alamat.alamat * 9))
                       ],
                     ),
                     const SizedBox(
@@ -829,7 +838,7 @@ Widget reuseBookingCard({
                         const SizedBox(
                           width: 5,
                         ),
-                        Flexible(child: Text(model.id))
+                        Flexible(child: Text(model.value.id))
                       ],
                     ),
                   ],
@@ -841,7 +850,7 @@ Widget reuseBookingCard({
               ListTile(
                 contentPadding: const EdgeInsets.all(0),
                 title: Text(
-                  model.booker.name,
+                  model.value.booker.name,
                   style: headerStyle().copyWith(fontSize: 17),
                 ),
                 subtitle: const Text('Nama Pemesan'),
@@ -855,23 +864,129 @@ Widget reuseBookingCard({
               ),
               Row(
                 children: [
-                  if (model.status == STATUS_BOOKING.UPCOMING.name)
+                  if (model.value.status == STATUS_BOOKING.UPCOMING.name)
                     Flexible(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(color: yellowColor),
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        height: 50,
-                        child: const Center(
-                          child: Text('Pindah Jadwal'),
+                      child: GestureDetector(
+                        onTap: () {
+                          Get.defaultDialog(
+                            title: 'Pindah Jadwal',
+                            content: Obx(
+                              () => Column(
+                                children: [
+                                  // Pick Date and Time
+                                  Card(
+                                    color: blackColor,
+                                    child: ListTile(
+                                      onTap: () async {
+                                        var newDate = await showDatePicker(
+                                          initialDate: model.value.createdAt
+                                              .add(const Duration(days: 1)),
+                                          context: Get.context!,
+                                          firstDate: DateTime.now(),
+                                          lastDate: DateTime.now()
+                                              .add(const Duration(days: 30)),
+                                        );
+
+                                        if (newDate != null) {
+                                          model.value = model.value.copyWith(
+                                            tanggal: newDate.copyWith(
+                                                hour: selectedIndex.value + 10),
+                                          );
+                                        }
+                                      },
+                                      trailing: const Icon(
+                                        Icons.edit,
+                                        color: whiteColor,
+                                      ),
+                                      title: Text(
+                                        DateFormat(DateFormat.YEAR_MONTH_DAY)
+                                            .format(
+                                          model.value.tanggal,
+                                        ),
+                                        style: const TextStyle(
+                                          color: whiteColor,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      children: List.generate(
+                                        11,
+                                        (index) => Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: FilterChip(
+                                            elevation: 3,
+                                            backgroundColor: whiteColor,
+                                            disabledColor: whiteColor,
+                                            selectedColor: blackColor,
+                                            selected:
+                                                selectedIndex.value == index,
+                                            showCheckmark: false,
+                                            label: Text(
+                                              "${index + 10}:00WIB",
+                                              style: TextStyle(
+                                                  color: selectedIndex.value ==
+                                                          index
+                                                      ? yellowColor
+                                                      : blackColor,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            onSelected: (value) {
+                                              selectedIndex.value = index;
+                                              model.value = model.value
+                                                  .copyWith(
+                                                      jam: (index + 10)
+                                                          .toString());
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            confirm: reusableElevatedButton(
+                                onPressed: () async {
+                                  updateLoading(
+                                      currentValue: isLoading, newValue: true);
+                                  Get.back();
+                                  model.value = model.value.copyWith(
+                                      tanggal: model.value.tanggal.copyWith(
+                                          hour: selectedIndex.value + 10));
+                                  await bookingRepo.changeScheduleTime(
+                                      bookingModel: model.value);
+                                  listOfBookingModel.value = await bookingRepo
+                                      .getBarberIncomingBooking(
+                                          barberId:
+                                              model.value.barberStore.ownerId);
+                                  updateLoading(
+                                      currentValue: isLoading, newValue: false);
+                                },
+                                title: 'Ubah Jadwal'),
+                          );
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: yellowColor),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          height: 50,
+                          child: const Center(
+                            child: Text('Pindah Jadwal'),
+                          ),
                         ),
                       ),
                     ),
                   const SizedBox(
                     width: 10,
                   ),
-                  if (model.status == STATUS_BOOKING.COMPLETED.name)
+                  if (model.value.status == STATUS_BOOKING.COMPLETED.name)
                     Flexible(
                       child: GestureDetector(
                         onTap: onCetakReceipt,
@@ -893,8 +1008,8 @@ Widget reuseBookingCard({
                       ),
                     ),
                   if (userModel.accountType == ACCOUNT_TYPE.BARBER.name &&
-                          model.status == STATUS_BOOKING.UPCOMING.name ||
-                      model.status == STATUS_BOOKING.WORKING.name)
+                          model.value.status == STATUS_BOOKING.UPCOMING.name ||
+                      model.value.status == STATUS_BOOKING.WORKING.name)
                     Flexible(
                       child: GestureDetector(
                         onTap: onBarberTap,
@@ -906,7 +1021,7 @@ Widget reuseBookingCard({
                           height: 50,
                           child: Center(
                             child: Text(
-                              getBookingStatusText(status: model.status),
+                              getBookingStatusText(status: model.value.status),
                               style: const TextStyle(
                                   color: blackColor,
                                   fontWeight: FontWeight.bold),
