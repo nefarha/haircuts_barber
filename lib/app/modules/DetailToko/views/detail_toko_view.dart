@@ -13,32 +13,44 @@ class DetailTokoView extends GetView<DetailTokoController> {
   const DetailTokoView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return controller.obx(
-      (state) => Scaffold(
-        appBar: reusableAppbar(title: '', enableBack: true),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              shopImage(model: state!.item1!),
-              shopTitle(model: state.item1!, ownerModel: state.item2!),
-              shopDescription(model: state.item1!),
-              shopBundle(model: state.item1!),
-              shopTestimonial(testimonialList: state.item3!),
-              const SizedBox(
-                height: 20,
+    return Obx(
+      () => stackWithLoadingIndicator(
+        isLoading: controller.isLoading.value,
+        children: [
+          Container(
+            height: Get.height,
+            color: whiteColor,
+            width: Get.width,
+            child: controller.obx(
+              (state) => Scaffold(
+                appBar: reusableAppbar(title: '', enableBack: true),
+                body: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      shopImage(model: state!.item1!),
+                      shopTitle(model: state.item1!, ownerModel: state.item2!),
+                      shopDescription(model: state.item1!),
+                      shopBundle(model: state.item1!),
+                      shopTestimonial(testimonialList: state.item3!),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
+                ),
+                bottomNavigationBar: placeOrderBottom(),
               ),
-            ],
+              onLoading: loadingIndicator(),
+              onError: (error) => Center(
+                child: Text(
+                  error.toString(),
+                  style: headerStyle(),
+                ),
+              ),
+            ),
           ),
-        ),
-        bottomNavigationBar: placeOrderBottom(),
-      ),
-      onLoading: loadingIndicator(),
-      onError: (error) => Center(
-        child: Text(
-          error.toString(),
-          style: headerStyle(),
-        ),
+        ],
       ),
     );
   }
@@ -116,8 +128,8 @@ class DetailTokoView extends GetView<DetailTokoController> {
                 ),
                 const Spacer(),
                 GestureDetector(
-                    onTap: () {
-                      print('message');
+                    onTap: () async {
+                      await controller.moveToChatRoom();
                     },
                     child: Icon(
                       Icons.chat_bubble,

@@ -18,6 +18,7 @@ abstract class Routes {
   static const HISTORY_PEMBAYARAN = _Paths.HISTORY_PEMBAYARAN;
   static const TOKO_SAYA_PESANAN = _Paths.TOKO_SAYA_PESANAN;
   static const DETAIL_HISTORY_PEMBAYARAN = _Paths.DETAIL_HISTORY_PEMBAYARAN;
+  static const CHAT_ROOM = _Paths.CHAT_ROOM;
 }
 
 abstract class _Paths {
@@ -37,4 +38,5 @@ abstract class _Paths {
   static const HISTORY_PEMBAYARAN = '/history-pembayaran';
   static const TOKO_SAYA_PESANAN = '/toko-saya-pesanan';
   static const DETAIL_HISTORY_PEMBAYARAN = '/detail-history-pembayaran';
+  static const CHAT_ROOM = '/chat-room';
 }

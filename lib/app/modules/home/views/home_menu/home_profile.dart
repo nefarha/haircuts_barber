@@ -8,11 +8,18 @@ class HomeProfile extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20,
+    return Obx(
+      () => stackWithLoadingIndicator(
+        isLoading: controller.isLoading.value,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: buildContentProfile(),
+          ),
+        ],
       ),
-      child: buildContentProfile(),
     );
   }
 

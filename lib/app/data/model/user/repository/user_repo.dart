@@ -33,6 +33,10 @@ class UserRepo {
     await _userStore.doc(id).update({'phone': phoneNumber});
   }
 
+  Future updateTokenUser({required String id, required String? token}) async {
+    await _userStore.doc(id).update({'token': token});
+  }
+
   Future updateUser({required UserModel userModel}) async {
     try {
       _fireInstance.runTransaction((transaction) async {

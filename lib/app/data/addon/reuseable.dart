@@ -777,23 +777,23 @@ Widget reuseBookingCard({
                         fontWeight: FontWeight.bold, color: blackColor),
                   ),
                   const Spacer(),
-                  if (model.value.status == STATUS_BOOKING.UPCOMING.name)
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.notifications,
-                          color: model.value.isReminder ?? false
-                              ? yellowColor
-                              : blackColor,
-                        ),
-                        Switch(
-                          activeColor: whiteColor,
-                          activeTrackColor: yellowColor,
-                          value: model.value.isReminder ?? false,
-                          onChanged: onChanged,
-                        ),
-                      ],
-                    )
+                  // if (model.value.status == STATUS_BOOKING.UPCOMING.name)
+                  //   Row(
+                  //     children: [
+                  //       Icon(
+                  //         Icons.notifications,
+                  //         color: model.value.isReminder ?? false
+                  //             ? yellowColor
+                  //             : blackColor,
+                  //       ),
+                  //       Switch(
+                  //         activeColor: whiteColor,
+                  //         activeTrackColor: yellowColor,
+                  //         value: model.value.isReminder ?? false,
+                  //         onChanged: onChanged,
+                  //       ),
+                  //     ],
+                  //   )
                 ],
               ),
               const Divider(

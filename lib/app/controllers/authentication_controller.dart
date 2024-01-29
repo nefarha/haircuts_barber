@@ -22,7 +22,6 @@ class AuthenticationController extends GetxController {
     required String nama,
     required UserModel model,
   }) async {
-    buildLoading();
     try {
       var userCred = await _instance.createUserWithEmailAndPassword(
           email: email, password: password);
@@ -31,7 +30,6 @@ class AuthenticationController extends GetxController {
       await userRepo.createUser(model: model.copyWith(id: userCred.user!.uid));
       Get.offAllNamed(Routes.PHONE_AUTH);
     } on FirebaseAuthException catch (e) {
-      Get.until((route) => !Get.isDialogOpen!);
       buildErrorDialog(message: "${e.code} message ${e.message} ");
       return null;
     }
@@ -40,14 +38,15 @@ class AuthenticationController extends GetxController {
   Future loginUser({
     required String email,
     required String password,
+    required UserRepo userRepo,
+    required String? token,
   }) async {
-    buildLoading();
     try {
-      await _instance.signInWithEmailAndPassword(
+      var userCred = await _instance.signInWithEmailAndPassword(
           email: email, password: password);
+      await userRepo.updateTokenUser(id: userCred.user!.uid, token: token);
       Get.offAllNamed(Routes.HOME);
     } on FirebaseAuthException catch (e) {
-      Get.until((route) => !Get.isDialogOpen!);
       buildErrorDialog(message: "${e.code} message ${e.message} ");
     }
   }

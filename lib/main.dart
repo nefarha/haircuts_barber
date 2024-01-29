@@ -1,5 +1,9 @@
+import 'dart:async';
+
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:haircuts_barber_aja/app/controllers/authentication_controller.dart';
@@ -9,6 +13,39 @@ import 'package:haircuts_barber_aja/firebase_options.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'app/routes/app_pages.dart';
+
+AndroidNotificationChannel channel = const AndroidNotificationChannel(
+  "newnotif",
+  "Notifikasi baru",
+  description: "Ada notifikasi baru",
+  importance: Importance.high,
+  playSound: true,
+);
+
+Future<void> _backgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+}
+
+final FlutterLocalNotificationsPlugin localPlugin =
+    FlutterLocalNotificationsPlugin();
+
+StreamSubscription foregroundMessage() => FirebaseMessaging.onMessage.listen(
+      (RemoteMessage message) {
+        RemoteNotification notification = message.notification!;
+
+        localPlugin.show(
+          notification.hashCode,
+          notification.title,
+          notification.body,
+          NotificationDetails(
+            android: AndroidNotificationDetails(channel.id, channel.name,
+                channelDescription: channel.description,
+                playSound: true,
+                icon: '@mipmap/ic_launcher'),
+          ),
+        );
+      },
+    );
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

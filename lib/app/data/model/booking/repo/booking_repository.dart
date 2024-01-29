@@ -22,6 +22,18 @@ class BookingRepo {
             .toList());
   }
 
+  Future<List<BookingModel>> getUserIncomingBooking(
+      {required String userId}) async {
+    return await _bookingStore
+        .where('booker.id', isEqualTo: userId)
+        .get()
+        .then((value) => value.docs
+            .map(
+              (e) => e.data(),
+            )
+            .toList());
+  }
+
   Future updateReminder(
       {required bool reminderValue, required String bookingId}) async {
     await _bookingStore.doc(bookingId).update({'isReminder': reminderValue});
