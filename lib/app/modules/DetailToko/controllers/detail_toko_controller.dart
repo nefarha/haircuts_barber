@@ -9,6 +9,7 @@ import 'package:haircuts_barber_aja/app/data/model/testimonial/repository/testim
 import 'package:haircuts_barber_aja/app/data/model/testimonial/testimonial.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/repository/user_repo.dart';
 import 'package:haircuts_barber_aja/app/data/model/user/userModel.dart';
+import 'package:haircuts_barber_aja/app/routes/app_pages.dart';
 import 'package:tuple/tuple.dart';
 
 class DetailTokoController extends GetxController
@@ -29,13 +30,29 @@ class DetailTokoController extends GetxController
     var result = await chatRoomRepo.readChatRoom(userId: user!.id);
 
     if (result != null) {
-      print(result);
+      Get.toNamed(
+        Routes.CHAT_ROOM,
+        arguments: [
+          result,
+          ownerModel.value!.id,
+        ],
+      );
     } else {
       var newRoomModel = ChatRoomModel(
         id: "ChatRoom_${user!.id}_${ownerModel.value!.id}",
         lastUpdate: DateTime.now(),
         lastChat: null,
         peopleInChat: [user!.id, ownerModel.value!.id],
+      );
+
+      print(newRoomModel);
+
+      Get.toNamed(
+        Routes.CHAT_ROOM,
+        arguments: [
+          newRoomModel,
+          ownerModel.value!.id,
+        ],
       );
     }
     updateLoading(currentValue: isLoading, newValue: false);
